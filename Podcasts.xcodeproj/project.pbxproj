@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,27 +12,16 @@
 		89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBF2ABF084F0030EFFC /* ViewController.swift */; };
 		89A31EC82ABF08500030EFFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EC72ABF08500030EFFC /* Assets.xcassets */; };
 		89A31ECB2ABF08500030EFFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EC92ABF08500030EFFC /* LaunchScreen.storyboard */; };
-		89A31EEF2ABF0C420030EFFC /* PlusJakartaSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EDF2ABF0C420030EFFC /* PlusJakartaSans-Light.ttf */; };
-		89A31EF02ABF0C420030EFFC /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EE02ABF0C420030EFFC /* PlusJakartaSans-Medium.ttf */; };
-		89A31EF22ABF0C420030EFFC /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EE22ABF0C420030EFFC /* PlusJakartaSans-SemiBold.ttf */; };
-		89A31EF62ABF0C420030EFFC /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EE62ABF0C420030EFFC /* PlusJakartaSans-Regular.ttf */; };
-		89A31EF92ABF0C420030EFFC /* PlusJakartaSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EE92ABF0C420030EFFC /* PlusJakartaSans-Bold.ttf */; };
-		89A31EFA2ABF0C420030EFFC /* PlusJakartaSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EEA2ABF0C420030EFFC /* PlusJakartaSans-ExtraLight.ttf */; };
-		89A31EFB2ABF0C420030EFFC /* PlusJakartaSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EEB2ABF0C420030EFFC /* PlusJakartaSans-ExtraBold.ttf */; };
 		89A31F3E2ABF0FE90030EFFC /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F3D2ABF0FE90030EFFC /* UIColor.swift */; };
 		89A31F402ABF174D0030EFFC /* UIImage+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F3F2ABF174D0030EFFC /* UIImage+Onboarding.swift */; };
 		89A31F422ABF1A450030EFFC /* UIFont+Manrope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F412ABF1A450030EFFC /* UIFont+Manrope.swift */; };
-		89A31F4B2ABF1B8D0030EFFC /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F442ABF1B8D0030EFFC /* Manrope-Medium.ttf */; };
-		89A31F4C2ABF1B8D0030EFFC /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F452ABF1B8D0030EFFC /* Manrope-SemiBold.ttf */; };
-		89A31F4D2ABF1B8D0030EFFC /* Manrope-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F462ABF1B8D0030EFFC /* Manrope-ExtraBold.ttf */; };
 		89A31F4E2ABF1B8D0030EFFC /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F472ABF1B8D0030EFFC /* Manrope-Regular.ttf */; };
-		89A31F4F2ABF1B8D0030EFFC /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F482ABF1B8D0030EFFC /* Manrope-ExtraLight.ttf */; };
-		89A31F502ABF1B8D0030EFFC /* Manrope-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F492ABF1B8D0030EFFC /* Manrope-Light.ttf */; };
 		89A31F512ABF1B8D0030EFFC /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F4A2ABF1B8D0030EFFC /* Manrope-Bold.ttf */; };
 		89A31F552ABF26930030EFFC /* UIImage+Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F542ABF26930030EFFC /* UIImage+Icons.swift */; };
 		89A31F582ABF30610030EFFC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 89A31F572ABF30610030EFFC /* FirebaseAuth */; };
 		89A31F752AC1663C0030EFFC /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 89A31F742AC1663C0030EFFC /* Realm */; };
 		89A31F772AC1663C0030EFFC /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 89A31F762AC1663C0030EFFC /* RealmSwift */; };
+		89A31F7E2AC200820030EFFC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 89A31F7D2AC200820030EFFC /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,22 +32,10 @@
 		89A31EC72ABF08500030EFFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89A31ECA2ABF08500030EFFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89A31ECC2ABF08500030EFFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89A31EDF2ABF0C420030EFFC /* PlusJakartaSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Light.ttf"; sourceTree = "<group>"; };
-		89A31EE02ABF0C420030EFFC /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; };
-		89A31EE22ABF0C420030EFFC /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; };
-		89A31EE62ABF0C420030EFFC /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
-		89A31EE92ABF0C420030EFFC /* PlusJakartaSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Bold.ttf"; sourceTree = "<group>"; };
-		89A31EEA2ABF0C420030EFFC /* PlusJakartaSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraLight.ttf"; sourceTree = "<group>"; };
-		89A31EEB2ABF0C420030EFFC /* PlusJakartaSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		89A31F3D2ABF0FE90030EFFC /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		89A31F3F2ABF174D0030EFFC /* UIImage+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Onboarding.swift"; sourceTree = "<group>"; };
 		89A31F412ABF1A450030EFFC /* UIFont+Manrope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Manrope.swift"; sourceTree = "<group>"; };
-		89A31F442ABF1B8D0030EFFC /* Manrope-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Medium.ttf"; sourceTree = "<group>"; };
-		89A31F452ABF1B8D0030EFFC /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
-		89A31F462ABF1B8D0030EFFC /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
 		89A31F472ABF1B8D0030EFFC /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
-		89A31F482ABF1B8D0030EFFC /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
-		89A31F492ABF1B8D0030EFFC /* Manrope-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Light.ttf"; sourceTree = "<group>"; };
 		89A31F4A2ABF1B8D0030EFFC /* Manrope-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.ttf"; sourceTree = "<group>"; };
 		89A31F542ABF26930030EFFC /* UIImage+Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Icons.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89A31F7E2AC200820030EFFC /* Kingfisher in Frameworks */,
 				89A31F772AC1663C0030EFFC /* RealmSwift in Frameworks */,
 				89A31F752AC1663C0030EFFC /* Realm in Frameworks */,
 				89A31F582ABF30610030EFFC /* FirebaseAuth in Frameworks */,
@@ -121,23 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				89A31F432ABF1B8D0030EFFC /* Manrope */,
-				89A31EDD2ABF0C420030EFFC /* Plus Jakarta Sans */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		89A31EDD2ABF0C420030EFFC /* Plus Jakarta Sans */ = {
-			isa = PBXGroup;
-			children = (
-				89A31EEB2ABF0C420030EFFC /* PlusJakartaSans-ExtraBold.ttf */,
-				89A31EE92ABF0C420030EFFC /* PlusJakartaSans-Bold.ttf */,
-				89A31EE22ABF0C420030EFFC /* PlusJakartaSans-SemiBold.ttf */,
-				89A31EE02ABF0C420030EFFC /* PlusJakartaSans-Medium.ttf */,
-				89A31EE62ABF0C420030EFFC /* PlusJakartaSans-Regular.ttf */,
-				89A31EDF2ABF0C420030EFFC /* PlusJakartaSans-Light.ttf */,
-				89A31EEA2ABF0C420030EFFC /* PlusJakartaSans-ExtraLight.ttf */,
-			);
-			path = "Plus Jakarta Sans";
 			sourceTree = "<group>";
 		};
 		89A31F3C2ABF0FCC0030EFFC /* Extensions */ = {
@@ -154,13 +117,8 @@
 		89A31F432ABF1B8D0030EFFC /* Manrope */ = {
 			isa = PBXGroup;
 			children = (
-				89A31F462ABF1B8D0030EFFC /* Manrope-ExtraBold.ttf */,
 				89A31F4A2ABF1B8D0030EFFC /* Manrope-Bold.ttf */,
-				89A31F452ABF1B8D0030EFFC /* Manrope-SemiBold.ttf */,
-				89A31F442ABF1B8D0030EFFC /* Manrope-Medium.ttf */,
 				89A31F472ABF1B8D0030EFFC /* Manrope-Regular.ttf */,
-				89A31F492ABF1B8D0030EFFC /* Manrope-Light.ttf */,
-				89A31F482ABF1B8D0030EFFC /* Manrope-ExtraLight.ttf */,
 			);
 			path = Manrope;
 			sourceTree = "<group>";
@@ -320,6 +278,7 @@
 				89A31F572ABF30610030EFFC /* FirebaseAuth */,
 				89A31F742AC1663C0030EFFC /* Realm */,
 				89A31F762AC1663C0030EFFC /* RealmSwift */,
+				89A31F7D2AC200820030EFFC /* Kingfisher */,
 			);
 			productName = Podcasts;
 			productReference = 89A31EB82ABF084F0030EFFC /* Podcasts.app */;
@@ -341,7 +300,7 @@
 				};
 			};
 			buildConfigurationList = 89A31EB32ABF084F0030EFFC /* Build configuration list for PBXProject "Podcasts" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -352,6 +311,7 @@
 			packageReferences = (
 				89A31F562ABF30610030EFFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				89A31F732AC1663C0030EFFC /* XCRemoteSwiftPackageReference "realm-swift" */,
+				89A31F7C2AC200810030EFFC /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 89A31EB92ABF084F0030EFFC /* Products */;
 			projectDirPath = "";
@@ -368,20 +328,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89A31ECB2ABF08500030EFFC /* LaunchScreen.storyboard in Resources */,
-				89A31EEF2ABF0C420030EFFC /* PlusJakartaSans-Light.ttf in Resources */,
 				89A31EC82ABF08500030EFFC /* Assets.xcassets in Resources */,
-				89A31F502ABF1B8D0030EFFC /* Manrope-Light.ttf in Resources */,
-				89A31F4C2ABF1B8D0030EFFC /* Manrope-SemiBold.ttf in Resources */,
-				89A31EF02ABF0C420030EFFC /* PlusJakartaSans-Medium.ttf in Resources */,
-				89A31EF22ABF0C420030EFFC /* PlusJakartaSans-SemiBold.ttf in Resources */,
-				89A31F4F2ABF1B8D0030EFFC /* Manrope-ExtraLight.ttf in Resources */,
-				89A31EF92ABF0C420030EFFC /* PlusJakartaSans-Bold.ttf in Resources */,
-				89A31EFA2ABF0C420030EFFC /* PlusJakartaSans-ExtraLight.ttf in Resources */,
-				89A31EFB2ABF0C420030EFFC /* PlusJakartaSans-ExtraBold.ttf in Resources */,
-				89A31F4D2ABF1B8D0030EFFC /* Manrope-ExtraBold.ttf in Resources */,
 				89A31F4E2ABF1B8D0030EFFC /* Manrope-Regular.ttf in Resources */,
-				89A31F4B2ABF1B8D0030EFFC /* Manrope-Medium.ttf in Resources */,
-				89A31EF62ABF0C420030EFFC /* PlusJakartaSans-Regular.ttf in Resources */,
 				89A31F512ABF1B8D0030EFFC /* Manrope-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +581,14 @@
 				kind = branch;
 			};
 		};
+		89A31F7C2AC200810030EFFC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -650,6 +606,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 89A31F732AC1663C0030EFFC /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		89A31F7D2AC200820030EFFC /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89A31F7C2AC200810030EFFC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
