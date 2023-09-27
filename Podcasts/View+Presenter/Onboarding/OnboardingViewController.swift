@@ -35,7 +35,7 @@ final class OnboardingViewController: UIViewController {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = 3
         pageControl.preferredIndicatorImage = UIImage(named: "inactivePageIndicator")
-        pageControl.pageIndicatorTintColor = .seaBlue
+        pageControl.pageIndicatorTintColor = .deepBlue
         pageControl.currentPageIndicatorTintColor = .peachPink
         pageControl.addTarget(self, action: #selector(pageControlIndicatorTapped(sender:)), for: .valueChanged)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -79,27 +79,38 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func makeText(text1: String, text2: String) -> NSAttributedString {
-        var orangeAttribute = [NSAttributedString.Key: AnyObject]()
-        orangeAttribute[.foregroundColor] = UIColor.peachPink
+        var seaGreenAttribute = [NSAttributedString.Key: AnyObject]()
+        seaGreenAttribute[.foregroundColor] = UIColor.seaGreen
         
-        var whiteAttribute = [NSAttributedString.Key: AnyObject]()
-        whiteAttribute[.foregroundColor] = UIColor.white
+        var blueAttribute = [NSAttributedString.Key: AnyObject]()
+        blueAttribute[.foregroundColor] = UIColor.deepBlue
         
-        let text = NSMutableAttributedString(string: text1, attributes: whiteAttribute)
-        text.append(NSAttributedString(string: text2, attributes: orangeAttribute))
+        let text = NSMutableAttributedString(string: text1, attributes: blueAttribute)
+        text.append(NSAttributedString(string: text2, attributes: seaGreenAttribute))
         
         return text
     }
     
     private func createSlides() -> [OnboardingScreens] {
-        firstOnboardingScreen.setPageLabelText(text: makeText(text1: "Dozens of podcasts from ", text2: "all over the world!"))
+        firstOnboardingScreen.setPageLabelText(text: makeText(text1: "Millions of podcasts from ",
+                                                              text2: "all over the world!"),
+                                               text2: makeText(text1: "Search for the podcast which fits your interests or mood. ",
+                                                               text2: "You'll find what you'd like for sure"))
         firstOnboardingScreen.hideContinueButton()
         
-        secondOnboardingScreen.setPageLabelText(text: makeText(text1: "Listen online or ", text2: "save it for later"))
+        secondOnboardingScreen.setPageLabelText(text: makeText(text1: "Listen online or ",
+                                                               text2: "save it for later"),
+                                                text2: makeText(text1: "You can add your favoirite podcast to your library ",
+                                                                text2: "to have access to it just on fingertip"))
+        secondOnboardingScreen.circleImageView.image = UIImage(named: "secondImage")
         secondOnboardingScreen.hideContinueButton()
         
-        thirdOnboardingScreen.setPageLabelText(text: makeText(text1: "From boring news to ", text2: "great music shows"))
-        thirdOnboardingScreen.hideSkipButton()
+        thirdOnboardingScreen.setPageLabelText(text: makeText(text1: "From boring daily news to ",
+                                                              text2: "great music shows"),
+                                               text2: makeText(text1: "It doesn't matter what you're interested in: music, news, ",
+                                                               text2: "science talks, cooking shows... We fits everyone taste"))
+        thirdOnboardingScreen.circleImageView.image = UIImage(named: "thirdImage")
+        thirdOnboardingScreen.hideSkipNextButtons()
         
         return [firstOnboardingScreen, secondOnboardingScreen, thirdOnboardingScreen]
     }
@@ -119,7 +130,11 @@ final class OnboardingViewController: UIViewController {
     
     func buttonsTapped() {
         firstOnboardingScreen.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        firstOnboardingScreen.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
         secondOnboardingScreen.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        secondOnboardingScreen.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
         thirdOnboardingScreen.continueButton.addTarget(self, action: #selector(continueButtonTapped(_:)), for: .primaryActionTriggered)
     }
     
@@ -128,15 +143,25 @@ final class OnboardingViewController: UIViewController {
         let vc = ViewController() // go to main VC
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true) //!!!: delete this line and line above once navigation controller will be enabled
-//        navigationController?.pushViewController(vc, animated: true) //!!!: uncomment once navigation controller will be enabled
+        //        navigationController?.pushViewController(vc, animated: true) //!!!: uncomment once navigation controller will be enabled
     }
+    
+    @objc func nextButtonTapped() {
+        pageControl.currentPage += 1
+        
+        let xOffset = scrollView.contentOffset.x + scrollView.bounds.width
+        let contentOffset = CGPoint(x: xOffset, y: scrollView.contentOffset.y)
+        scrollView.setContentOffset(contentOffset, animated: true)
+        
+    }
+    
     //FIXME: change distanation once main VC will be ready
     @objc func continueButtonTapped(_ sender: UIButton) {
         let vc = ViewController() // go to main VC
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true) //!!!: delete this line and line above once navigation controller will be enabled
         
-//        navigationController?.pushViewController(vc, animated: true) //!!!: uncomment once navigation controller will be enabled
+        //        navigationController?.pushViewController(vc, animated: true) //!!!: uncomment once navigation controller will be enabled
     }
 }
 
@@ -154,15 +179,15 @@ extension OnboardingViewController: UIScrollViewDelegate, UIPageViewControllerDe
                                                         y: (0.5 - percentHOffset) / 0.5)
             let secondTransformation = CGAffineTransform(scaleX: percentHOffset / 0.5,
                                                          y: percentHOffset / 0.5)
-            slides[0].setPageLabelTransformWith(transform: firstTransformation)
-            slides[1].setPageLabelTransformWith(transform: secondTransformation)
+            slides[0].setTransformWith(transform: firstTransformation)
+            slides[1].setTransformWith(transform: secondTransformation)
         } else {
             let secondTransformation = CGAffineTransform(scaleX: (1 - percentHOffset) / 0.5,
                                                          y: (1 - percentHOffset) / 0.5)
             let thirdTransformation = CGAffineTransform(scaleX: percentHOffset,
                                                         y: percentHOffset)
-            slides[1].setPageLabelTransformWith(transform: secondTransformation)
-            slides[2].setPageLabelTransformWith(transform: thirdTransformation)
+            slides[1].setTransformWith(transform: secondTransformation)
+            slides[2].setTransformWith(transform: thirdTransformation)
         }
     }
 }
@@ -181,7 +206,7 @@ extension OnboardingViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 0),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             
-            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             pageControl.heightAnchor.constraint(equalToConstant: 50)

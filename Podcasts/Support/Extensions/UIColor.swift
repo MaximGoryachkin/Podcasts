@@ -13,4 +13,9 @@ extension UIColor {
     static let peachPink = UIColor(named: "pink")
     static let seaBlue = UIColor(named: "blue")
     static let deepBlue = UIColor(named: "deepBlue")
+    static let backBlue = UIColor(named: "backBlue")
+    static let seaGreen = UIColor(named: "seaGreen")
+    
+    
+    
 }
