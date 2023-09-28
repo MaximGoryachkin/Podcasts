@@ -8,11 +8,8 @@
 import Foundation
 
 struct Item {
-    let title: String
-    let description: String
-    let enclosure: Enclosure
-}
-
-struct Enclosure {
-    let url: String
+    var title: String = ""
+    var description: String = ""
+    var url: String = ""
+    var length: Int = 0
 }
