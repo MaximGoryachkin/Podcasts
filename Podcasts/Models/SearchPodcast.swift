@@ -14,19 +14,3 @@ struct SearchPodcast: Codable {
     let count: Int?
     let query, description: String?
 }
-
-enum ContentType: String, Codable {
-    case applicationRSSXML = "application/rss+xml"
-    case applicationRSSXMLCharsetUTF8 = "application/rss+xml; charset=UTF-8"
-    case contentTypeApplicationRSSXMLCharsetUTF8 = "application/rss+xml; charset=utf-8"
-    case empty = ""
-}
-
-enum Language: String, Codable {
-    case enUS = "en-US"
-    case enUs = "en-us"
-}
-
-enum Medium: String, Codable {
-    case podcast = "podcast"
-}

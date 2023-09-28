@@ -12,13 +12,7 @@ import Foundation
 // MARK: - Podcast
 struct Podcast: Codable {
     let status: String?
-    let query: Query?
     let feed: Feed?
     let description: String?
 }
 
-
-// MARK: - Query
-struct Query: Codable {
-    let id: String?
-}
