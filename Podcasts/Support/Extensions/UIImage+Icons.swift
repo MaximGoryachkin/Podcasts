@@ -24,5 +24,6 @@ extension UIImage {
     static let shield = UIImage(named: "shield")
     static let lock = UIImage(named: "lock")
     static let folder = UIImage(named: "folder")
+    static let calendar = UIImage(named: "calendar")
 }
 
