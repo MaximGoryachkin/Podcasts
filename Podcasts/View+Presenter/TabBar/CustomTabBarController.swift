@@ -45,6 +45,11 @@ extension CustomTabBarController {
         let bezierPath = UIBezierPath(roundedRect: CGRect(x: positionX, y: tabBar.bounds.minY - positionY, width: width, height: height), cornerRadius: 20)
         roundLayer.path = bezierPath.cgPath
         
+        roundLayer.shadowColor = UIColor(red: 0.212, green: 0.224, blue: 0.298, alpha: 0.08).cgColor
+        roundLayer.shadowOffset = CGSize(width: 10, height: 14)
+        roundLayer.shadowOpacity = 1
+        roundLayer.shadowRadius = 48
+        
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         tabBar.itemWidth = width / 6.5
         tabBar.itemPositioning = .centered
