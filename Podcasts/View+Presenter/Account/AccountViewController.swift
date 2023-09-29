@@ -13,8 +13,7 @@ class AccountViewController: UIViewController {
         CGSize(width: view.frame.width, height: view.frame.height + 200)
     }
     
-    private var isMale = false
-    private var isFemale = false
+    private var isMale = true
     
     private lazy var scroolView: UIScrollView = {
         let view = UIScrollView()
@@ -133,12 +132,14 @@ class AccountViewController: UIViewController {
     
     private lazy var maleButton: UIButton = {
         let view = CustomButton(isChecked: false, title: "Male")
+        view.isCheck = isMale
         view.addTarget(self, action: #selector(genderButtonPressed), for: .touchUpInside)
         return view
     }()
     
     private lazy var femaleButton: UIButton = {
         let view = CustomButton(isChecked: false, title: "Female")
+        view.isCheck = !isMale
         view.addTarget(self, action: #selector(genderButtonPressed), for: .touchUpInside)
         return view
     }()
@@ -230,7 +231,17 @@ class AccountViewController: UIViewController {
     }
     
     @objc func genderButtonPressed(sender: CustomButton) {
-        
+        print(sender.title)
+        let maleButton = maleButton as! CustomButton
+        let femaleButton = femaleButton as! CustomButton
+        if sender.title == "Male" {
+            maleButton.isCheck = true
+            femaleButton.isCheck = false
+        } else if sender.title == "Female" {
+            femaleButton.isCheck = true
+            maleButton.isCheck = false
+            
+        }
     }
 //
 //    @objc func femaleGenderBubbotPressed() {

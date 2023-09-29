@@ -9,9 +9,13 @@ import UIKit
 
 class CustomButton: UIButton {
     
-    var isCheck: Bool
+    var isCheck: Bool {
+        didSet {
+            checkImage.image = isCheck ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+        }
+    }
     var title: String
-    var checkedImage: UIImage? {
+    private var checkedImage: UIImage? {
         isCheck ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
     }
     
@@ -69,7 +73,6 @@ class CustomButton: UIButton {
     
     func changeImage() {
         isCheck.toggle()
-        checkImage.image = checkedImage
     }
 }
 
