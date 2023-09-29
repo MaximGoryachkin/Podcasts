@@ -32,12 +32,15 @@ class ViewController: UIViewController {
 //        NetworkManager.shared.fetchDataPodcast(from: DataManager.shared.baseURL) { podcast in
 //            self.fetchData(from: (podcast.feed?.url)!)
 //        }
-        NetworkManager.shared.fetchDataEpisode(from: DataManager.shared.episodeURL) { episode in
-            print(episode.items?.first?.enclosureUrl)
-        }
+//        NetworkManager.shared.fetchDataEpisode(from: DataManager.shared.episodeURL) { episode in
+//            print(episode.items?.first?.enclosureUrl)
+//        }
 //        NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.searchURL) { podcast in
 //            self.fetchData(from: (podcast.feeds?.first?.url)!)
 //        }
+        NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.trendingURL) { podcast in
+            print(podcast.feeds?.first?.url)
+        }
     }
     
     func fetchData(from url: String) {

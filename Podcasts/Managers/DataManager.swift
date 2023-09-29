@@ -14,6 +14,7 @@ class DataManager {
     let baseURL = "https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty"
     let episodeURL = "https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75&pretty"
     let searchURL = "https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty"
+    let trendingURL = "https://api.podcastindex.org/api/1.0/podcasts/trending?pretty"
     let apiKey = "MSDWATAHX8CSACA8PECJ"
     let apiSecret = "^kwug67D7mhbPT#7FwwdzLgrLVzjqmMdZwdXy3pB"
 
