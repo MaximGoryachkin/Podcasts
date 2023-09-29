@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60102AC415E50078FFB3 /* OnboardingScreens.swift */; };
 		372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60122AC416750078FFB3 /* OnboardingViewController.swift */; };
+		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
+		8932BEF32AC5A77F00FBE9F9 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomTextField.swift */; };
+		8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */; };
 		8932BEF72AC6C38800FBE9F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */; };
 		8932BEF92AC6C78400FBE9F9 /* CustomPlayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */; };
 		896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896777902AC709F5003A1BFC /* PlayerCell.swift */; };
@@ -35,6 +38,9 @@
 /* Begin PBXFileReference section */
 		372E60102AC415E50078FFB3 /* OnboardingScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreens.swift; sourceTree = "<group>"; };
 		372E60122AC416750078FFB3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		8932BEF22AC5A77F00FBE9F9 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = "Podcasts/View+Presenter/PlayerViewController.swift"; sourceTree = SOURCE_ROOT; };
 		8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPlayerButton.swift; path = "Podcasts/View+Presenter/CustomPlayerButton.swift"; sourceTree = SOURCE_ROOT; };
 		896777902AC709F5003A1BFC /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
@@ -246,6 +252,9 @@
 		89A31F662ABF33870030EFFC /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */,
+				8932BEF22AC5A77F00FBE9F9 /* CustomTextField.swift */,
+				8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -367,6 +376,7 @@
 			files = (
 				896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */,
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
+				8932BEF32AC5A77F00FBE9F9 /* CustomTextField.swift in Sources */,
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,
 				89A31F422ABF1A450030EFFC /* UIFont+Manrope.swift in Sources */,
@@ -374,6 +384,8 @@
 				89A31F402ABF174D0030EFFC /* UIImage+Onboarding.swift in Sources */,
 				C8E4E7EE2AC4661600903385 /* SettingsCell.swift in Sources */,
 				89A31EBE2ABF084F0030EFFC /* SceneDelegate.swift in Sources */,
+				8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */,
+				8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */,
 				89A31F3E2ABF0FE90030EFFC /* UIColor.swift in Sources */,
 				C8E4E7EC2AC45CCF00903385 /* ProfileSettingPresenter.swift in Sources */,
 				C8E4E7EA2AC43B7800903385 /* ProfileSetting.swift in Sources */,
