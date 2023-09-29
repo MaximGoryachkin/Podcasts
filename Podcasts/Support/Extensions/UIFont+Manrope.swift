@@ -17,3 +17,8 @@ extension UIFont {
     static let manropeRegular16 = UIFont(name: "Manrope-Regular", size: 16)
 
 }
+
+enum Fonts {
+    static let regularFont: String = "Manrope-Regular"
+    static let boldFont: String = "Manrope-Bold"
+}

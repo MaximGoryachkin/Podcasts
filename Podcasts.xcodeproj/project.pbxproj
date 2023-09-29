@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60102AC415E50078FFB3 /* OnboardingScreens.swift */; };
+		372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60122AC416750078FFB3 /* OnboardingViewController.swift */; };
 		89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBB2ABF084F0030EFFC /* AppDelegate.swift */; };
 		89A31EBE2ABF084F0030EFFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBD2ABF084F0030EFFC /* SceneDelegate.swift */; };
 		89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBF2ABF084F0030EFFC /* ViewController.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		372E60102AC415E50078FFB3 /* OnboardingScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreens.swift; sourceTree = "<group>"; };
+		372E60122AC416750078FFB3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		89A31EB82ABF084F0030EFFC /* Podcasts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Podcasts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89A31EBB2ABF084F0030EFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89A31EBD2ABF084F0030EFFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 		89A31F5B2ABF31DC0030EFFC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				372E60102AC415E50078FFB3 /* OnboardingScreens.swift */,
+				372E60122AC416750078FFB3 /* OnboardingViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -301,7 +307,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					89A31EB72ABF084F0030EFFC = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -350,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,
 				89A31F422ABF1A450030EFFC /* UIFont+Manrope.swift in Sources */,
@@ -359,6 +366,7 @@
 				89A31F3E2ABF0FE90030EFFC /* UIColor.swift in Sources */,
 				C8E4E7EC2AC45CCF00903385 /* ProfileSettingPresenter.swift in Sources */,
 				C8E4E7EA2AC43B7800903385 /* ProfileSetting.swift in Sources */,
+				372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */,
 				89A31F552ABF26930030EFFC /* UIImage+Icons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +421,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -473,6 +482,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
