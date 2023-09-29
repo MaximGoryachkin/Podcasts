@@ -11,6 +11,7 @@
 		372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60122AC416750078FFB3 /* OnboardingViewController.swift */; };
 		8932BEF72AC6C38800FBE9F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */; };
 		8932BEF92AC6C78400FBE9F9 /* CustomPlayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */; };
+		896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896777902AC709F5003A1BFC /* PlayerCell.swift */; };
 		89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBB2ABF084F0030EFFC /* AppDelegate.swift */; };
 		89A31EBE2ABF084F0030EFFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBD2ABF084F0030EFFC /* SceneDelegate.swift */; };
 		89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31EBF2ABF084F0030EFFC /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 		372E60122AC416750078FFB3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = "Podcasts/View+Presenter/PlayerViewController.swift"; sourceTree = SOURCE_ROOT; };
 		8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPlayerButton.swift; path = "Podcasts/View+Presenter/CustomPlayerButton.swift"; sourceTree = SOURCE_ROOT; };
+		896777902AC709F5003A1BFC /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
 		89A31EB82ABF084F0030EFFC /* Podcasts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Podcasts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89A31EBB2ABF084F0030EFFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89A31EBD2ABF084F0030EFFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */,
 				8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */,
+				896777902AC709F5003A1BFC /* PlayerCell.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */,
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,

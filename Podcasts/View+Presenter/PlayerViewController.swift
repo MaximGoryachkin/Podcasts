@@ -8,6 +8,15 @@
 import UIKit
 
 class PlayerViewController: UIViewController {
+    
+    private lazy var playerCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .systemBackground
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private lazy var mainStackView: UIStackView = {
         let view = UIStackView()
@@ -146,12 +155,17 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        view.addSubview(playerCollectionView)
         view.addSubview(mainStackView)
         addSubviews(stack: mainStackView, views: labelStackView, sliderStackView, buttonsStackView)
         addSubviews(stack: buttonsStackView, views: shuffleButton, backwardButton, playButton, forwardButton, repeatButton)
         addSubviews(stack: sliderStackView, views: leftLabel, slider, rightLabel)
         addSubviews(stack: labelStackView, views: nameLabel, channelLabel)
         setupUI()
+        
+        playerCollectionView.dataSource = self
+        playerCollectionView.delegate = self
+        playerCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     private func addSubviews(stack: UIStackView, views: UIView...) {
@@ -161,6 +175,13 @@ class PlayerViewController: UIViewController {
     }
     
     private func setupUI() {
+        NSLayoutConstraint.activate([
+            playerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            playerCollectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            playerCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            playerCollectionView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -30)
+        ])
+        
         NSLayoutConstraint.activate([
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             mainStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 40),
@@ -206,5 +227,19 @@ class PlayerViewController: UIViewController {
             channelLabel.rightAnchor.constraint(equalTo: labelStackView.rightAnchor)
             
         ])
+    }
+}
+
+extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        30
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .customBlue
+        return cell
     }
 }
