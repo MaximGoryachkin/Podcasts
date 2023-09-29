@@ -24,5 +24,11 @@ extension UIImage {
     static let shield = UIImage(named: "shield")
     static let lock = UIImage(named: "lock")
     static let folder = UIImage(named: "folder")
+    
+    static let shuffle = UIImage(systemName: "shuffle")
+    static let backward = UIImage(systemName: "backward.end.fill")
+    static let forward = UIImage(systemName: "forward.end.fill")
+    static let repeatImage = UIImage(systemName: "repeat")
+    static let play = UIImage(systemName: "play.circle.fill")
 }
 
