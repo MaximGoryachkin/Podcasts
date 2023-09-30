@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CustomTextField: UITextField {
+final class CustomProfileTextField: UITextField {
     
     private let padding = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     private var imagePadding: UIEdgeInsets {

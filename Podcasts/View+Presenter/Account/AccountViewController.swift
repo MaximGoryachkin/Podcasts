@@ -57,7 +57,7 @@ class AccountViewController: UIViewController {
     }()
     
     private lazy var firstTextField: UITextField = {
-        CustomTextField(placeholder: "Enter First Name")
+        CustomProfileTextField(placeholder: "Enter First Name")
     }()
     
     private lazy var lastLabel: UILabel = {
@@ -70,7 +70,7 @@ class AccountViewController: UIViewController {
     }()
     
     private lazy var lastTextField: UITextField = {
-        CustomTextField(placeholder: "Enter Last Name")
+        CustomProfileTextField(placeholder: "Enter Last Name")
     }()
     
     private lazy var emailLabel: UILabel = {
@@ -83,7 +83,7 @@ class AccountViewController: UIViewController {
     }()
     
     private lazy var emailTextField: UITextField = {
-        CustomTextField(placeholder: "Enter E-Mail")
+        CustomProfileTextField(placeholder: "Enter E-Mail")
     }()
     
     private lazy var birthLabel: UILabel = {
@@ -96,7 +96,7 @@ class AccountViewController: UIViewController {
     }()
     
     private lazy var birthTextField: UITextField = {
-        let view = CustomTextField(placeholder: "Enter Date of Birth")
+        let view = CustomProfileTextField(placeholder: "Enter Date of Birth")
         view.inputView = datePicker
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         imageView.image = .calendar

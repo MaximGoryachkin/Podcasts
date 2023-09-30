@@ -166,6 +166,8 @@ class PlayerViewController: UIViewController {
         playerCollectionView.dataSource = self
         playerCollectionView.delegate = self
         playerCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
+        navigationItem.title = "Player"
     }
     
     private func addSubviews(stack: UIStackView, views: UIView...) {
@@ -210,8 +212,8 @@ class PlayerViewController: UIViewController {
             sliderStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
 //            sliderStackView.heightAnchor.constraint(equalToConstant: 20),
             
-            leftLabel.widthAnchor.constraint(equalToConstant: 40),
-            rightLabel.widthAnchor.constraint(equalToConstant: 40)
+            leftLabel.widthAnchor.constraint(equalToConstant: 50),
+            rightLabel.widthAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([

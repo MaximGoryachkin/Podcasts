@@ -17,7 +17,7 @@ class ProfileSetting: UIView {
 
     // MARK: - Properties
     
-    var profileSettings = ProfileSettingPresenter()
+    var profileSettings = ProfileSettingViewController()
     
     var models = [SettingOption]()
     
