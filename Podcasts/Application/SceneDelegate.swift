@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //FIXME: change to main view controller after such will be ready
             window.rootViewController = UINavigationController(rootViewController: PlayerViewController())
         }
-      
+
         window.makeKeyAndVisible()
         self.window = window
     }

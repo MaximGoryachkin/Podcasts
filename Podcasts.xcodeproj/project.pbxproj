@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F15838A2AC4CEC800EF3A45 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583892AC4CEC800EF3A45 /* LoginViewController.swift */; };
+		0F15838C2AC6E73C00EF3A45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15838B2AC6E73C00EF3A45 /* RegisterViewController.swift */; };
+		0F15838E2AC6EB8900EF3A45 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */; };
+		0F1583922AC71F7B00EF3A45 /* CompleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583912AC71F7B00EF3A45 /* CompleteAccountViewController.swift */; };
 		372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60102AC415E50078FFB3 /* OnboardingScreens.swift */; };
 		372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60122AC416750078FFB3 /* OnboardingViewController.swift */; };
 		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
@@ -36,6 +40,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F1583892AC4CEC800EF3A45 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0F15838B2AC6E73C00EF3A45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = "Podcasts/View+Presenter/Register/RegisterViewController.swift"; sourceTree = SOURCE_ROOT; };
+		0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		0F1583912AC71F7B00EF3A45 /* CompleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAccountViewController.swift; sourceTree = "<group>"; };
 		372E60102AC415E50078FFB3 /* OnboardingScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreens.swift; sourceTree = "<group>"; };
 		372E60122AC416750078FFB3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +156,8 @@
 		89A31F592ABF31220030EFFC /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				0F15838B2AC6E73C00EF3A45 /* RegisterViewController.swift */,
+				0F1583912AC71F7B00EF3A45 /* CompleteAccountViewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -155,6 +165,8 @@
 		89A31F5A2ABF31710030EFFC /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				0F1583892AC4CEC800EF3A45 /* LoginViewController.swift */,
+				0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -376,6 +388,7 @@
 			files = (
 				896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */,
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
+				0F15838C2AC6E73C00EF3A45 /* RegisterViewController.swift in Sources */,
 				8932BEF32AC5A77F00FBE9F9 /* CustomTextField.swift in Sources */,
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,
@@ -387,9 +400,12 @@
 				8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */,
 				8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */,
 				89A31F3E2ABF0FE90030EFFC /* UIColor.swift in Sources */,
+				0F15838E2AC6EB8900EF3A45 /* CustomTextField.swift in Sources */,
+				0F1583922AC71F7B00EF3A45 /* CompleteAccountViewController.swift in Sources */,
 				C8E4E7EC2AC45CCF00903385 /* ProfileSettingPresenter.swift in Sources */,
 				C8E4E7EA2AC43B7800903385 /* ProfileSetting.swift in Sources */,
 				372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */,
+				0F15838A2AC4CEC800EF3A45 /* LoginViewController.swift in Sources */,
 				89A31F552ABF26930030EFFC /* UIImage+Icons.swift in Sources */,
 				8932BEF72AC6C38800FBE9F9 /* PlayerViewController.swift in Sources */,
 			);
