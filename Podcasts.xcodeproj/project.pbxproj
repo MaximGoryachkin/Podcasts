@@ -24,6 +24,7 @@
 		8909D1D42AC8512600B3A456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EC72ABF08500030EFFC /* Assets.xcassets */; };
 		8909D1D52AC8512900B3A456 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F472ABF1B8D0030EFFC /* Manrope-Regular.ttf */; };
 		8909D1D62AC8512B00B3A456 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F4A2ABF1B8D0030EFFC /* Manrope-Bold.ttf */; };
+		8909D1D82AC8552E00B3A456 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1D72AC8552E00B3A456 /* NavigationViewController.swift */; };
 		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
 		8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */; };
 		8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */; };
@@ -60,6 +61,7 @@
 		6DA8BBF72AC7130D005C64DB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		8909D1BF2AC8396400B3A456 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteViewController.swift; path = Podcasts/FavoriteViewController.swift; sourceTree = SOURCE_ROOT; };
 		8909D1C12AC8401500B3A456 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteTableViewCell.swift; path = Podcasts/FavoriteTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		8909D1D72AC8552E00B3A456 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAccountTextField.swift; sourceTree = "<group>"; };
 		8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -224,8 +226,8 @@
 		89A31F5F2ABF32160030EFFC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C8E4E7E92AC43B7800903385 /* ProfileSetting.swift */,
 				C8E4E7EB2AC45CCF00903385 /* ProfileSettingViewController.swift */,
+				C8E4E7E92AC43B7800903385 /* ProfileSetting.swift */,
 				C8E4E7ED2AC4661600903385 /* SettingsCell.swift */,
 			);
 			path = Settings;
@@ -255,6 +257,7 @@
 				89A31F7B2AC168430030EFFC /* Create */,
 				89A31F5F2ABF32160030EFFC /* Settings */,
 				89A31F662ABF33870030EFFC /* Account */,
+				8909D1D72AC8552E00B3A456 /* NavigationViewController.swift */,
 			);
 			path = "View+Presenter";
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */,
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				6DA8BBF82AC7130D005C64DB /* TableViewCell.swift in Sources */,
+				8909D1D82AC8552E00B3A456 /* NavigationViewController.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,
 				89A31F422ABF1A450030EFFC /* UIFont+Manrope.swift in Sources */,
 				6DA8BBEE2AC57012005C64DB /* CustomTabBarController.swift in Sources */,

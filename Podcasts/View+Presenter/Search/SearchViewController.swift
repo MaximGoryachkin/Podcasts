@@ -171,7 +171,7 @@ class SearchViewController: UIViewController {
             verticalCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 382),
             verticalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             verticalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            verticalCollectionView.heightAnchor.constraint(equalToConstant: 384)
+            verticalCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     

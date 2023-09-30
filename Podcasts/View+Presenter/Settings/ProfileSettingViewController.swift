@@ -21,10 +21,9 @@ class ProfileSettingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         let frame = CGRect(x: 0, y: 60, width: view.frame.width, height: view.frame.height)
-        userInfoHeader = ProfileSetting(frame: frame )
+        userInfoHeader = ProfileSetting(frame: frame)
         
         view.addSubview(userInfoHeader)
-        
     }
     
 }

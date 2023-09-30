@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             // Set the root view controller to MainVC
             //FIXME: change to main view controller after such will be ready
-            window.rootViewController = UINavigationController(rootViewController: CustomTabBarController())
+            window.rootViewController = CustomTabBarController()
         }
 
         window.makeKeyAndVisible()

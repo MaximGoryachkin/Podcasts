@@ -13,6 +13,7 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         generateTabBar()
         setTabBarApearence()
+        setupAppearance()
     }
 }
 
@@ -23,8 +24,8 @@ extension CustomTabBarController {
         viewControllers = [
         makeVC(vc: ViewController(), image: UIImage(named: "home/inactive"), selectedImage: UIImage(named: "home/active")),
         makeVC(vc: SearchViewController(), image: UIImage(named: "search/inactive"), selectedImage: UIImage(named: "search/active")),
-        makeVC(vc: FavoriteViewController(), image: UIImage(named: "bookmark/inactive"), selectedImage: UIImage(named: "bookmark/active")),
-        makeVC(vc: UIViewController(), image: UIImage(named: "settings/inactive"), selectedImage: UIImage(named: "settings/active"))
+        makeVC(vc: NavigationViewController(rootViewController: FavoriteViewController()), image: UIImage(named: "bookmark/inactive"), selectedImage: UIImage(named: "bookmark/active")),
+        makeVC(vc: ProfileSettingViewController(), image: UIImage(named: "settings/inactive"), selectedImage: UIImage(named: "settings/active"))
         ]
     }
     
@@ -45,14 +46,26 @@ extension CustomTabBarController {
         let bezierPath = UIBezierPath(roundedRect: CGRect(x: positionX, y: tabBar.bounds.minY - positionY, width: width, height: height), cornerRadius: 20)
         roundLayer.path = bezierPath.cgPath
         
-        roundLayer.shadowColor = UIColor(red: 0.212, green: 0.224, blue: 0.298, alpha: 0.08).cgColor
+        roundLayer.shadowColor = CGColor(gray: 0.8, alpha: 1)
         roundLayer.shadowOffset = CGSize(width: 10, height: 14)
         roundLayer.shadowOpacity = 1
-        roundLayer.shadowRadius = 48
+        roundLayer.shadowRadius = 30
         
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         tabBar.itemWidth = width / 6.5
-        tabBar.itemPositioning = .centered
+//        tabBar.itemPositioning = .centered
         roundLayer.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    private func setupAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.backgroundEffect = .none
+        appearance.backgroundImageContentMode = .scaleAspectFill
+        appearance.shadowColor = .clear
+        appearance.stackedItemPositioning = .centered
+        appearance.stackedItemSpacing = 5
+        
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
     }
 }
