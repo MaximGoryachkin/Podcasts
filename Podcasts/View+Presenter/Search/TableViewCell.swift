@@ -16,10 +16,9 @@ class TableViewCell: UITableViewCell {
         return element
     }()
     
-    private let avatarView: UIView = {
-        let element = UIView()
+    private let avatarView: UIImageView = {
+        let element = UIImageView()
         element.backgroundColor = .customLightBlue
-        element.layer.cornerRadius = 16
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -42,10 +41,10 @@ class TableViewCell: UITableViewCell {
         return element
     }()
     
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "TableViewCell")
         setUpCell()
+        selectionStyle = .none
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,8 +58,8 @@ class TableViewCell: UITableViewCell {
     func setUpCell() {
         addViews()
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: topAnchor),
-            mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             mainView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
@@ -84,5 +83,10 @@ class TableViewCell: UITableViewCell {
         mainView.addSubview(avatarView)
         mainView.addSubview(podcastName)
         mainView.addSubview(shortInfo)
+    }
+    
+    func updateLayer() {
+        print(avatarView.bounds)
+        Globals.changeLayer(of: avatarView)
     }
 }
