@@ -9,7 +9,7 @@ import UIKit
 
 
 
-class ProfileSettingPresenter: UIViewController {
+class ProfileSettingViewController: UIViewController {
     
     // MARK: - Properties
     
