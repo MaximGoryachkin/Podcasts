@@ -21,7 +21,7 @@
 		8909D1C02AC8396400B3A456 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1BF2AC8396400B3A456 /* FavoriteViewController.swift */; };
 		8909D1C22AC8401500B3A456 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1C12AC8401500B3A456 /* FavoriteTableViewCell.swift */; };
 		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
-		8932BEF32AC5A77F00FBE9F9 /* CustomProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomProfileTextField.swift */; };
+		8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */; };
 		8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */; };
 		8932BEF72AC6C38800FBE9F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */; };
 		8932BEF92AC6C78400FBE9F9 /* CustomPlayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */; };
@@ -57,7 +57,7 @@
 		8909D1BF2AC8396400B3A456 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteViewController.swift; path = Podcasts/FavoriteViewController.swift; sourceTree = SOURCE_ROOT; };
 		8909D1C12AC8401500B3A456 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteTableViewCell.swift; path = Podcasts/FavoriteTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		8932BEF22AC5A77F00FBE9F9 /* CustomProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProfileTextField.swift; sourceTree = "<group>"; };
+		8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAccountTextField.swift; sourceTree = "<group>"; };
 		8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8932BEF62AC6C38800FBE9F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = "Podcasts/View+Presenter/PlayerViewController.swift"; sourceTree = SOURCE_ROOT; };
 		8932BEF82AC6C78400FBE9F9 /* CustomPlayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPlayerButton.swift; path = "Podcasts/View+Presenter/CustomPlayerButton.swift"; sourceTree = SOURCE_ROOT; };
@@ -282,7 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */,
-				8932BEF22AC5A77F00FBE9F9 /* CustomProfileTextField.swift */,
+				8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */,
 				8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */,
 			);
 			path = Account;
@@ -389,6 +389,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8909D1C92AC84D7400B3A456 /* Manrope-Regular.ttf in Resources */,
+				8909D1C62AC84D6600B3A456 /* Assets.xcassets in Resources */,
+				8909D1C82AC84D7100B3A456 /* Manrope-Bold.ttf in Resources */,
+				8909D1C72AC84D6A00B3A456 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +410,7 @@
 				896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */,
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
 				0F15838C2AC6E73C00EF3A45 /* RegisterViewController.swift in Sources */,
-				8932BEF32AC5A77F00FBE9F9 /* CustomProfileTextField.swift in Sources */,
+				8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */,
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				6DA8BBF82AC7130D005C64DB /* TableViewCell.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,
