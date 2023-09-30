@@ -20,6 +20,10 @@
 		6DA8BBF82AC7130D005C64DB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA8BBF72AC7130D005C64DB /* TableViewCell.swift */; };
 		8909D1C02AC8396400B3A456 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1BF2AC8396400B3A456 /* FavoriteViewController.swift */; };
 		8909D1C22AC8401500B3A456 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1C12AC8401500B3A456 /* FavoriteTableViewCell.swift */; };
+		8909D1D32AC8512400B3A456 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EC92ABF08500030EFFC /* LaunchScreen.storyboard */; };
+		8909D1D42AC8512600B3A456 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89A31EC72ABF08500030EFFC /* Assets.xcassets */; };
+		8909D1D52AC8512900B3A456 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F472ABF1B8D0030EFFC /* Manrope-Regular.ttf */; };
+		8909D1D62AC8512B00B3A456 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89A31F4A2ABF1B8D0030EFFC /* Manrope-Bold.ttf */; };
 		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
 		8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */; };
 		8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */; };
@@ -389,10 +393,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8909D1C92AC84D7400B3A456 /* Manrope-Regular.ttf in Resources */,
-				8909D1C62AC84D6600B3A456 /* Assets.xcassets in Resources */,
-				8909D1C82AC84D7100B3A456 /* Manrope-Bold.ttf in Resources */,
-				8909D1C72AC84D6A00B3A456 /* LaunchScreen.storyboard in Resources */,
+				8909D1D52AC8512900B3A456 /* Manrope-Regular.ttf in Resources */,
+				8909D1D62AC8512B00B3A456 /* Manrope-Bold.ttf in Resources */,
+				8909D1D42AC8512600B3A456 /* Assets.xcassets in Resources */,
+				8909D1D32AC8512400B3A456 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
