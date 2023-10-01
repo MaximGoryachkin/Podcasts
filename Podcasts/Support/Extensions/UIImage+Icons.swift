@@ -32,6 +32,6 @@ extension UIImage {
     static let play = UIImage(systemName: "play.circle.fill")
     
     static let separator = UIImage(named: "separator")
-    
+    static let group = UIImage(named: "group")
 }
 
