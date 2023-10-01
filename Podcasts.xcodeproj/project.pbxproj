@@ -29,6 +29,8 @@
 		8909D1DE2AC8884000B3A456 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1DD2AC8884000B3A456 /* Globals.swift */; };
 		8909D1E02AC951A800B3A456 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1DF2AC951A800B3A456 /* FavoriteCollectionViewCell.swift */; };
 		8909D1E22AC9648400B3A456 /* AddPlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E12AC9648400B3A456 /* AddPlaylistTableViewCell.swift */; };
+		8909D1E42AC96E2D00B3A456 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E32AC96E2D00B3A456 /* HomeViewController.swift */; };
+		8909D1E62AC9730700B3A456 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E52AC9730700B3A456 /* HomeTableViewCell.swift */; };
 		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
 		8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */; };
 		8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */; };
@@ -70,6 +72,8 @@
 		8909D1DD2AC8884000B3A456 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		8909D1DF2AC951A800B3A456 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteCollectionViewCell.swift; path = Podcasts/Support/Extensions/FavoriteCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		8909D1E12AC9648400B3A456 /* AddPlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddPlaylistTableViewCell.swift; path = Podcasts/Support/Extensions/AddPlaylistTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		8909D1E32AC96E2D00B3A456 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Podcasts/Support/Extensions/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		8909D1E52AC9730700B3A456 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTableViewCell.swift; path = Podcasts/Support/Extensions/HomeTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAccountTextField.swift; sourceTree = "<group>"; };
 		8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 		89A31F5C2ABF31F00030EFFC /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				8909D1E32AC96E2D00B3A456 /* HomeViewController.swift */,
+				8909D1E52AC9730700B3A456 /* HomeTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -440,11 +446,13 @@
 				8909D1DA2AC862DF00B3A456 /* ChannelViewController.swift in Sources */,
 				8932BEF92AC6C78400FBE9F9 /* CustomPlayerButton.swift in Sources */,
 				89A31F402ABF174D0030EFFC /* UIImage+Onboarding.swift in Sources */,
+				8909D1E62AC9730700B3A456 /* HomeTableViewCell.swift in Sources */,
 				C8E4E7EE2AC4661600903385 /* SettingsCell.swift in Sources */,
 				89A31EBE2ABF084F0030EFFC /* SceneDelegate.swift in Sources */,
 				8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */,
 				8909D1C02AC8396400B3A456 /* FavoriteViewController.swift in Sources */,
 				8909D1C22AC8401500B3A456 /* FavoriteTableViewCell.swift in Sources */,
+				8909D1E42AC96E2D00B3A456 /* HomeViewController.swift in Sources */,
 				8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */,
 				8909D1E02AC951A800B3A456 /* FavoriteCollectionViewCell.swift in Sources */,
 				89A31F3E2ABF0FE90030EFFC /* UIColor.swift in Sources */,

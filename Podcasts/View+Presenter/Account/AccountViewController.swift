@@ -172,6 +172,12 @@ class AccountViewController: UIViewController {
         setupDatePicker()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItem.title = "Profile"
+    }
+    
     private func addSubviews(views: UIView...) {
         for view in views {
             self.view.addSubview(view)

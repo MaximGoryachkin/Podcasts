@@ -26,4 +26,9 @@ class ProfileSettingViewController: UIViewController {
         view.addSubview(userInfoHeader)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
 }

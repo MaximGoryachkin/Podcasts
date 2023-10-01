@@ -27,11 +27,6 @@ class ProfileSetting: UIView {
          avatar.contentMode = .scaleAspectFill
          avatar.translatesAutoresizingMaskIntoConstraints = false
          avatar.image = UIImage(named: "avatar")
-//         avatar.layer.shadowColor = UIColor.black.cgColor
-//         avatar.layer.shadowOffset = CGSize(width: 0, height: 10)
-//         avatar.layer.shadowOpacity = 0.3
-//         avatar.layer.shadowRadius = 8
-//         avatar.layer.masksToBounds = false
          return avatar
     }()
     
@@ -93,12 +88,7 @@ class ProfileSetting: UIView {
                                     icon: UIImage.lock,
                                     iconBackground: UIColor.customGray))
     }
-    
-   
-    
-    
-    
-    
+
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -157,8 +147,6 @@ class ProfileSetting: UIView {
     }
 }
 
-
-
 // MARK: - Extension
 
 extension ProfileSetting: UITableViewDelegate, UITableViewDataSource {
@@ -183,5 +171,9 @@ extension ProfileSetting: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.row == 0 {
+            let accountVC = AccountViewController()
+            
+        }
     }
 }
