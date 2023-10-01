@@ -41,6 +41,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     private let subtitle: UILabel = {
         let view = UILabel()
         view.font = .manropeRegular12
+        view.textColor = .systemGray
         view.text = "Dr. Oi om jean"
         view.textAlignment = .center
         return view

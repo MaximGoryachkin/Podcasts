@@ -28,6 +28,7 @@ class FavoriteViewController: UIViewController {
     private lazy var allButton: UIButton = {
         let view = UIButton(type: .system)
         view.setTitle("See all", for: .normal)
+        view.titleLabel?.font = .manropeRegular16
         view.setTitleColor(.systemGray, for: .normal)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -77,6 +78,7 @@ class FavoriteViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.identifier)
+        tableView.register(AddPlaylistTableViewCell.self, forCellReuseIdentifier: AddPlaylistTableViewCell.identifier)
         tableView.showsVerticalScrollIndicator = false
         setupConstraints()
     }
@@ -116,6 +118,7 @@ class FavoriteViewController: UIViewController {
     
     private func setupNavigationItem() {
         let rightItem = UIBarButtonItem()
+        rightItem.tintColor = .black
         let emptyItem = UIBarButtonItem()
         rightItem.image = .group
         navigationItem.title = "Favorite"
@@ -130,13 +133,24 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as! FavoriteTableViewCell
-        cell.configure(image: UIImage.add, label: "Podcast name", sublabel: "30 Eps")
-        return cell
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AddPlaylistTableViewCell.identifier, for: indexPath) as! AddPlaylistTableViewCell
+            cell.configure(image: .add, label: "Create Playlist")
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as! FavoriteTableViewCell
+            cell.configure(image: UIImage.add, label: "Podcast name", sublabel: "30 Eps")
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         65
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        print(indexPath.row)
     }
 }
 

@@ -1,15 +1,15 @@
 //
-//  FavoriteTableViewCell.swift
+//  AddPlaylistTableViewCell.swift
 //  Podcasts
 //
-//  Created by Максим Горячкин on 30.09.2023.
+//  Created by Максим Горячкин on 01.10.2023.
 //
 
 import UIKit
 
-class FavoriteTableViewCell: UITableViewCell {
+class AddPlaylistTableViewCell: UITableViewCell {
     
-    static let identifier = "SettingsCell"
+    static let identifier = "AddPlaylistTableViewCell"
     
     // MARK: - Properties
     
@@ -36,20 +36,11 @@ class FavoriteTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let sublabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.font = UIFont(name: Fonts.regularFont, size: 12)
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(image)
         contentView.addSubview(labelStack)
         labelStack.addArrangedSubview(label)
-        labelStack.addArrangedSubview(sublabel)
-        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
@@ -74,10 +65,9 @@ class FavoriteTableViewCell: UITableViewCell {
         ])
     }
     
-    public func configure(image: UIImage, label: String, sublabel: String) {
+    public func configure(image: UIImage, label: String) {
         self.image.image = image
         self.label.text = label
-        self.sublabel.text = sublabel
     }
     
 }
