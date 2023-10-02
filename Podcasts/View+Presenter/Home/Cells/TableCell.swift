@@ -8,10 +8,10 @@
 import UIKit
 
 class TableCell: UICollectionViewCell {
-  private let podcastName = makeLabel(.systemFont(ofSize: 14, weight: .bold))
-  private let authorName = makeLabel(.systemFont(ofSize: 12, weight: .light))
-  private let podcastType = makeLabel(.systemFont(ofSize: 12, weight: .light))
-  private let podcastQty = makeLabel(.systemFont(ofSize: 12, weight: .light))
+  private let podcastName = makeLabel()
+  private let authorName = makeLabel()
+  private let podcastType = makeLabel()
+  private let podcastQty = makeLabel()
   private let imageSquare = makeView()
   private let heartButton = makeButton()
   private let dotImage = makeImage()
@@ -19,10 +19,13 @@ class TableCell: UICollectionViewCell {
   private let firstStack = makeHStack()
   private let secondStack = makeHStack()
   
+  private var isLiked = false
+  
   //MARK: - init(_:)
   override init(frame: CGRect) {
     super.init(frame: frame)
     setViews()
+    addTargets()
   }
   
   @available(*, unavailable)
@@ -50,14 +53,19 @@ class TableCell: UICollectionViewCell {
     podcastType.text = category.podcastType
     podcastQty.text = category.episodeQty
   }
+  
+  @objc private func heartButtonPressed() {
+    isLiked.toggle()
+    let image = isLiked ? UIImage(named: "redHeart") : UIImage(named: "greyHeart")
+    heartButton.setBackgroundImage(image, for: .normal)
+  }
 }
 
 private extension TableCell {
-  static func makeLabel(_ font: UIFont) -> UILabel {
+  static func makeLabel() -> UILabel {
     let label = UILabel()
     label.numberOfLines = 0
     label.textAlignment = .center
-    label.font = font
     label.minimumScaleFactor = 0.8
     label.textAlignment = .left
     label.adjustsFontSizeToFitWidth = true
@@ -104,14 +112,17 @@ private extension TableCell {
     let myImage = UIImageView()
     myImage.image = UIImage(named: "dot")
     myImage.contentMode = .center
-    
     myImage.translatesAutoresizingMaskIntoConstraints = false
     return myImage
   }
   
   private func setViews() {
-    contentView.backgroundColor = .white
-    contentView.layer.cornerRadius = 10
+    backgroundColor = .backGray
+    layer.cornerRadius = 16
+    podcastName.font = .manropeBold14
+    authorName.font = .manropeRegular12
+    podcastType.font = .manropeRegular12
+    podcastQty.font = .manropeRegular12
     firstStack.addArrangedSubview(podcastName)
     firstStack.addArrangedSubview(authorName)
     secondStack.addArrangedSubview(podcastType)
@@ -122,6 +133,10 @@ private extension TableCell {
     addSubview(imageSquare)
     addSubview(mainStack)
     addSubview(heartButton)
+  }
+  
+  private func addTargets() {
+    heartButton.addTarget(self, action: #selector(heartButtonPressed), for: .touchUpInside)
   }
   
   private func setConstraints() {

@@ -18,4 +18,6 @@ extension UIColor {
     static let deepBlue = UIColor(named: "deepBlue")
     static let backBlue = UIColor(named: "backBlue")
     static let seaGreen = UIColor(named: "seaGreen")
+    static let lightGray = UIColor(named: "lightGray")
+    static let backGray = UIColor(named: "backGray")
 }
