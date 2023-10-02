@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = .center
-        view.distribution = .fill
+        view.distribution = .equalCentering
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -28,19 +28,21 @@ class HomeViewController: UIViewController {
     private lazy var avatarTitleStack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.alignment = .center
+        view.alignment = .leading
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var avatarName: UILabel = {
         let view = UILabel()
+        view.font = .manropeBold16
         view.text = "Abigael Amaniah"
         return view
     }()
     
     private lazy var avatarStatus: UILabel = {
         let view = UILabel()
+        view.font = .manropeRegular14
         view.text = "Love,life and chill"
         return view
     }()
@@ -48,6 +50,7 @@ class HomeViewController: UIViewController {
     private lazy var headerStack: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
+        view.distribution = .equalSpacing
         view.alignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -55,7 +58,7 @@ class HomeViewController: UIViewController {
     
     private lazy var headerStackTitle: UILabel = {
         let view = UILabel()
-        view.text = "Favorites"
+        view.text = "Category"
         view.font = .manropeBold16
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -107,14 +110,14 @@ class HomeViewController: UIViewController {
         
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
-        categoryCollectionView.register(FavoriteCollectionViewCell.self,
-                                        forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
+        categoryCollectionView.register(CategoryCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         categoryCollectionView.showsHorizontalScrollIndicator = false
         
         popularCollectionView.delegate = self
         popularCollectionView.dataSource = self
-        popularCollectionView.register(FavoriteCollectionViewCell.self,
-                                        forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
+        popularCollectionView.register(PopularCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: PopularCollectionViewCell.identifier)
         popularCollectionView.showsHorizontalScrollIndicator = false
         
         tableView.dataSource = self
@@ -138,7 +141,7 @@ class HomeViewController: UIViewController {
     
     private func addSubviews(to stack: UIStackView, subviews: UIView...) {
         for subview in subviews {
-            stack.addSubview(subview)
+            stack.addArrangedSubview(subview)
         }
     }
     
@@ -151,7 +154,7 @@ class HomeViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            headerStack.topAnchor.constraint(equalTo: topStack.topAnchor, constant: 20),
+            headerStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 20),
             headerStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -32),
             headerStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32),
             headerStack.heightAnchor.constraint(equalToConstant: 30)
@@ -176,6 +179,11 @@ class HomeViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -32),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32)
+        ])
+        
+        NSLayoutConstraint.activate([
+            avatarImage.heightAnchor.constraint(equalToConstant: 52),
+            avatarImage.widthAnchor.constraint(equalToConstant: 52)
         ])
     }
         
@@ -214,15 +222,23 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.identifier, for: indexPath) as? FavoriteCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure()
-        return cell
+        if collectionView == categoryCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure()
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.identifier, for: indexPath) as? PopularCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure()
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = 120
-        let cellHeight = 160
-        return CGSize(width: cellWidth, height: cellHeight)
+        if collectionView == categoryCollectionView {
+            return CGSize(width: 144, height: 200)
+        } else {
+            return CGSize(width: 120, height: 44)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

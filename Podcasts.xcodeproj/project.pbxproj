@@ -31,6 +31,8 @@
 		8909D1E22AC9648400B3A456 /* AddPlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E12AC9648400B3A456 /* AddPlaylistTableViewCell.swift */; };
 		8909D1E42AC96E2D00B3A456 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E32AC96E2D00B3A456 /* HomeViewController.swift */; };
 		8909D1E62AC9730700B3A456 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E52AC9730700B3A456 /* HomeTableViewCell.swift */; };
+		8909D1E82ACAF2C400B3A456 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E72ACAF2C400B3A456 /* CategoryCollectionViewCell.swift */; };
+		8909D1EA2ACAF46700B3A456 /* PopularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8909D1E92ACAF46700B3A456 /* PopularCollectionViewCell.swift */; };
 		8932BEF12AC59ACB00FBE9F9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */; };
 		8932BEF32AC5A77F00FBE9F9 /* CustomAccountTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */; };
 		8932BEF52AC5C01900FBE9F9 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */; };
@@ -74,6 +76,8 @@
 		8909D1E12AC9648400B3A456 /* AddPlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddPlaylistTableViewCell.swift; path = Podcasts/Support/Extensions/AddPlaylistTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		8909D1E32AC96E2D00B3A456 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Podcasts/Support/Extensions/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		8909D1E52AC9730700B3A456 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTableViewCell.swift; path = Podcasts/Support/Extensions/HomeTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		8909D1E72ACAF2C400B3A456 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Podcasts/Support/Extensions/CategoryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		8909D1E92ACAF46700B3A456 /* PopularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopularCollectionViewCell.swift; path = Podcasts/Support/Extensions/PopularCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAccountTextField.swift; sourceTree = "<group>"; };
 		8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -214,6 +218,8 @@
 			children = (
 				8909D1E32AC96E2D00B3A456 /* HomeViewController.swift */,
 				8909D1E52AC9730700B3A456 /* HomeTableViewCell.swift */,
+				8909D1E72ACAF2C400B3A456 /* CategoryCollectionViewCell.swift */,
+				8909D1E92ACAF46700B3A456 /* PopularCollectionViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -431,6 +437,7 @@
 				6DA8BBF62AC6F200005C64DB /* ResultViewController.swift in Sources */,
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
 				8909D1DE2AC8884000B3A456 /* Globals.swift in Sources */,
+				8909D1E82ACAF2C400B3A456 /* CategoryCollectionViewCell.swift in Sources */,
 				6DA8BBF02AC5A749005C64DB /* SearchViewController.swift in Sources */,
 				6DA8BBF42AC6CD4F005C64DB /* CollectionViewCell.swift in Sources */,
 				896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */,
@@ -445,6 +452,7 @@
 				6DA8BBEE2AC57012005C64DB /* CustomTabBarController.swift in Sources */,
 				8909D1DA2AC862DF00B3A456 /* ChannelViewController.swift in Sources */,
 				8932BEF92AC6C78400FBE9F9 /* CustomPlayerButton.swift in Sources */,
+				8909D1EA2ACAF46700B3A456 /* PopularCollectionViewCell.swift in Sources */,
 				89A31F402ABF174D0030EFFC /* UIImage+Onboarding.swift in Sources */,
 				8909D1E62AC9730700B3A456 /* HomeTableViewCell.swift in Sources */,
 				C8E4E7EE2AC4661600903385 /* SettingsCell.swift in Sources */,
