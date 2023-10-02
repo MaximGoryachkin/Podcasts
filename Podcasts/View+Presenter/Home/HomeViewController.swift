@@ -60,12 +60,7 @@ final class HomeViewController: UIViewController {
     let podcastCellRegistration = makeCellRegistration()
     let podcastButtonsCellRegistration = makeButtonsCellRegistration()
     let podcastTableCellRegistration = makeTableCellRegistration()
-  
-//    UICollectionViewDiffableDataSource<<#SectionIdentifierType: Hashable#>, Product>(
-//      collectionView: detailView.collectionView,
-//      cellProvider: makeCellRegistration().cellProvider
-//    )
-    
+      
     return UICollectionViewDiffableDataSource(collectionView: homeView.collectionView) { collectionView, indexPath, item in
       switch item {
       case let .first(product):
