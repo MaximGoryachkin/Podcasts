@@ -8,7 +8,7 @@
 import UIKit
 
 class ChannelViewController: UIViewController {
-    
+
     private lazy var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical

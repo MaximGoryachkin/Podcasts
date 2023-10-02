@@ -9,92 +9,75 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
     
-    private let mainView: UIView = {
-        let element = UIView()
-        element.backgroundColor = UIColor(red: 0.929, green: 0.941, blue: 0.988, alpha: 1)
-        element.layer.cornerRadius = 16
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    static let identifier = "HomeTableViewCell"
     
-    private let avatarView: UIImageView = {
-        let element = UIImageView()
-        element.backgroundColor = .customLightBlue
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    // MARK: - Properties
     
-    private let podcastName: UILabel = {
-        let element = UILabel()
-        element.text = "The tale of greatest warrior"
-        element.font = UIFont(name: "Manrope-Regular", size: 14)
-        element.textAlignment = .left
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private let shortInfo: UILabel = {
-        let element = UILabel()
-        element.text = "56:38 • 82 Eps"
-        element.font = UIFont.systemFont(ofSize: 12, weight: .thin)
-        element.textAlignment = .left
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var favoriteButton: UIButton = {
-        let view = UIButton(type: .system)
-        view.imageView?.image = UIImage(systemName: "heart")
+    private lazy var image: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    private lazy var labelStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .leading
+        view.distribution = .fillEqually
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.font = UIFont(name: Fonts.boldFont, size: 14)
+        return label
+    }()
+    
+    private lazy var sublabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.font = UIFont(name: Fonts.regularFont, size: 12)
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: "TableViewCell")
-        setUpCell()
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(image)
+        contentView.addSubview(labelStack)
+        labelStack.addArrangedSubview(label)
+        labelStack.addArrangedSubview(sublabel)
         selectionStyle = .none
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
-    func setUpCell() {
-        addViews()
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            mainView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            mainView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
-            avatarView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 8),
-            avatarView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
-            avatarView.heightAnchor.constraint(equalToConstant: 56),
-            avatarView.widthAnchor.constraint(equalToConstant: 56),
-            
-            podcastName.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 16),
-            podcastName.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 20),
-            podcastName.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
-            
-            shortInfo.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -16),
-            shortInfo.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 20),
-            shortInfo.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
+            image.heightAnchor.constraint(equalToConstant: 48),
+            image.widthAnchor.constraint(equalToConstant: 48),
+            image.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            labelStack.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 10),
+            labelStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            labelStack.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 5),
+            labelStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
     }
     
-    func addViews() {
-        addSubview(mainView)
-        mainView.addSubview(avatarView)
-        mainView.addSubview(podcastName)
-        mainView.addSubview(shortInfo)
+    public func configure(image: UIImage, label: String, sublabel: String) {
+        self.image.image = image
+        self.label.text = label
+        self.sublabel.text = sublabel
     }
     
-    func updateLayer() {
-        print(avatarView.bounds)
-        Globals.changeLayer(of: avatarView)
-    }
 }

@@ -122,7 +122,7 @@ class HomeViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.identifier)
+        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         tableView.register(AddPlaylistTableViewCell.self, forCellReuseIdentifier: AddPlaylistTableViewCell.identifier)
         tableView.showsVerticalScrollIndicator = false
         
@@ -200,7 +200,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configure(image: .add, label: "Create Playlist")
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as! FavoriteTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell
             cell.configure(image: UIImage.add, label: "Podcast name", sublabel: "30 Eps")
             return cell
         }

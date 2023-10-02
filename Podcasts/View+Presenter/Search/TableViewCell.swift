@@ -86,7 +86,6 @@ class TableViewCell: UITableViewCell {
     }
     
     func updateLayer() {
-        print(avatarView.bounds)
         Globals.changeLayer(of: avatarView)
     }
 }

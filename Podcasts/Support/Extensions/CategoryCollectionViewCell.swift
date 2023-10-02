@@ -14,7 +14,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     let colorArray = [UIColor.customBlue, UIColor.customLightBlue, UIColor.peachPink, UIColor.seaBlue, UIColor.deepBlue, UIColor.backBlue, UIColor.seaGreen]
     let nameArray = ["Music and chill", "Social", "Comedy", "Sport", "Politics", "Fashion Trend", "Education", "Artificial Intellegence"]
     
-    private let mainView: UIView = {
+    private lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .red
         view.layer.cornerRadius = 20
@@ -40,7 +40,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let title: UILabel = {
+    private lazy var title: UILabel = {
         let view = UILabel()
         view.font = .manropeBold14
         view.text = "Baby Pesut"
@@ -48,7 +48,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let subtitle: UILabel = {
+    private lazy var subtitle: UILabel = {
         let view = UILabel()
         view.font = .manropeRegular12
         view.textColor = .systemGray
@@ -56,6 +56,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         view.textAlignment = .center
         return view
     }()
+    
     
     func configure() {
         backgroundColor = .customLightBlue
