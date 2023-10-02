@@ -14,7 +14,7 @@ class NetworkManager {
     
     private init() {}
     
-    func fetchDataPodcast(from url: String?, with complition: @escaping (Podcast) -> Void) {
+    func fetchDataPodcast(from url: String?, with complition: @escaping (PodcastAPI) -> Void) {
         guard let stringURL = url else { return }
         guard let url = URL(string: stringURL) else { return }
         let request = createRequest(with: url)
@@ -25,7 +25,7 @@ class NetworkManager {
             }
             guard let data = data else { return }
             do {
-                let podcast = try JSONDecoder().decode(Podcast.self, from: data)
+                let podcast = try JSONDecoder().decode(PodcastAPI.self, from: data)
                 DispatchQueue.main.async {
                     complition(podcast)
                 }
@@ -97,11 +97,11 @@ class NetworkManager {
 //        }.resume()
 //    }
     
-    func fetchData(from url: String?) async throws -> Podcast? {
+    func fetchData(from url: String?) async throws -> PodcastAPI? {
         guard let stringURL = url else { return nil }
         guard let url = URL(string: stringURL) else { return nil }
         let (data, _) = try await URLSession.shared.data(from: url)
-        let podcast = try JSONDecoder().decode(Podcast.self, from: data)
+        let podcast = try JSONDecoder().decode(PodcastAPI.self, from: data)
         return podcast
     }
     

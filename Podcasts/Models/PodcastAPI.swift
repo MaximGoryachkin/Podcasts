@@ -1,18 +1,15 @@
 //
-//  Podcast.swift
+//  PodcastAPI.swift
 //  Podcasts
 //
-//  Created by Максим Горячкин on 26.09.2023.
+//  Created by Максим Горячкин on 02.10.2023.
 //
-
-import Foundation
 
 import Foundation
 
 // MARK: - Podcast
-struct Podcast: Codable {
+struct PodcastAPI: Codable {
     let status: String?
     let feed: Feed?
     let description: String?
 }
-
