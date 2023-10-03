@@ -47,6 +47,15 @@ class AccountViewController: UIViewController {
         return view
     }()
     
+    private lazy var photoSelectionAlertButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.backgroundColor = .black
+            button.setTitle("", for: .normal)
+            button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            return button
+        }()
+    
     private lazy var firstLabel: UILabel = {
         let view = UILabel()
         view.text = "First Name"
@@ -164,12 +173,16 @@ class AccountViewController: UIViewController {
         view.addSubview(scroolView)
         scroolView.addSubview(contentView)
         contentView.addSubview(profileImage)
+        contentView.addSubview(photoSelectionAlertButton)
         contentView.addSubview(mainStack)
         addSubviews(main: mainStack, views: firstLabel, firstTextField, lastLabel, lastTextField, emailLabel, emailTextField, birthLabel, birthTextField, genderLabel, buttonStack)
         addSubviews(main: buttonStack, views: maleButton, femaleButton)
         view.addSubview(saveButton)
         setupUI()
         setupDatePicker()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+                view.addGestureRecognizer(tapGesture)
     }
     
     private func addSubviews(views: UIView...) {
@@ -191,6 +204,13 @@ class AccountViewController: UIViewController {
             profileImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
             profileImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+                    profileImage.heightAnchor.constraint(equalToConstant: 100),
+                    profileImage.widthAnchor.constraint(equalToConstant: 100),
+                    profileImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
+                    profileImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+                ])
         
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20),
@@ -242,6 +262,15 @@ class AccountViewController: UIViewController {
             maleButton.isCheck = false
             
         }
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    @objc func showAlert() {
+        print("hello")
     }
 //
 //    @objc func femaleGenderBubbotPressed() {
