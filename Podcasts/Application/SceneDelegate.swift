@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        // Setting the UserDefaults
+        //         Setting the UserDefaults
         let onboardingShown = UserDefaults.standard.bool(forKey: "OnboardingShown")
         
         if !onboardingShown {
@@ -27,7 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //FIXME: change to main view controller after such will be ready
             window.rootViewController = HomeViewController(detailView: HomeView())
         }
-
         window.makeKeyAndVisible()
         self.window = window
     }
