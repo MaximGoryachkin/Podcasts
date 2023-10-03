@@ -12,7 +12,7 @@ class TitleSupplementaryView: UICollectionReusableView {
   static let reuseIdentifier = String(describing: TitleSupplementaryView.self)
   
   let textLabel = UILabel()
-  let numberLabel = UILabel()
+  let seeAllButton = UIButton(type: .system)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -22,15 +22,16 @@ class TitleSupplementaryView: UICollectionReusableView {
   override func prepareForReuse() {
     super.prepareForReuse()
     textLabel.text = nil
-    numberLabel.text = nil
   }
   
   private func setViews() {
     addSubview(textLabel)
-    addSubview(numberLabel)
-    textLabel.font = .preferredFont(forTextStyle: .title2)
+    addSubview(seeAllButton)
+    textLabel.font = .manropeBold16
+    seeAllButton.titleLabel?.font = .manropeRegular16
+    seeAllButton.tintColor = .lightGray
     textLabel.translatesAutoresizingMaskIntoConstraints = false
-    numberLabel.translatesAutoresizingMaskIntoConstraints = false
+    seeAllButton.translatesAutoresizingMaskIntoConstraints = false
     
     let inset: CGFloat = 10
     
@@ -40,10 +41,9 @@ class TitleSupplementaryView: UICollectionReusableView {
       textLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset),
       textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset),
       
-      //numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
-      numberLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset),
-      numberLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset),
-      numberLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset),
+      seeAllButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset),
+      seeAllButton.topAnchor.constraint(equalTo: topAnchor, constant: inset),
+      seeAllButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset),
     ])
   }
   

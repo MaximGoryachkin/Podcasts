@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 enum Section: Int, CaseIterable {
   case main
@@ -60,12 +59,7 @@ final class HomeViewController: UIViewController {
     let podcastCellRegistration = makeCellRegistration()
     let podcastButtonsCellRegistration = makeButtonsCellRegistration()
     let podcastTableCellRegistration = makeTableCellRegistration()
-  
-//    UICollectionViewDiffableDataSource<<#SectionIdentifierType: Hashable#>, Product>(
-//      collectionView: detailView.collectionView,
-//      cellProvider: makeCellRegistration().cellProvider
-//    )
-    
+      
     return UICollectionViewDiffableDataSource(collectionView: homeView.collectionView) { collectionView, indexPath, item in
       switch item {
       case let .first(product):
@@ -119,18 +113,6 @@ private extension HomeViewController {
   }
 }
 
-//private extension UICollectionView.CellRegistration {
-//  var cellProvider: (UICollectionView, IndexPath, Item) -> Cell {
-//    return { collectionView, indexPath, product in
-//      collectionView.dequeueConfiguredReusableCell(
-//        using: self,
-//        for: indexPath,
-//        item: product
-//      )
-//    }
-//  }
-//}
-
 private extension HomeViewController {
   func productListDidLoad(_ list: ProductList, _ podcast: PodcastList) {
     var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
@@ -148,7 +130,7 @@ private extension HomeViewController {
         switch Section(rawValue: indexPath.section) {
         case .main:
           titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-          titleSupplementayView.numberLabel.text = "See all"
+          titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
           return titleSupplementayView
           
         case .additinal:
@@ -167,26 +149,6 @@ private extension HomeViewController {
       }
     }
   }
-  
 }
 
-//  MARK: - Show Canvas
-struct ContentViewController: UIViewControllerRepresentable {
-  
-  typealias UIViewControllerType = HomeViewController
-  
-  func makeUIViewController(context: Context) -> UIViewControllerType {
-    return HomeViewController(detailView: HomeView())
-  }
-  
-  func updateUIViewController(_ uiViewController: HomeViewController, context: Context) {}
-}
-
-struct ContentViewController_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentViewController()
-      .edgesIgnoringSafeArea(.all)
-      .colorScheme(.light) // or .dark
-  }
-}
 

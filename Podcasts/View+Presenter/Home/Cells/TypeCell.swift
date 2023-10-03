@@ -16,9 +16,9 @@ class TypeCell: UICollectionViewCell {
       
       switch isSelected {
       case true:
-        title.font = .systemFont(ofSize: 20, weight: .bold)
+        title.font = .manropeBold16
       case false:
-        title.font = .systemFont(ofSize: 20, weight: .light)
+        title.font = .manropeRegular16
       }
     }
   }
@@ -55,7 +55,7 @@ extension TypeCell {
     let label = UILabel()
     label.numberOfLines = 1
     label.textAlignment = .center
-    label.font = .systemFont(ofSize: 20, weight: .light)
+    label.font = .manropeRegular16
     label.minimumScaleFactor = 0.8
     label.adjustsFontSizeToFitWidth = true
     label.translatesAutoresizingMaskIntoConstraints = false
