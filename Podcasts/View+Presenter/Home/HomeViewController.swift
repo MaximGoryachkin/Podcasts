@@ -114,39 +114,35 @@ private extension HomeViewController {
 }
 
 private extension HomeViewController {
-    func productListDidLoad(_ list: ProductList, _ podcast: PodcastList) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(list.featured.map(Item.first), toSection: .main)
-        snapshot.appendItems(PodcastType.allCases.map(Item.second), toSection: .additinal)
-        snapshot.appendItems(podcast.all.map(Item.third), toSection: .all)
-        
-        dataSource.apply(snapshot)
-        
-        dataSource.supplementaryViewProvider =  { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
-            
-            if let titleSupplementayView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleSupplementaryView.reuseIdentifier, for: indexPath) as? TitleSupplementaryView {
-                let tutorialCollection = ["Category", "", ""]
-                switch Section(rawValue: indexPath.section) {
-                case .main:
-                    titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-                    titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
-                    return titleSupplementayView
-                    
-                case .additinal:
-                    titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-                    return titleSupplementayView
-                    
-                case .all:
-                    titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-                    return titleSupplementayView
-                case nil:
-                    return nil
-                }
-                
-            } else {
-                return nil
-            }
+
+  func productListDidLoad(_ list: ProductList, _ podcast: PodcastList) {
+    var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+    snapshot.appendSections(Section.allCases)
+    snapshot.appendItems(list.featured.map(Item.first), toSection: .main)
+    snapshot.appendItems(PodcastType.allCases.map(Item.second), toSection: .additinal)
+    snapshot.appendItems(podcast.all.map(Item.third), toSection: .all)
+    
+    dataSource.apply(snapshot)
+    
+    dataSource.supplementaryViewProvider =  { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
+      
+      guard let titleSupplementayView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleSupplementaryView.reuseIdentifier, for: indexPath) as? TitleSupplementaryView else { return UICollectionReusableView() }
+
+        switch Section(rawValue: indexPath.section) {
+        case .main:
+          titleSupplementayView.textLabel.text = "Category"
+          titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
+          return titleSupplementayView
+          
+//        case .additinal:
+//          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+//          return titleSupplementayView
+//
+//        case .all:
+//          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+//          return titleSupplementayView
+        default:
+          return nil
         }
     }
 }
