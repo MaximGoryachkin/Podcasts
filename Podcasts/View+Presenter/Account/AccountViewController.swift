@@ -14,6 +14,7 @@ class AccountViewController: UIViewController {
     }
     
     private var isMale = true
+    private let castomAlert = CustomAlert()
     
     private lazy var scroolView: UIScrollView = {
         let view = UIScrollView()
@@ -49,9 +50,10 @@ class AccountViewController: UIViewController {
     
     private lazy var photoSelectionAlertButton: UIButton = {
             let button = UIButton(type: .system)
-            button.backgroundColor = .black
             button.setTitle("", for: .normal)
             button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+            button.layer.cornerRadius = 50
+            button.clipsToBounds = true
             button.translatesAutoresizingMaskIntoConstraints = false
             return button
         }()
@@ -206,11 +208,11 @@ class AccountViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-                    profileImage.heightAnchor.constraint(equalToConstant: 100),
-                    profileImage.widthAnchor.constraint(equalToConstant: 100),
-                    profileImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
-                    profileImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-                ])
+            photoSelectionAlertButton.heightAnchor.constraint(equalToConstant: 100),
+            photoSelectionAlertButton.widthAnchor.constraint(equalToConstant: 100),
+            photoSelectionAlertButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
+            photoSelectionAlertButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20),
@@ -269,8 +271,9 @@ class AccountViewController: UIViewController {
     }
     
     
+    
     @objc func showAlert() {
-        print("hello")
+        castomAlert.showAlert(viewController: self)
     }
 //
 //    @objc func femaleGenderBubbotPressed() {
@@ -287,6 +290,4 @@ class AccountViewController: UIViewController {
 }
 
 
-extension AccountViewController: UIPickerViewDelegate {
-    
-}
+

@@ -66,6 +66,7 @@
 		89A31F852AC307370030EFFC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F842AC307370030EFFC /* NetworkManager.swift */; };
 		89A31F872AC307EC0030EFFC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F862AC307EC0030EFFC /* DataManager.swift */; };
 		89A31F892AC30F760030EFFC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F882AC30F760030EFFC /* Item.swift */; };
+		C89A7DD62ACC247C0095921C /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89A7DD52ACC247C0095921C /* CustomAlert.swift */; };
 		C8E4E7EA2AC43B7800903385 /* ProfileSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4E7E92AC43B7800903385 /* ProfileSetting.swift */; };
 		C8E4E7EC2AC45CCF00903385 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4E7EB2AC45CCF00903385 /* ProfileSettingViewController.swift */; };
 		C8E4E7EE2AC4661600903385 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4E7ED2AC4661600903385 /* SettingsCell.swift */; };
@@ -129,6 +130,7 @@
 		89A31F842AC307370030EFFC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		89A31F862AC307EC0030EFFC /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		89A31F882AC30F760030EFFC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		C89A7DD52ACC247C0095921C /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		C8E4E7E92AC43B7800903385 /* ProfileSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetting.swift; sourceTree = "<group>"; };
 		C8E4E7EB2AC45CCF00903385 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		C8E4E7ED2AC4661600903385 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				8932BEF02AC59ACB00FBE9F9 /* AccountViewController.swift */,
 				8932BEF22AC5A77F00FBE9F9 /* CustomAccountTextField.swift */,
 				8932BEF42AC5C01900FBE9F9 /* CustomButton.swift */,
+				C89A7DD52ACC247C0095921C /* CustomAlert.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				89A31F552ABF26930030EFFC /* UIImage+Icons.swift in Sources */,
 				680984622AC9EBCE00BC2563 /* TitleView.swift in Sources */,
 				680984642AC9EC2600BC2563 /* Product.swift in Sources */,
+				C89A7DD62ACC247C0095921C /* CustomAlert.swift in Sources */,
 				8932BEF72AC6C38800FBE9F9 /* PlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
