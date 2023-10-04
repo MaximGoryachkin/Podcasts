@@ -26,6 +26,7 @@ class PopularCollectionViewCell: UICollectionViewCell {
         view.text = "Baby Pesut"
         view.textAlignment = .left
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     

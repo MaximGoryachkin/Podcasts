@@ -9,7 +9,7 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "HomeCollectionViewCell"
+    static let identifier = "CategoryCollectionViewCell"
     
     let colorArray = [UIColor.customBlue, UIColor.customLightBlue, UIColor.peachPink, UIColor.seaBlue, UIColor.deepBlue, UIColor.backBlue, UIColor.seaGreen]
     let nameArray = ["Music and chill", "Social", "Comedy", "Sport", "Politics", "Fashion Trend", "Education", "Artificial Intellegence"]
@@ -56,7 +56,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         view.textAlignment = .center
         return view
     }()
-    
     
     func configure() {
         backgroundColor = .customLightBlue

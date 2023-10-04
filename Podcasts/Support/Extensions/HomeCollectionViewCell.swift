@@ -7,9 +7,9 @@
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class HomeCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "HomeTableViewCell"
+    static let identifier = "HomeCollectionViewCell"
     
     // MARK: - Properties
     
@@ -43,21 +43,12 @@ class HomeTableViewCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    func configure() {
+        
         contentView.addSubview(image)
         contentView.addSubview(labelStack)
         labelStack.addArrangedSubview(label)
         labelStack.addArrangedSubview(sublabel)
-        selectionStyle = .none
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
         
         NSLayoutConstraint.activate([
             image.heightAnchor.constraint(equalToConstant: 48),
@@ -69,15 +60,13 @@ class HomeTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             labelStack.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 10),
             labelStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            labelStack.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 5),
+            labelStack.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -32),
             labelStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
-    }
-    
-    public func configure(image: UIImage, label: String, sublabel: String) {
-        self.image.image = image
-        self.label.text = label
-        self.sublabel.text = sublabel
+        
+        self.image.image = .actions
+        self.label.text = "label"
+        self.sublabel.text = "sublabel"
     }
     
 }
