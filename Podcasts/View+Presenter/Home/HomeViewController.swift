@@ -125,28 +125,24 @@ private extension HomeViewController {
     
     dataSource.supplementaryViewProvider =  { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
       
-      if let titleSupplementayView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleSupplementaryView.reuseIdentifier, for: indexPath) as? TitleSupplementaryView {
-        let tutorialCollection = ["Category", "", ""]
+      guard let titleSupplementayView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleSupplementaryView.reuseIdentifier, for: indexPath) as? TitleSupplementaryView else { return UICollectionReusableView() }
+
         switch Section(rawValue: indexPath.section) {
         case .main:
-          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+          titleSupplementayView.textLabel.text = "Category"
           titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
           return titleSupplementayView
           
-        case .additinal:
-          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-          return titleSupplementayView
-          
-        case .all:
-          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-          return titleSupplementayView
-        case nil:
+//        case .additinal:
+//          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+//          return titleSupplementayView
+//
+//        case .all:
+//          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+//          return titleSupplementayView
+        default:
           return nil
         }
-        
-      } else {
-        return nil
-      }
     }
   }
 }
