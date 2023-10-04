@@ -144,7 +144,6 @@ class SearchViewController: UIViewController {
             loupe.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
             loupe.widthAnchor.constraint(equalToConstant: 24),
             
-            
             textField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
             textField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
             textField.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
@@ -175,18 +174,24 @@ class SearchViewController: UIViewController {
         ])
     }
     
-    @objc private func goToResult(){
-        let vc = ResultViewController()
-        vc.view.alpha = 0.0
-        addChild(vc)
-        vc.view.frame = self.view.bounds
-        self.view.addSubview(vc.view)
-        
-        UIView.animate(withDuration: 0.3) {
-            vc.view.alpha = 1.0
-        }
-        vc.didMove(toParent: self)
+//    @objc private func goToResult(){
+//        let vc = ResultViewController()
+//        vc.view.alpha = 0.0
+//        addChild(vc)
+//        vc.view.frame = self.view.bounds
+//        self.view.addSubview(vc.view)
+//        
+//        UIView.animate(withDuration: 0.3) {
+//            vc.view.alpha = 1.0
+//        }
+//        vc.didMove(toParent: self)
+//    }
+    
+    //!!!: Maybe here's better solution to function above.
+    @objc private func goToResult() {
+        navigationController?.pushViewController(ResultViewController(), animated: true)
     }
+
 }
 
 // MARK: - extension
