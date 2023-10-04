@@ -22,7 +22,7 @@ extension CustomTabBarController {
 // MARK: - flow funcs
     private func generateTabBar() {
         viewControllers = [
-        makeVC(vc: ViewController(), image: UIImage(named: "home/inactive"), selectedImage: UIImage(named: "home/active")),
+        makeVC(vc: HomeViewController(detailView: HomeView()), image: UIImage(named: "home/inactive"), selectedImage: UIImage(named: "home/active")),
         makeVC(vc: SearchViewController(), image: UIImage(named: "search/inactive"), selectedImage: UIImage(named: "search/active")),
         makeVC(vc: NavigationViewController(rootViewController: FavoriteViewController()), image: UIImage(named: "bookmark/inactive"), selectedImage: UIImage(named: "bookmark/active")),
         makeVC(vc: ProfileSettingViewController(), image: UIImage(named: "settings/inactive"), selectedImage: UIImage(named: "settings/active"))

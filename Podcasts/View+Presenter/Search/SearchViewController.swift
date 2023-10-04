@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
 // MARK: - properties
     private let searchLabel: UILabel = {
         let element = UILabel()
@@ -26,11 +26,9 @@ class SearchViewController: UIViewController {
         return element
     }()
     
-    private let textField: UITextField = {
-        let element = UITextField()
-        element.placeholder = "Podcast, chanel or artist"
-        element.clearButtonMode = .whileEditing
-        element.translatesAutoresizingMaskIntoConstraints = false
+    private let searchController: UISearchController = {
+        let element = UISearchController(searchResultsController: ResultViewController())
+        element.obscuresBackgroundDuringPresentation = true
         return element
     }()
     
@@ -96,11 +94,25 @@ class SearchViewController: UIViewController {
 // MARK: - life cycle func
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSearch()
         setCollection()
         setUpViews()
     }
     
 // MARK: - flow funcs
+    private func setSearch() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Podcast, channel or artist"
+        navigationItem.searchController = searchController
+        
+        searchController.searchBar.barTintColor = UIColor(red: 0.6557124077, green: 0.9678753018, blue: 0.9384237844, alpha: 1)
+        
+        if let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textFieldInsideSearchBar.textColor = .black
+        }
+    }
+    
     private func setCollection() {
         genresCollectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         genresCollectionView.delegate = self
@@ -118,17 +130,19 @@ class SearchViewController: UIViewController {
     private func setUpViews() {
         view.backgroundColor = .white
         view.addSubview(searchView)
-        searchView.addSubview(textField)
+        searchView.addSubview(searchController.searchBar)
         searchView.addSubview(loupe)
         view.addSubview(searchLabel)
         view.addSubview(genresLabel)
         view.addSubview(seeAllButton)
         view.addSubview(browseLabel)
-        setConstraints()
         seeAllButton.addTarget(self, action: #selector(goToResult), for: .touchUpInside)
+        view.bringSubviewToFront(searchController.searchBar)
+        setConstraints()
     }
     
     private func setConstraints() {
+        var searchBar = searchController.searchBar
         NSLayoutConstraint.activate([
             searchLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 58),
             searchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -144,11 +158,10 @@ class SearchViewController: UIViewController {
             loupe.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
             loupe.widthAnchor.constraint(equalToConstant: 24),
             
-            
-            textField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
-            textField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
-            textField.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
-            textField.trailingAnchor.constraint(equalTo: loupe.leadingAnchor, constant: -26),
+            searchController.searchBar.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
+            searchController.searchBar.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
+            searchController.searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
+            searchController.searchBar.trailingAnchor.constraint(equalTo: loupe.leadingAnchor, constant: -26),
             
             genresLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 198),
             genresLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
@@ -175,22 +188,25 @@ class SearchViewController: UIViewController {
         ])
     }
     
+    func updateSearchResults(for searchController: UISearchController) {
+    }
+    
     @objc private func goToResult(){
-        let vc = ResultViewController()
-        vc.view.alpha = 0.0
-        addChild(vc)
-        vc.view.frame = self.view.bounds
-        self.view.addSubview(vc.view)
-        
-        UIView.animate(withDuration: 0.3) {
-            vc.view.alpha = 1.0
-        }
-        vc.didMove(toParent: self)
+//        let vc = ResultViewController()
+//        vc.view.alpha = 0.0
+//        addChild(vc)
+//        vc.view.frame = self.view.bounds
+//        self.view.addSubview(vc.view)
+//
+//        UIView.animate(withDuration: 0.3) {
+//            vc.view.alpha = 1.0
+//        }
+//        vc.didMove(toParent: self)
     }
 }
 
 // MARK: - extension
-extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         24
     }
@@ -211,9 +227,9 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let cellWidth = Int((verticalCollectionView.frame.width - 17) / 2) // 17 - минимальный интервал между ячейками
-            let cellHeight = 84
-            return CGSize(width: cellWidth, height: cellHeight)
+        let cellWidth = Int((verticalCollectionView.frame.width - 17) / 2) // 17 - минимальный интервал между ячейками
+        let cellHeight = 84
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

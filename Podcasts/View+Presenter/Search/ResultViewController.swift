@@ -8,6 +8,8 @@
 import UIKit
 
 class ResultViewController: UIViewController {
+    var searchController: UISearchController?
+    
     private let resultLabel: UILabel = {
         let element = UILabel()
         element.text = "Search result"
@@ -71,6 +73,7 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+        hidesBottomBarWhenPushed = false
     }
     
     private func setUpViews() {
