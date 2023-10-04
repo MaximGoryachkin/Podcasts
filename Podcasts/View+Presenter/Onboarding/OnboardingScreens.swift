@@ -21,8 +21,16 @@ final class OnboardingScreens: UIView {
     lazy var circleImageView: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "firstImage")
-        element.layer.cornerRadius = 370 / 2
         element.clipsToBounds = true
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private lazy var labelsStackView: UIStackView = {
+        let element = UIStackView()
+        element.axis = .vertical
+        element.distribution = .fillEqually
+        element.alignment = .center
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -30,7 +38,6 @@ final class OnboardingScreens: UIView {
     private lazy var pageLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.boldFont, size: 34)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +47,6 @@ final class OnboardingScreens: UIView {
     private lazy var pageSubLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: Fonts.regularFont, size: 17)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +59,6 @@ final class OnboardingScreens: UIView {
         button.layer.backgroundColor = UIColor.white.cgColor
         button.setTitle("Next", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: Fonts.boldFont, size: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -64,7 +69,6 @@ final class OnboardingScreens: UIView {
         button.layer.backgroundColor = .none
         button.setTitle("Skip", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: Fonts.boldFont, size: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -74,7 +78,6 @@ final class OnboardingScreens: UIView {
         button.layer.cornerRadius = 20
         button.layer.backgroundColor = UIColor.deepBlue?.cgColor
         button.setTitle("Get Started", for: .normal)
-        button.titleLabel?.font = UIFont(name: Fonts.boldFont, size: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -84,12 +87,18 @@ final class OnboardingScreens: UIView {
         super.init(frame: frame)
         addSubview(blueView)
         addSubview(circleImageView)
-        blueView.addSubview(pageLabel)
-        blueView.addSubview(pageSubLabel)
+        blueView.addSubview(labelsStackView)
+        labelsStackView.addArrangedSubview(pageLabel)
+        labelsStackView.addArrangedSubview(pageSubLabel)
         blueView.addSubview(continueButton)
         blueView.addSubview(skipButton)
         blueView.addSubview(nextButton)
         setConstraints()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setFontSizes()
     }
     
     required init?(coder: NSCoder) {
@@ -117,29 +126,47 @@ final class OnboardingScreens: UIView {
         nextButton.isHidden = true
     }
     
+    //MARK: - Private Methods
+    private func setFontSizes() {
+        let scaleFactor: CGFloat = bounds.width / 375.0 // Set the reference screen width
+        
+        let pageLabelFontSize: CGFloat = 24.0 * scaleFactor
+        pageLabel.font = UIFont(name: Fonts.boldFont, size: pageLabelFontSize)
+        pageLabel.adjustsFontSizeToFitWidth = true
+        
+        let pageSubLabelFontSize: CGFloat = 16.0 * scaleFactor
+        pageSubLabel.font = UIFont(name: Fonts.regularFont, size: pageSubLabelFontSize)
+        pageSubLabel.adjustsFontSizeToFitWidth = true
+        
+        let buttonFontSize: CGFloat = 16.0 * scaleFactor
+        skipButton.titleLabel?.font = UIFont(name: Fonts.boldFont, size: buttonFontSize)
+        skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        continueButton.titleLabel?.font = UIFont(name: Fonts.boldFont, size: buttonFontSize)
+        continueButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        nextButton.titleLabel?.font = UIFont(name: Fonts.boldFont, size: buttonFontSize)
+        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
+    }
+    
     //MARK: - Constraints
     private func setConstraints() {
+        
         NSLayoutConstraint.activate([
             circleImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            circleImageView.heightAnchor.constraint(equalToConstant: 370),
-            circleImageView.widthAnchor.constraint(equalToConstant: 370),
-            circleImageView.topAnchor.constraint(equalTo: topAnchor, constant: 63),
+            circleImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 17),
+            circleImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
+            circleImageView.widthAnchor.constraint(equalTo: circleImageView.heightAnchor),
             
             blueView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 27),
             blueView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -27),
             blueView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -17),
-            blueView.heightAnchor.constraint(equalToConstant: 400),
-            blueView.widthAnchor.constraint(equalToConstant: 320),
+            blueView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
             
-            pageLabel.topAnchor.constraint(equalTo: blueView.topAnchor, constant: 30),
-            pageLabel.leadingAnchor.constraint(equalTo: blueView.leadingAnchor, constant: 30),
-            pageLabel.trailingAnchor.constraint(equalTo: blueView.trailingAnchor, constant: -30),
-            pageLabel.heightAnchor.constraint(equalToConstant: 140),
-            
-            pageSubLabel.topAnchor.constraint(equalTo: pageLabel.bottomAnchor, constant: 16),
-            pageSubLabel.leadingAnchor.constraint(equalTo: blueView.leadingAnchor, constant: 30),
-            pageSubLabel.trailingAnchor.constraint(equalTo: blueView.trailingAnchor, constant: -30),
-            pageSubLabel.heightAnchor.constraint(equalToConstant: 70),
+            labelsStackView.topAnchor.constraint(equalTo: blueView.topAnchor, constant: 17),
+            labelsStackView.leadingAnchor.constraint(equalTo: blueView.leadingAnchor, constant: 17),
+            labelsStackView.trailingAnchor.constraint(equalTo: blueView.trailingAnchor, constant: -17),
+            labelsStackView.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: -17),
             
             skipButton.bottomAnchor.constraint(equalTo: blueView.bottomAnchor, constant: -56),
             skipButton.leadingAnchor.constraint(equalTo: blueView.leadingAnchor, constant: 30),
@@ -154,7 +181,7 @@ final class OnboardingScreens: UIView {
             nextButton.bottomAnchor.constraint(equalTo: blueView.bottomAnchor, constant: -56),
             nextButton.trailingAnchor.constraint(equalTo: blueView.trailingAnchor, constant: -30),
             nextButton.widthAnchor.constraint(equalToConstant: 90),
-            nextButton.heightAnchor.constraint(equalToConstant: 58),
+            nextButton.heightAnchor.constraint(equalToConstant: 58)
         ])
     }
 }
