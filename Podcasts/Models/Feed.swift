@@ -8,20 +8,13 @@
 import Foundation
 
 struct Feed: Codable {
-    let id: Int?
-    let podcastGUID, medium, title: String?
-    let url, originalURL, link: String?
-    let description, author, ownerName: String?
-    let image, artwork: String?
-    let lastUpdateTime, lastCrawlTime, lastParseTime, lastGoodHTTPStatusTime: Int?
-    let lastHTTPStatus: Int?
-    let contentType: String?
-    let itunesID: Int?
-    let itunesType, generator, language: String?
-    let explicit: Bool?
-    let type, dead: Int?
-    let chash: String?
-    let episodeCount, crawlErrors, parseErrors: Int?
-    let categories: [String: String]?
-    let locked, imageURLHash: Int?
+    let artwork: String
+    let author: String
+    let categories: [String: String]
+    let description: String
+    let id: Int
+    let image: String
+    let title: String
+    let trendScore: Int
+    let url: String?
 }

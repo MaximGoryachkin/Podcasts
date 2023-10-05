@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Item {
+struct PodcastItem: Hashable {
     var title: String = ""
     var description: String = ""
     var url: String = ""

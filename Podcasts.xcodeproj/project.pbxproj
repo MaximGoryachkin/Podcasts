@@ -65,7 +65,8 @@
 		89A31F832AC307290030EFFC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F822AC307290030EFFC /* ViewModel.swift */; };
 		89A31F852AC307370030EFFC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F842AC307370030EFFC /* NetworkManager.swift */; };
 		89A31F872AC307EC0030EFFC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F862AC307EC0030EFFC /* DataManager.swift */; };
-		89A31F892AC30F760030EFFC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F882AC30F760030EFFC /* Item.swift */; };
+		89A31F892AC30F760030EFFC /* PodcastItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A31F882AC30F760030EFFC /* PodcastItem.swift */; };
+		89C3325F2ACDAE6F00508F6E /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C3325E2ACDAE6F00508F6E /* ChannelTableViewCell.swift */; };
 		C8E4E7EA2AC43B7800903385 /* ProfileSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4E7E92AC43B7800903385 /* ProfileSetting.swift */; };
 		C8E4E7EC2AC45CCF00903385 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4E7EB2AC45CCF00903385 /* ProfileSettingViewController.swift */; };
 		C8E4E7EE2AC4661600903385 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E4E7ED2AC4661600903385 /* SettingsCell.swift */; };
@@ -128,7 +129,8 @@
 		89A31F822AC307290030EFFC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		89A31F842AC307370030EFFC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		89A31F862AC307EC0030EFFC /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		89A31F882AC30F760030EFFC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		89A31F882AC30F760030EFFC /* PodcastItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastItem.swift; sourceTree = "<group>"; };
+		89C3325E2ACDAE6F00508F6E /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelTableViewCell.swift; path = "Podcasts/View+Presenter/Home/ChannelTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		C8E4E7E92AC43B7800903385 /* ProfileSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetting.swift; sourceTree = "<group>"; };
 		C8E4E7EB2AC45CCF00903385 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		C8E4E7ED2AC4661600903385 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -382,7 +384,7 @@
 				89934CB42AC49BDE0016B0F0 /* Feed.swift */,
 				89934CB62AC49D4A0016B0F0 /* Episode.swift */,
 				89A31F822AC307290030EFFC /* ViewModel.swift */,
-				89A31F882AC30F760030EFFC /* Item.swift */,
+				89A31F882AC30F760030EFFC /* PodcastItem.swift */,
 				8909D1F62ACB0D7500B3A456 /* PodcastAPI.swift */,
 			);
 			path = Models;
@@ -410,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				8909D1D92AC862DF00B3A456 /* ChannelViewController.swift */,
+				89C3325E2ACDAE6F00508F6E /* ChannelTableViewCell.swift */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -529,13 +532,14 @@
 				89A31F852AC307370030EFFC /* NetworkManager.swift in Sources */,
 				89934CB52AC49BDE0016B0F0 /* Feed.swift in Sources */,
 				6DA8BBF82AC7130D005C64DB /* TableViewCell.swift in Sources */,
+				89C3325F2ACDAE6F00508F6E /* ChannelTableViewCell.swift in Sources */,
 				8909D1D82AC8552E00B3A456 /* NavigationViewController.swift in Sources */,
 				89A31EBC2ABF084F0030EFFC /* AppDelegate.swift in Sources */,
 				680984702AC9F1A100BC2563 /* NSCollection+Extention.swift in Sources */,
 				680984662AC9EE4700BC2563 /* CategoryCell.swift in Sources */,
 				6809846C2AC9EFF900BC2563 /* PodcastType.swift in Sources */,
 				8909D1F92ACB0DC400B3A456 /* Podcasts.swift in Sources */,
-				89A31F892AC30F760030EFFC /* Item.swift in Sources */,
+				89A31F892AC30F760030EFFC /* PodcastItem.swift in Sources */,
 				89A31F422ABF1A450030EFFC /* UIFont+Manrope.swift in Sources */,
 				6DA8BBEE2AC57012005C64DB /* CustomTabBarController.swift in Sources */,
 				8909D1DA2AC862DF00B3A456 /* ChannelViewController.swift in Sources */,
@@ -715,6 +719,7 @@
 				DEVELOPMENT_TEAM = WV9SZ4237Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Podcasts/Support/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -746,6 +751,7 @@
 				DEVELOPMENT_TEAM = WV9SZ4237Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Podcasts/Support/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

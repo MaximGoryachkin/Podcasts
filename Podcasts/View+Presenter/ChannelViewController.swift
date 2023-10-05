@@ -9,6 +9,8 @@ import UIKit
 
 class ChannelViewController: UIViewController {
     
+    var items = [PodcastItem]()
+    
     private lazy var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -86,7 +88,7 @@ class ChannelViewController: UIViewController {
         addSubviews(stack: subtitleStackView, views: numberEpisodesLabel, separatorImage, autorNameLabel)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "ChannelTableViewCell")
+        tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
         setupUI()
         navigationItem.title = "Channel"
         // Do any additional setup after loading the view.
@@ -135,11 +137,12 @@ class ChannelViewController: UIViewController {
 
 extension ChannelViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelTableViewCell", for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ChannelTableViewCell.identifier, for: indexPath) as! ChannelTableViewCell
+        cell.configure(with: items[indexPath.row])
         return cell
     }
     

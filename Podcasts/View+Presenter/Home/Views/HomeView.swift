@@ -10,9 +10,12 @@ import UIKit
 protocol HomeViewProtocol: UIView {
   var collectionView: UICollectionView { get }
   var titleView: UIView { get }
+    var podcasts: [Podcast]! { get set }
 }
 
 final class HomeView: UIView, HomeViewProtocol {
+    
+    var podcasts: [Podcast]!
   
   let collectionView = makeCollectionView()
   let titleView = makeView()
@@ -168,4 +171,10 @@ private extension HomeView {
       collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
     ])
   }
+}
+
+extension HomeView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
 }
