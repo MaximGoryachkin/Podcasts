@@ -8,11 +8,12 @@
 import UIKit
 
 class CustomAlert: UIViewController {
-    
+    // MARK: - Constants
     struct Constants{
         static let backgroundAlpha: CGFloat = 0.8
     }
     
+    // MARK: - Views
     private let backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -44,7 +45,8 @@ class CustomAlert: UIViewController {
         return stack
     }()
     
-    private let takePhotoButton: UIButton = {
+    // MARK: - Buttons
+     let takePhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("    Take a photo", for: .normal)
         button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
@@ -54,7 +56,7 @@ class CustomAlert: UIViewController {
         return button
     }()
     
-    private let chooseButton: UIButton = {
+     let chooseFromYourFileButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("    Choose from your file", for: .normal)
         button.setImage(UIImage(systemName: "folder.fill"), for: .normal)
@@ -63,7 +65,7 @@ class CustomAlert: UIViewController {
         return button
     }()
     
-    private let deleteButton: UIButton = {
+     let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("     Delete Photo", for: .normal)
         button.setImage(UIImage(systemName: "trash.fill"), for: .normal)
@@ -72,24 +74,29 @@ class CustomAlert: UIViewController {
         return button
     }()
     
+    // MARK: - Properties
+    private var myTargetView: UIView?
     
-    
-    func showAlert(viewController: UIViewController){
+    // MARK: - Public Methods
+    func showAlert(viewController: UIViewController) {
+        guard let targetView = viewController.view else {
+            return
+        }
         
-        guard let targetView = viewController.view else {return}
-        
+        myTargetView = targetView
+        // Set up background view
         backgroundView.frame = targetView.bounds
         targetView.addSubview(backgroundView)
         
-        alertView.frame = CGRect(x: 30, y: 180, width: 328, height: 340)
+        // Set up alert view
+        alertView.frame = CGRect(x: (targetView.bounds.width - 328) / 2, y: targetView.bounds.height, width: 328, height: 340)
         targetView.addSubview(alertView)
         
-        
-        label.frame = CGRect(x: (328 - alertView.frame.width) / 2 , y: 40, width: alertView.frame.width, height: 40)
+        // Set up label
+        label.frame = CGRect(x: (328 - alertView.frame.width) / 2, y: 40, width: alertView.frame.width, height: 40)
         alertView.addSubview(label)
         
-        // MARK: - adding a separator
-        
+        // Add separator
         let separatorView = UIView()
         separatorView.backgroundColor = UIColor.gray
         separatorView.alpha = 0.3
@@ -98,25 +105,25 @@ class CustomAlert: UIViewController {
         separatorView.frame = CGRect(x: 0, y: 100, width: separatorWidth, height: separatorHeight)
         alertView.addSubview(separatorView)
         
-        // MARK: - setup and adding button
-        
+        // MARK: - Setup and adding button
         setupButton(takePhotoButton)
-        setupButton(chooseButton)
+        setupButton(chooseFromYourFileButton)
         setupButton(deleteButton)
+        
         stackView.addArrangedSubview(takePhotoButton)
-        stackView.addArrangedSubview(chooseButton)
+        stackView.addArrangedSubview(chooseFromYourFileButton)
         stackView.addArrangedSubview(deleteButton)
         
-        stackView.frame = CGRect(x: 20, y: 120, width: alertView.frame.width-40, height: 200)
+        stackView.frame = CGRect(x: 20, y: 120, width: alertView.frame.width - 40, height: 200)
         alertView.addSubview(stackView)
-        
-        
         
         UIView.animate(withDuration: 0.3) {
             self.backgroundView.alpha = Constants.backgroundAlpha
+        } completion: { (_) in
+            UIView.animate(withDuration: 0.3) {
+                self.alertView.center = targetView.center
+            }
         }
-        
-//        takePhotoButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
     }
     
     
@@ -131,21 +138,37 @@ class CustomAlert: UIViewController {
         button.layer.cornerRadius = 10
     }
     
-    @objc func chooseImagePickerButton(sender: UIButton){
-        print("chooseImagePickerButton")
-    }
-}
-
-
-extension CustomAlert {
     
-    func chooseImagePicker(source: UIImagePickerController.SourceType){
+    // MARK: - Hide Alert
+    
+      func hideAlert() {
+        guard let targetView = myTargetView else { return }
         
-        if UIImagePickerController.isSourceTypeAvailable(source){
-            let imagePicker = UIImagePickerController()
-            imagePicker.allowsEditing = true
-            imagePicker.sourceType = source
-            present(imagePicker, animated: true)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundView.alpha = 0
+            self.alertView.center = targetView.center
+        }) { (_) in
+            self.backgroundView.removeFromSuperview()
+            self.alertView.removeFromSuperview()
         }
     }
+    
+    func addTapGestureToHideAlert() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        backgroundView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        let point = gesture.location(in: backgroundView)
+        if !alertView.frame.contains(point) {
+            hideAlert()
+        }
+    }
+    
 }
+
+
+
+
+
+
