@@ -114,7 +114,7 @@ private extension HomeViewController {
 }
 
 private extension HomeViewController {
-
+  
   func productListDidLoad(_ list: ProductList, _ podcast: PodcastList) {
     var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
     snapshot.appendSections(Section.allCases)
@@ -127,24 +127,25 @@ private extension HomeViewController {
     dataSource.supplementaryViewProvider =  { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
       
       guard let titleSupplementayView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleSupplementaryView.reuseIdentifier, for: indexPath) as? TitleSupplementaryView else { return UICollectionReusableView() }
-
-        switch Section(rawValue: indexPath.section) {
-        case .main:
-          titleSupplementayView.textLabel.text = "Category"
-          titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
-          return titleSupplementayView
-          
-//        case .additinal:
-//          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-//          return titleSupplementayView
-//
-//        case .all:
-//          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-//          return titleSupplementayView
-        default:
-          return nil
-        }
+      
+      switch Section(rawValue: indexPath.section) {
+      case .main:
+        titleSupplementayView.textLabel.text = "Category"
+        titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
+        return titleSupplementayView
+        
+        //        case .additinal:
+        //          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+        //          return titleSupplementayView
+        //
+        //        case .all:
+        //          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
+        //          return titleSupplementayView
+      default:
+        return nil
+      }
     }
+  }
 }
 
 
