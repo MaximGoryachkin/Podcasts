@@ -140,10 +140,20 @@ class RegisterViewController: UIViewController {
     
     // MARK: - Selectors
     @objc private func didTapContinue() {
+        // Email check
+        if !Validator.isValidEmail(for: self.emailField.text ?? "") {
+            AlertManager.showInvalidEmailAlert(on: self)
+            return
+        }
+        
+        let vc = CompleteAccountViewController()
+        vc.emailText = self.emailField.text ?? ""
+        navigationController?.pushViewController(vc, animated: true)
         print("DEBUG PRINT:", "didTapContinue")
     }
     
     @objc private func didTapLogin() {
+        self.navigationController?.popToRootViewController(animated: true)
         print("DEBUG PRINT:", "didTapLogin")
     }
 

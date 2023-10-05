@@ -11,6 +11,13 @@
 		0F15838C2AC6E73C00EF3A45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15838B2AC6E73C00EF3A45 /* RegisterViewController.swift */; };
 		0F15838E2AC6EB8900EF3A45 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */; };
 		0F1583922AC71F7B00EF3A45 /* CompleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583912AC71F7B00EF3A45 /* CompleteAccountViewController.swift */; };
+		0F1583942ACD89E500EF3A45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F1583932ACD89E400EF3A45 /* GoogleService-Info.plist */; };
+		0F1583962ACD993100EF3A45 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583952ACD993100EF3A45 /* AuthService.swift */; };
+		0F1583982ACD9C5A00EF3A45 /* RegiserUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583972ACD9C5900EF3A45 /* RegiserUserRequest.swift */; };
+		0F15839B2ACDA91B00EF3A45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0F15839A2ACDA91B00EF3A45 /* FirebaseFirestore */; };
+		0F15839D2ACDAA5700EF3A45 /* LoginUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15839C2ACDAA5700EF3A45 /* LoginUserRequest.swift */; };
+		0F15839F2ACDB65800EF3A45 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15839E2ACDB65800EF3A45 /* Validator.swift */; };
+		0F1583A12ACEF64600EF3A45 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583A02ACEF64500EF3A45 /* AlertManager.swift */; };
 		372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60102AC415E50078FFB3 /* OnboardingScreens.swift */; };
 		372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60122AC416750078FFB3 /* OnboardingViewController.swift */; };
 		6809845E2AC9EAC700BC2563 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809845D2AC9EAC700BC2563 /* HomeViewController.swift */; };
@@ -76,6 +83,12 @@
 		0F15838B2AC6E73C00EF3A45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = "Podcasts/View+Presenter/Register/RegisterViewController.swift"; sourceTree = SOURCE_ROOT; };
 		0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0F1583912AC71F7B00EF3A45 /* CompleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAccountViewController.swift; sourceTree = "<group>"; };
+		0F1583932ACD89E400EF3A45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0F1583952ACD993100EF3A45 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		0F1583972ACD9C5900EF3A45 /* RegiserUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiserUserRequest.swift; sourceTree = "<group>"; };
+		0F15839C2ACDAA5700EF3A45 /* LoginUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRequest.swift; sourceTree = "<group>"; };
+		0F15839E2ACDB65800EF3A45 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		0F1583A02ACEF64500EF3A45 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		372E60102AC415E50078FFB3 /* OnboardingScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreens.swift; sourceTree = "<group>"; };
 		372E60122AC416750078FFB3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		6809845D2AC9EAC700BC2563 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +155,7 @@
 				89A31F7E2AC200820030EFFC /* Kingfisher in Frameworks */,
 				89A31F772AC1663C0030EFFC /* RealmSwift in Frameworks */,
 				89A31F752AC1663C0030EFFC /* Realm in Frameworks */,
+				0F15839B2ACDA91B00EF3A45 /* FirebaseFirestore in Frameworks */,
 				89A31F582ABF30610030EFFC /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +163,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1583992ACDA91B00EF3A45 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		680984732AC9F21000BC2563 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +214,7 @@
 			children = (
 				89A31EBA2ABF084F0030EFFC /* Podcasts */,
 				89A31EB92ABF084F0030EFFC /* Products */,
+				0F1583992ACDA91B00EF3A45 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +246,7 @@
 				89A31EC72ABF08500030EFFC /* Assets.xcassets */,
 				89A31EC92ABF08500030EFFC /* LaunchScreen.storyboard */,
 				89A31ECC2ABF08500030EFFC /* Info.plist */,
+				0F1583932ACD89E400EF3A45 /* GoogleService-Info.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -260,6 +283,8 @@
 		89A31F592ABF31220030EFFC /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				0F15839E2ACDB65800EF3A45 /* Validator.swift */,
+				0F1583972ACD9C5900EF3A45 /* RegiserUserRequest.swift */,
 				0F15838B2AC6E73C00EF3A45 /* RegisterViewController.swift */,
 				0F1583912AC71F7B00EF3A45 /* CompleteAccountViewController.swift */,
 			);
@@ -269,8 +294,10 @@
 		89A31F5A2ABF31710030EFFC /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				0F1583952ACD993100EF3A45 /* AuthService.swift */,
 				0F1583892AC4CEC800EF3A45 /* LoginViewController.swift */,
 				0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */,
+				0F15839C2ACDAA5700EF3A45 /* LoginUserRequest.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -371,6 +398,7 @@
 			children = (
 				89A31F842AC307370030EFFC /* NetworkManager.swift */,
 				89A31F862AC307EC0030EFFC /* DataManager.swift */,
+				0F1583A02ACEF64500EF3A45 /* AlertManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -452,6 +480,7 @@
 				89A31F742AC1663C0030EFFC /* Realm */,
 				89A31F762AC1663C0030EFFC /* RealmSwift */,
 				89A31F7D2AC200820030EFFC /* Kingfisher */,
+				0F15839A2ACDA91B00EF3A45 /* FirebaseFirestore */,
 			);
 			productName = Podcasts;
 			productReference = 89A31EB82ABF084F0030EFFC /* Podcasts.app */;
@@ -502,6 +531,7 @@
 			files = (
 				8909D1D52AC8512900B3A456 /* Manrope-Regular.ttf in Resources */,
 				8909D1D62AC8512B00B3A456 /* Manrope-Bold.ttf in Resources */,
+				0F1583942ACD89E500EF3A45 /* GoogleService-Info.plist in Resources */,
 				8909D1D42AC8512600B3A456 /* Assets.xcassets in Resources */,
 				8909D1D32AC8512400B3A456 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -527,6 +557,7 @@
 				89A31EC02ABF084F0030EFFC /* ViewController.swift in Sources */,
 				89A31F832AC307290030EFFC /* ViewModel.swift in Sources */,
 				89A31F852AC307370030EFFC /* NetworkManager.swift in Sources */,
+				0F1583962ACD993100EF3A45 /* AuthService.swift in Sources */,
 				89934CB52AC49BDE0016B0F0 /* Feed.swift in Sources */,
 				6DA8BBF82AC7130D005C64DB /* TableViewCell.swift in Sources */,
 				8909D1D82AC8552E00B3A456 /* NavigationViewController.swift in Sources */,
@@ -539,10 +570,12 @@
 				89A31F422ABF1A450030EFFC /* UIFont+Manrope.swift in Sources */,
 				6DA8BBEE2AC57012005C64DB /* CustomTabBarController.swift in Sources */,
 				8909D1DA2AC862DF00B3A456 /* ChannelViewController.swift in Sources */,
+				0F1583A12ACEF64600EF3A45 /* AlertManager.swift in Sources */,
 				8932BEF92AC6C78400FBE9F9 /* CustomPlayerButton.swift in Sources */,
 				8909D1F72ACB0D7500B3A456 /* PodcastAPI.swift in Sources */,
 				89A31F402ABF174D0030EFFC /* UIImage+Onboarding.swift in Sources */,
 				680984722AC9F1DF00BC2563 /* TitleSupplementaryView.swift in Sources */,
+				0F15839F2ACDB65800EF3A45 /* Validator.swift in Sources */,
 				680984602AC9EB7C00BC2563 /* HomeView.swift in Sources */,
 				89A31EBE2ABF084F0030EFFC /* SceneDelegate.swift in Sources */,
 				6809845E2AC9EAC700BC2563 /* HomeViewController.swift in Sources */,
@@ -569,9 +602,11 @@
 				372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */,
 				0F15838A2AC4CEC800EF3A45 /* LoginViewController.swift in Sources */,
 				89A31F552ABF26930030EFFC /* UIImage+Icons.swift in Sources */,
+				0F1583982ACD9C5A00EF3A45 /* RegiserUserRequest.swift in Sources */,
 				680984622AC9EBCE00BC2563 /* TitleView.swift in Sources */,
 				680984642AC9EC2600BC2563 /* Product.swift in Sources */,
 				8932BEF72AC6C38800FBE9F9 /* PlayerViewController.swift in Sources */,
+				0F15839D2ACDAA5700EF3A45 /* LoginUserRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,6 +853,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0F15839A2ACDA91B00EF3A45 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89A31F562ABF30610030EFFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		89A31F572ABF30610030EFFC /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 89A31F562ABF30610030EFFC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
