@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        // Setting the UserDefaults
+        //         Setting the UserDefaults
         let onboardingShown = UserDefaults.standard.bool(forKey: "OnboardingShown")
         
         if !onboardingShown {
@@ -25,9 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             // Set the root view controller to MainVC
             //FIXME: change to main view controller after such will be ready
-            window.rootViewController = AccountViewController()
+            window.rootViewController = UINavigationController(rootViewController: CustomTabBarController())
         }
-
         window.makeKeyAndVisible()
         self.window = window
     }

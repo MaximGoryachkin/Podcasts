@@ -79,7 +79,7 @@ private extension HomeView {
 //    ))
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
+    item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
     
     //Each group will then take up the entire available
     //width, and set its height to half of that width, to
@@ -94,7 +94,7 @@ private extension HomeView {
     )
     
     let section = NSCollectionLayoutSection(group: group)
-    section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0)
+    section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
     
     let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
     let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
@@ -122,13 +122,6 @@ private extension HomeView {
       let section = NSCollectionLayoutSection(group: group)
       section.orthogonalScrollingBehavior = .continuous
       section.contentInsets = .init(top: 10, leading: 0, bottom: 10, trailing: 0)
-      
-      let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-          layoutSize: .headerSize,
-          elementKind: UICollectionView.elementKindSectionHeader,
-          alignment: .topLeading
-      )
-      section.boundarySupplementaryItems = [sectionHeader]
       return section
   }
   
@@ -153,10 +146,6 @@ private extension HomeView {
     let section = NSCollectionLayoutSection(group: group)
     
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 20, trailing: 10)
-    
-    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-    let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
-    section.boundarySupplementaryItems = [sectionHeader]
     return section
   }
   
