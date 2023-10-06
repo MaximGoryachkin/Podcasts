@@ -147,6 +147,5 @@ private extension HomeViewController {
         }
     }
   }
-}
 
 
