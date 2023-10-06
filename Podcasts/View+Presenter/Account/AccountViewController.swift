@@ -14,6 +14,7 @@ class AccountViewController: UIViewController {
     }
     
     private var isMale = true
+    private let customAlert = CustomAlert()
     
     private lazy var scroolView: UIScrollView = {
         let view = UIScrollView()
@@ -43,9 +44,21 @@ class AccountViewController: UIViewController {
     private lazy var profileImage: UIImageView = {
         let view = UIImageView()
         view.image = .checkmark
+        view.layer.cornerRadius = 50
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private lazy var photoSelectionAlertButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.setTitle("", for: .normal)
+            button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+            button.layer.cornerRadius = 50
+            button.clipsToBounds = true
+            button.translatesAutoresizingMaskIntoConstraints = false
+            return button
+        }()
     
     private lazy var firstLabel: UILabel = {
         let view = UILabel()
@@ -164,12 +177,20 @@ class AccountViewController: UIViewController {
         view.addSubview(scroolView)
         scroolView.addSubview(contentView)
         contentView.addSubview(profileImage)
+        contentView.addSubview(photoSelectionAlertButton)
         contentView.addSubview(mainStack)
         addSubviews(main: mainStack, views: firstLabel, firstTextField, lastLabel, lastTextField, emailLabel, emailTextField, birthLabel, birthTextField, genderLabel, buttonStack)
         addSubviews(main: buttonStack, views: maleButton, femaleButton)
         view.addSubview(saveButton)
         setupUI()
         setupDatePicker()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+                view.addGestureRecognizer(tapGesture)
+        
+        customAlert.takePhotoButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
+        customAlert.chooseFromYourFileButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
+        customAlert.deleteButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
     }
     
     private func addSubviews(views: UIView...) {
@@ -190,6 +211,13 @@ class AccountViewController: UIViewController {
             profileImage.widthAnchor.constraint(equalToConstant: 100),
             profileImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
             profileImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            photoSelectionAlertButton.heightAnchor.constraint(equalToConstant: 100),
+            photoSelectionAlertButton.widthAnchor.constraint(equalToConstant: 100),
+            photoSelectionAlertButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
+            photoSelectionAlertButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -243,6 +271,29 @@ class AccountViewController: UIViewController {
             
         }
     }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    
+    @objc func chooseImagePickerButton(sender: UIButton) {
+        if sender == customAlert.takePhotoButton {
+                chooseImagePicker(source: .camera)
+        } else if sender == customAlert.chooseFromYourFileButton {
+                chooseImagePicker(source: .photoLibrary)
+        }else if sender == customAlert.deleteButton {
+            profileImage.image = .checkmark
+            customAlert.hideAlert()
+        }
+    }
+    
+    
+    
+    @objc func showAlert() {
+        customAlert.showAlert(viewController: self)
+        customAlert.addTapGestureToHideAlert()
+    }
 //
 //    @objc func femaleGenderBubbotPressed() {
 //        let button = femaleButton as! CustomButton
@@ -255,9 +306,29 @@ class AccountViewController: UIViewController {
         
     }
     
-}
-
-
-extension AccountViewController: UIPickerViewDelegate {
+    func chooseImagePicker(source: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(source) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = source
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
     
 }
+
+extension AccountViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            profileImage.image = selectedImage
+            customAlert.hideAlert()
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
