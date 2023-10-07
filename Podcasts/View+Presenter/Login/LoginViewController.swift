@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "E-mail"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,15 +66,29 @@ class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     } ()
+    
+    private let eyeButton = EyeButton()
+    
+    private var isPrivate = true
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
-        
-        self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
-        self.newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
+        setupTF()
+        signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
+        eyeButton.addTarget(self, action: #selector(displayBookMarks), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupTF() {
+        emailField.delegate = self
+        passwordField.delegate = self
+        passwordField.rightView = eyeButton
+        passwordField.rightViewMode = .always
     }
 
     // MARK: - UI Setup
@@ -84,6 +98,7 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordLabel)
         view.addSubview(passwordField)
         view.addSubview(signInButton)
+        
         newUserStack.addArrangedSubview(newUserLabel)
         newUserStack.addArrangedSubview(newUserButton)
         view.addSubview(newUserStack)
@@ -153,4 +168,23 @@ class LoginViewController: UIViewController {
         print("DEBUG PRINT:", "didTapNewUser")
     }
     
+    @objc private func displayBookMarks() {
+        let imageName = isPrivate ? "hide" : "eye"
+        
+        passwordField.isSecureTextEntry.toggle()
+        eyeButton.setImage(UIImage(named: imageName), for: .normal)
+        isPrivate.toggle()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+}
+
+extension LoginViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

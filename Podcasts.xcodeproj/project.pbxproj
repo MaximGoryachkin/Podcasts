@@ -17,6 +17,7 @@
 		0F15839D2ACDAA5700EF3A45 /* LoginUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15839C2ACDAA5700EF3A45 /* LoginUserRequest.swift */; };
 		0F15839F2ACDB65800EF3A45 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F15839E2ACDB65800EF3A45 /* Validator.swift */; };
 		0F1583A12ACEF64600EF3A45 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1583A02ACEF64500EF3A45 /* AlertManager.swift */; };
+		0F8167F52AD1DF0400499F0D /* EyeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8167F42AD1DF0400499F0D /* EyeButton.swift */; };
 		372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60102AC415E50078FFB3 /* OnboardingScreens.swift */; };
 		372E60132AC416750078FFB3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E60122AC416750078FFB3 /* OnboardingViewController.swift */; };
 		6809845E2AC9EAC700BC2563 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809845D2AC9EAC700BC2563 /* HomeViewController.swift */; };
@@ -90,6 +91,7 @@
 		0F15839C2ACDAA5700EF3A45 /* LoginUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRequest.swift; sourceTree = "<group>"; };
 		0F15839E2ACDB65800EF3A45 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		0F1583A02ACEF64500EF3A45 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		0F8167F42AD1DF0400499F0D /* EyeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeButton.swift; sourceTree = "<group>"; };
 		372E60102AC415E50078FFB3 /* OnboardingScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreens.swift; sourceTree = "<group>"; };
 		372E60122AC416750078FFB3 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		6809845D2AC9EAC700BC2563 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0F8167F62AD1EDD800499F0D /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		680984732AC9F21000BC2563 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +265,7 @@
 				89A31F3C2ABF0FCC0030EFFC /* Extensions */,
 				89A31ED32ABF0ACD0030EFFC /* Fonts */,
 				89A31EC72ABF08500030EFFC /* Assets.xcassets */,
+				0F8167F62AD1EDD800499F0D /* New Group */,
 				89A31EC92ABF08500030EFFC /* LaunchScreen.storyboard */,
 				89A31ECC2ABF08500030EFFC /* Info.plist */,
 				89C332602ACFF77A00508F6E /* GoogleService-Info.plist */,
@@ -310,6 +320,7 @@
 				0F1583892AC4CEC800EF3A45 /* LoginViewController.swift */,
 				0F15838D2AC6EB8800EF3A45 /* CustomTextField.swift */,
 				0F15839C2ACDAA5700EF3A45 /* LoginUserRequest.swift */,
+				0F8167F42AD1DF0400499F0D /* EyeButton.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -555,6 +566,7 @@
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,
 				8909D1DE2AC8884000B3A456 /* Globals.swift in Sources */,
 				6DA8BBF02AC5A749005C64DB /* SearchViewController.swift in Sources */,
+				0F8167F52AD1DF0400499F0D /* EyeButton.swift in Sources */,
 				6DA8BBF42AC6CD4F005C64DB /* CollectionViewCell.swift in Sources */,
 				896777912AC709F5003A1BFC /* PlayerCell.swift in Sources */,
 				372E60112AC415E50078FFB3 /* OnboardingScreens.swift in Sources */,

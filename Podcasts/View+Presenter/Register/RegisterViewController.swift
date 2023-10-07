@@ -43,7 +43,7 @@ class RegisterViewController: UIViewController {
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +90,11 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .customBlue
         
+        emailField.delegate = self
         setupUI()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
         
         self.continueButton.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
         self.loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
@@ -156,5 +160,16 @@ class RegisterViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
         print("DEBUG PRINT:", "didTapLogin")
     }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 
+}
+
+extension RegisterViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

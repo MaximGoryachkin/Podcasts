@@ -9,8 +9,11 @@ import UIKit
 
 class CompleteAccountViewController: UIViewController {
     
-    var emailText = ""
+    private var passwordIsPrivate = true
+    private var confirmPassword = true
     
+    var emailText = ""
+
     // MARK: - UI Components
     
     private let titleLabel: UILabel = {
@@ -25,7 +28,7 @@ class CompleteAccountViewController: UIViewController {
     private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Lorem ipsum dolor sit amet"
-        label.textColor = .gray
+        label.textColor = UIColor(named: "subtitleTextColor")
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +38,7 @@ class CompleteAccountViewController: UIViewController {
     private let firstNameLabel: UILabel = {
         let label = UILabel()
         label.text = "First Name"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +50,7 @@ class CompleteAccountViewController: UIViewController {
     private let lastNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Last Name"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +62,7 @@ class CompleteAccountViewController: UIViewController {
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +74,7 @@ class CompleteAccountViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +86,7 @@ class CompleteAccountViewController: UIViewController {
     private let confirmPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "Confirm Password"
-        label.textColor = .gray
+        label.textColor = .labelTextTextColor
         label.font = .manropeRegular14
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -124,6 +127,10 @@ class CompleteAccountViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     } ()
+    
+    private let passwordEyeButton = EyeButton()
+    private let confirmPasswordEyeButton = EyeButton()
+
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -132,12 +139,35 @@ class CompleteAccountViewController: UIViewController {
         self.navigationItem.title = "Sign Up"
         let backButtonImage = UIImage(named: "customBackButtonImage")
         let customBackButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+        customBackButton.tintColor = .black
         self.navigationItem.leftBarButtonItem = customBackButton
-        emailField.text = emailText
         setupUI()
+        setupTF()
+        
+        passwordEyeButton.addTarget(self, action: #selector(passwordEyeButtonPressed), for: .touchUpInside)
+        confirmPasswordEyeButton.addTarget(self, action: #selector(confirmPasswordEyeButtonPressed), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
         
         self.signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
         self.loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+    }
+    
+    func setupTF() {
+        firstNameField.delegate = self
+        
+        lastNameField.delegate = self
+        
+        emailField.text = emailText
+        emailField.delegate = self
+        
+        passwordField.delegate = self
+        passwordField.rightView = passwordEyeButton
+        passwordField.rightViewMode = .always
+        
+        confirmPasswordField.delegate = self
+        confirmPasswordField.rightView = confirmPasswordEyeButton
+        confirmPasswordField.rightViewMode = .always
     }
     
     // MARK: - UI Setup
@@ -282,5 +312,32 @@ class CompleteAccountViewController: UIViewController {
     
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func passwordEyeButtonPressed() {
+        let imageName = passwordIsPrivate ? "hide" : "eye"
+        
+        passwordField.isSecureTextEntry.toggle()
+        passwordEyeButton.setImage(UIImage(named: imageName), for: .normal)
+        passwordIsPrivate.toggle()
+    }
+    
+    @objc private func confirmPasswordEyeButtonPressed() {
+        let imageName = confirmPassword ? "hide" : "eye"
+        
+        passwordField.isSecureTextEntry.toggle()
+        confirmPasswordEyeButton.setImage(UIImage(named: imageName), for: .normal)
+        confirmPassword.toggle()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+extension CompleteAccountViewController: UITextFieldDelegate, UIGestureRecognizerDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
