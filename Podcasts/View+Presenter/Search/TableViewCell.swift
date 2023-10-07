@@ -84,9 +84,4 @@ class TableViewCell: UITableViewCell {
         mainView.addSubview(podcastName)
         mainView.addSubview(shortInfo)
     }
-    
-    func updateLayer() {
-        print(avatarView.bounds)
-        Globals.changeLayer(of: avatarView)
-    }
 }

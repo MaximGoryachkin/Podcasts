@@ -10,6 +10,8 @@ import UIKit
 class ResultViewController: UIViewController {
     var searchController: UISearchController?
     
+    var searchTerm = ""
+    
     private let resultLabel: UILabel = {
         let element = UILabel()
         element.text = "Search result"
@@ -74,6 +76,10 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         hidesBottomBarWhenPushed = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func setUpViews() {
