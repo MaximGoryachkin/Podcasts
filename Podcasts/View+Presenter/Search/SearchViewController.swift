@@ -7,9 +7,19 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate {
 // MARK: - properties
     var searchInput: String = ""
+    
+    private let searchView: UIView = {
+        let element = UIView()
+        element.layer.cornerRadius = 16
+        element.backgroundColor = .white
+        element.layer.borderColor = UIColor.lightGray.cgColor
+        element.layer.borderWidth = 0.4
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
     
     private let genresLabel: UILabel = {
         let element = UILabel()
@@ -60,58 +70,83 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
         return element
     }()
     
-    private let customNavBar = UINavigationBar()
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchBar: UISearchBar = {
+        let element = UISearchBar()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+//    private let customNavBar = UINavigationBar()
+//    let searchController = UISearchController(searchResultsController: nil)
     
 // MARK: - life cycle func
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavBar()
+        setupNavBar()
+//        setUpSearchBar()
+//        setCollection()
+//        setUpViews()
+//
+//        NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.searchURL, with: {podcast in
+//        })
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setUpSearchBar()
         setCollection()
         setUpViews()
-        
-        NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.searchURL, with: {podcast in
-        })
+        searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
     }
     
 // MARK: - flow funcs
-    private func setNavBar() {
-
-        // Создайте настраиваемый UINavigationItem
-        let navigationItem = UINavigationItem()
-        navigationItem.title = "Search"
-
-        // Создайте настраиваемую кнопку для навигационного бара (пример)
-
-        // Установите настраиваемый UINavigationItem для настраиваемого UINavigationBar
-        customNavBar.items = [navigationItem]
-
-        // Добавьте настраиваемый UINavigationBar на вершину контроллера
-        view.addSubview(customNavBar)
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-
-        setupSearchBar()
-
-        // Настройте ограничения для настраиваемого UINavigationBar
-        customNavBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+//    private func setNavBar() {
+//
+//        // Создайте настраиваемый UINavigationItem
+//        let navigationItem = UINavigationItem()
+//        navigationItem.title = "Search"
+//
+//        // Создайте настраиваемую кнопку для навигационного бара (пример)
+//
+//        // Установите настраиваемый UINavigationItem для настраиваемого UINavigationBar
+//        customNavBar.items = [navigationItem]
+//
+//        // Добавьте настраиваемый UINavigationBar на вершину контроллера
+//        view.addSubview(customNavBar)
+//        searchController.searchResultsUpdater = self
+//        navigationItem.searchController = searchController
+//
+//        setupSearchBar()
+//
+//        // Настройте ограничения для настраиваемого UINavigationBar
+//        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+//            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//        ])
+//    }
+    
+    private func setupNavBar() {
+        let navigationBar = UINavigationBar(frame: CGRectMake(0, 45, self.view.frame.size.width, 80))
+        navigationBar.barTintColor = .white
+        let navigationItem = UINavigationItem.init(title: "Search")
+        navigationBar.items = [navigationItem]
+        navigationBar.shadowImage = UIImage()
+        
+        view.addSubview(navigationBar)
     }
     
-    private func setupSearchBar() {
-        let searchTextField = searchController.searchBar.searchTextField
-        searchTextField.backgroundColor = .white
+    private func setUpSearchBar() {
+        let searchTextField = searchBar.searchTextField
         searchTextField.placeholder = "Podcast, channel, or artists"
-        searchController.searchBar.barTintColor = .white
-        searchController.searchBar.delegate = self
-     }
+        searchTextField.backgroundColor = .clear
+        searchTextField.borderStyle = .none
+        searchTextField.leftView = nil
+    }
     
     private func setCollection() {
         genresCollectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
@@ -129,6 +164,8 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
     
     private func setUpViews() {
         view.backgroundColor = .white
+        view.addSubview(searchView)
+        searchView.addSubview(searchBar)
         view.addSubview(genresLabel)
         view.addSubview(seeAllButton)
         view.addSubview(browseLabel)
@@ -137,6 +174,16 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
+            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchView.heightAnchor.constraint(equalToConstant: 48),
+            
+            searchBar.topAnchor.constraint(equalTo: searchView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 12),
+            searchBar.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
+            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
+            
             genresLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 198),
             genresLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             genresLabel.heightAnchor.constraint(equalToConstant: 22),
@@ -162,13 +209,13 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
         ])
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        print(text)
-
-    }
+//    func updateSearchResults(for searchController: UISearchController) {
+//        guard let text = searchController.searchBar.text else {
+//            return
+//        }
+//        print(text)
+//
+//    }
         
     private func goToResult(){
         let vc = ResultViewController()
@@ -183,18 +230,36 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
         vc.didMove(toParent: self)
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if searchController.searchBar.text != "" {
-//            goToResult()
-        navigationController?.pushViewController(ResultViewController(), animated: true)
-        } else {
-            searchController.searchBar.placeholder = "Type something"
-        }
-        searchController.searchBar.resignFirstResponder()
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        if searchBar.text != "" {
+//           // goToResult()
+//        navigationController?.pushViewController(ResultViewController(), animated: true)
+//        } else {
+//            searchBar.placeholder = "Type something"
+//        }
+//        searchBar.resignFirstResponder()
+//    }
+    
+// MARK: - searchBar funcs
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("2")
+        
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.searchTextField.placeholder = "Podcast, channel, or artists"
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar.text != "" {
+              // goToResult()
+           navigationController?.pushViewController(ResultViewController(), animated: true)
+           } else {
+               searchBar.placeholder = "Type something"
+           }
+//        searchBar.resignFirstResponder()
+        
+        print("1")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 
