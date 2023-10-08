@@ -8,6 +8,35 @@
 import UIKit
 
 class ResultViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate {
+// MARK: - arrays for cell
+    var allNames = [
+        "Between love and career",
+        "The powerfull way to move on",
+        "MOnkeys love make me curious",
+        "How to beat your inner fear",
+        "Who am I and what my purpose",
+        "Why should you be baper",
+        "Love and friends",
+        "Comedy in stress life",
+        "Work life balance",
+        "Everyone is hero",
+        "My first love",
+    ]
+    
+    var infoArray = [
+        "56:38 • 82 Eps",
+        "24:40 • 40 Eps",
+        "40:24 • 120 Eps",
+        "24:38 • 21 Eps",
+        "36:11 • 12 Eps",
+        "14:34 • 24 Eps",
+        "35:46 • 40 Eps",
+        "43:34 • 12 Eps",
+        "41:43 • 24 Eps",
+        "34:12 • 24 Eps",
+        "24:40 • 25 Eps",
+    ]
+
 // MARK: - properties
     var searchController: UISearchController?
     
@@ -211,13 +240,14 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        16
+        allNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = podcastTableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as? TableViewCell else {
             return UITableViewCell()
         }
+        cell.reuseCell(name: allNames[indexPath.row], info: infoArray[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

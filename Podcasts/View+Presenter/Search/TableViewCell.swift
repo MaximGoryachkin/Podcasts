@@ -8,6 +8,36 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+    var allNames = [
+        "Between love and career",
+        "The powerfull way to move on",
+        "MOnkeys love make me curious",
+        "How to beat your inner fear",
+        "Who am I and what my purpose",
+        "Why should you be baper",
+        "Love and friends",
+        "Comedy in stress life",
+        "Work life balance",
+        "Everyone is hero",
+        "My first love",
+    ]
+    
+    var infoArray = [
+        "56:38 • 82 Eps",
+        "24:40 • 40 Eps",
+        "40:24 • 120 Eps",
+        "24:38 • 21 Eps",
+        "36:11 • 12 Eps",
+        "14:34 • 24 Eps",
+        "35:46 • 40 Eps",
+        "43:34 • 12 Eps",
+        "41:43 • 24 Eps",
+        "34:12 • 24 Eps",
+        "24:40 • 25 Eps",
+    ]
+    
+    var index = 0
+    
     private let mainView: UIView = {
         let element = UIView()
         element.backgroundColor = UIColor(red: 0.929, green: 0.941, blue: 0.988, alpha: 1)
@@ -19,11 +49,12 @@ class TableViewCell: UITableViewCell {
     private let avatarView: UIImageView = {
         let element = UIImageView()
         element.backgroundColor = .customLightBlue
+        element.layer.cornerRadius = 16
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
-    private let podcastName: UILabel = {
+    private var podcastName: UILabel = {
         let element = UILabel()
         element.text = "The tale of greatest warrior"
         element.font = UIFont(name: "Manrope-Regular", size: 14)
@@ -32,7 +63,7 @@ class TableViewCell: UITableViewCell {
         return element
     }()
     
-    private let shortInfo: UILabel = {
+    private var shortInfo: UILabel = {
         let element = UILabel()
         element.text = "56:38 • 82 Eps"
         element.font = UIFont.systemFont(ofSize: 12, weight: .thin)
@@ -53,6 +84,7 @@ class TableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+//        reuseCell(name: allNames[index], info: infoArray[index])
     }
     
     func setUpCell() {
@@ -83,5 +115,10 @@ class TableViewCell: UITableViewCell {
         mainView.addSubview(avatarView)
         mainView.addSubview(podcastName)
         mainView.addSubview(shortInfo)
+    }
+    
+    func reuseCell(name: String, info: String) {
+        podcastName.text = name
+        shortInfo.text = info
     }
 }
