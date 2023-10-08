@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ResultViewController: UIViewController {
+class ResultViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate {
+// MARK: - properties
     var searchController: UISearchController?
     
     var searchTerm = ""
@@ -72,18 +73,70 @@ class ResultViewController: UIViewController {
         return element
     }()
     
+    private let searchView: UIView = {
+        let element = UIView()
+        element.layer.cornerRadius = 16
+        element.backgroundColor = .white
+        element.layer.borderColor = UIColor.lightGray.cgColor
+        element.layer.borderWidth = 0.4
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private let searchBar: UISearchBar = {
+        let element = UISearchBar()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private let searchButton: UIButton = {
+        let element = UIButton()
+        element.backgroundColor = .clear
+        element.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        element.setImage(UIImage(named: "xmark"), for: .normal)
+        element.addTarget(self, action: #selector(searchButtontapped), for: .touchUpInside)
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+// MARK: - life cycle funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
         hidesBottomBarWhenPushed = false
+        navigationItem.hidesBackButton = true
+    }
+    
+    override func viewWillLayoutSubviews() {
+        setUpSearchBar()
+        searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+// MARK: - flow funcs
+    @objc func searchButtontapped() {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func setUpSearchBar() {
+        let searchTextField = searchBar.searchTextField
+        searchTextField.backgroundColor = .clear
+        searchTextField.borderStyle = .none
+        searchTextField.leftView = nil
+        searchTextField.rightView = searchButton
+        searchTextField.rightViewMode = .always
+        searchBar.text = searchTerm
     }
     
     private func setUpViews() {
         view.backgroundColor = .white
+        view.addSubview(searchView)
+        searchView.addSubview(searchBar)
         view.addSubview(resultLabel)
         view.addSubview(resultView)
         view.addSubview(podcastLabel)
@@ -104,6 +157,16 @@ class ResultViewController: UIViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
+            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchView.heightAnchor.constraint(equalToConstant: 48),
+            
+            searchBar.topAnchor.constraint(equalTo: searchView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 12),
+            searchBar.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
+            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
+            
             resultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 113),
             resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             resultLabel.heightAnchor.constraint(equalToConstant: 21),
@@ -135,8 +198,13 @@ class ResultViewController: UIViewController {
             podcastTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
+// MARK: - extension for protocol funcs
 extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         88

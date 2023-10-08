@@ -76,6 +76,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
         return element
     }()
     
+    private let searchButton: UIButton = {
+        let element = UIButton()
+        element.backgroundColor = .clear
+        element.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        element.setImage(UIImage(named: "search/inactive"), for: .normal)
+        element.addTarget(self, action: #selector(searchButtontapped), for: .touchUpInside)
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
 //    private let customNavBar = UINavigationBar()
 //    let searchController = UISearchController(searchResultsController: nil)
     
@@ -100,9 +110,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
 // MARK: - flow funcs
+    @objc func searchButtontapped() {
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
+            searchButton.setImage(UIImage(named: "search/inactive"), for: .normal)
+        }
+    
 //    private func setNavBar() {
 //
 //        // Создайте настраиваемый UINavigationItem
@@ -146,6 +163,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
         searchTextField.backgroundColor = .clear
         searchTextField.borderStyle = .none
         searchTextField.leftView = nil
+        searchTextField.rightView = searchButton
+        searchTextField.rightViewMode = .always
     }
     
     private func setCollection() {
@@ -183,6 +202,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
             searchBar.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 12),
             searchBar.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
             searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
+            
+//            searchButton.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
+//            searchButton.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
+//            searchButton.heightAnchor.constraint(equalToConstant: 24),
+//            searchButton.widthAnchor.constraint(equalToConstant: 24),
             
             genresLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 198),
             genresLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
@@ -242,14 +266,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
     
 // MARK: - searchBar funcs
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("2")
-        
+        if searchText.isEmpty {
+            searchButton.setImage(UIImage(named: "search/inactive"), for: .normal)
+        } else {
+            searchButton.setImage(UIImage(named: "xmark"), for: .normal)
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if searchBar.text != "" {
               // goToResult()
-           navigationController?.pushViewController(ResultViewController(), animated: true)
+            let vc = ResultViewController()
+            vc.searchTerm = searchBar.text ?? ""
+            navigationController?.pushViewController(vc, animated: true)
+            searchBar.text = ""
+            searchButton.setImage(UIImage(named: "search/inactive"), for: .normal)
            } else {
                searchBar.placeholder = "Type something"
            }
