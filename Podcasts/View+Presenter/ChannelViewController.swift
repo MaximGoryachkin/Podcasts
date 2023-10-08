@@ -97,7 +97,6 @@ class ChannelViewController: UIViewController {
         Globals.changeLayer(of: imageView)
         tableView.visibleCells.forEach { cell in
             let newCell = cell as! TableViewCell
-            newCell.updateLayer()
         }
     }
     
@@ -153,7 +152,6 @@ extension ChannelViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! TableViewCell
-        cell.updateLayer()
     }
     
 }
