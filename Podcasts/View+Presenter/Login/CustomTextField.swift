@@ -18,14 +18,7 @@ class CustomTextField: UITextField {
     
     private let authFieldType: CustomTextFieldType
     
-    // Добавьте свойство для кнопки
-    private let actionButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 24, height: 24) // Размер кнопки
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
-        return button
-    }()
+    private let padding = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 40)
         
     init(fieldType: CustomTextFieldType) {
         self.authFieldType = fieldType
@@ -38,51 +31,46 @@ class CustomTextField: UITextField {
         self.returnKeyType = .done
         self.autocorrectionType = .no
         self.autocapitalizationType = .none
+        self.backgroundColor = UIColor(named: "textFieldBackground")
         
         self.leftViewMode = .always
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: self.frame.size.height))
         
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor(named: "textFieldTextColor")!
+        ]
+        
         switch fieldType {
         case .firstName:
-            self.placeholder = "Username"
+            self.attributedPlaceholder = NSAttributedString(string: "Enter your first name", attributes: attributes)
         case .lastName:
-            self.placeholder = "Username"
+            self.attributedPlaceholder = NSAttributedString(string: "Enter your last name", attributes: attributes)
         case .email:
-            self.placeholder = "Enter your email address"
+            self.attributedPlaceholder = NSAttributedString(string: "Enter your email address", attributes: attributes)
             self.keyboardType = .emailAddress
             self.textContentType = .emailAddress
             
         case .password:
-            self.placeholder = "Enter your password"
+            self.attributedPlaceholder = NSAttributedString(string: "Enter your password", attributes: attributes)
             self.textContentType = .oneTimeCode
             self.isSecureTextEntry = true
-            
-            self.rightViewMode = .always
-            self.rightView = actionButton
-            
-            // Добавьте таргет (обработчик) для кнопки
-            actionButton.addTarget(self, action: #selector(actionButtonTapped), for: .touchUpInside)
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //MARK: - Override Methods
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        bounds.inset(by: padding)
+    }
     
-    @objc private func actionButtonTapped() {
-        // Инвертируйте значение свойства isSecureTextEntry
-        isSecureTextEntry.toggle()
-
-        // Обновите изображение кнопки в зависимости от значения isSecureTextEntry
-        if isSecureTextEntry {
-            if let image = UIImage(systemName: "eye.fill") {
-                actionButton.setImage(image, for: .normal)
-            }
-        } else {
-            if let image = UIImage(systemName: "eye.slash.fill") {
-                actionButton.setImage(image, for: .normal)
-            }
-        }
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        bounds.inset(by: padding)
+    }
+    
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        bounds.inset(by: padding)
     }
 }
 

@@ -20,4 +20,5 @@ extension UIColor {
     static let seaGreen = UIColor(named: "seaGreen")
     static let lightGray = UIColor(named: "lightGray")
     static let backGray = UIColor(named: "backGray")
+    static let labelTextTextColor = UIColor(named: "labelTextTextColor")
 }
