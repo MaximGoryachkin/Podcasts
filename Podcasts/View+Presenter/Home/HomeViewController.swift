@@ -58,14 +58,14 @@ final class HomeViewController: UIViewController {
             for feed in feeds {
                 var newPodcast = Podcast(podcastName: feed.title, authorName: feed.author, podcastType: "News", episodeQty: "0")
                 if let url = feed.url {
-//                    self.fetchData(from: url)
+                    self.fetchData(from: url)
                 }
                 newPodcast.items = self.items
                 newPodcast.episodeQty = String(self.items.count)
                 self.podcasts.append(newPodcast)
                 DispatchQueue.main.async {
                     self.podcasts.forEach {
-                        print($0.podcastName)
+                        print($0.items)
                         self.productListDidLoad(self.list, self.podcasts)
                         self.homeView.podcasts = self.podcasts
                     }
