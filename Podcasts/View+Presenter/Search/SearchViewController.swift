@@ -7,39 +7,16 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDelegate {
 // MARK: - properties
-    private let searchLabel: UILabel = {
-        let element = UILabel()
-        element.text = "Search"
-        element.font = UIFont(name: "Manrope-Bold", size: 16)
-        element.textAlignment = .center
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    var searchInput: String = ""
     
     private let searchView: UIView = {
         let element = UIView()
-        element.layer.cornerRadius = 12
-        element.backgroundColor = #colorLiteral(red: 0.6557124077, green: 0.9678753018, blue: 0.9384237844, alpha: 1)
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private let textField: UITextField = {
-        let element = UITextField()
-        element.placeholder = "Podcast, chanel or artist"
-        element.clearButtonMode = .whileEditing
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private let loupe: UIImageView = {
-        let element = UIImageView()
-        element.backgroundColor = .clear
-        element.image = UIImage(named: "search/inactive")
-        element.contentMode = .scaleAspectFit
-        element.clipsToBounds = true
+        element.layer.cornerRadius = 16
+        element.backgroundColor = .white
+        element.layer.borderColor = UIColor.lightGray.cgColor
+        element.layer.borderWidth = 0.4
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -93,14 +70,103 @@ class SearchViewController: UIViewController {
         return element
     }()
     
+    private let searchBar: UISearchBar = {
+        let element = UISearchBar()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private let searchButton: UIButton = {
+        let element = UIButton()
+        element.backgroundColor = .clear
+        element.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        element.setImage(UIImage(named: "search/inactive"), for: .normal)
+        element.addTarget(self, action: #selector(searchButtontapped), for: .touchUpInside)
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+//    private let customNavBar = UINavigationBar()
+//    let searchController = UISearchController(searchResultsController: nil)
+    
 // MARK: - life cycle func
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
+//        setUpSearchBar()
+//        setCollection()
+//        setUpViews()
+//
+//        NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.searchURL, with: {podcast in
+//        })
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setUpSearchBar()
         setCollection()
         setUpViews()
+        searchBar.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
 // MARK: - flow funcs
+    @objc func searchButtontapped() {
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
+            searchButton.setImage(UIImage(named: "search/inactive"), for: .normal)
+        }
+    
+//    private func setNavBar() {
+//
+//        // Создайте настраиваемый UINavigationItem
+//        let navigationItem = UINavigationItem()
+//        navigationItem.title = "Search"
+//
+//        // Создайте настраиваемую кнопку для навигационного бара (пример)
+//
+//        // Установите настраиваемый UINavigationItem для настраиваемого UINavigationBar
+//        customNavBar.items = [navigationItem]
+//
+//        // Добавьте настраиваемый UINavigationBar на вершину контроллера
+//        view.addSubview(customNavBar)
+//        searchController.searchResultsUpdater = self
+//        navigationItem.searchController = searchController
+//
+//        setupSearchBar()
+//
+//        // Настройте ограничения для настраиваемого UINavigationBar
+//        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            customNavBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+//            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//        ])
+//    }
+    
+    private func setupNavBar() {
+        let navigationBar = UINavigationBar(frame: CGRectMake(0, 45, self.view.frame.size.width, 80))
+        navigationBar.barTintColor = .white
+        let navigationItem = UINavigationItem.init(title: "Search")
+        navigationBar.items = [navigationItem]
+        navigationBar.shadowImage = UIImage()
+        
+        view.addSubview(navigationBar)
+    }
+    
+    private func setUpSearchBar() {
+        let searchTextField = searchBar.searchTextField
+        searchTextField.placeholder = "Podcast, channel, or artists"
+        searchTextField.backgroundColor = .clear
+        searchTextField.borderStyle = .none
+        searchTextField.leftView = nil
+        searchTextField.rightView = searchButton
+        searchTextField.rightViewMode = .always
+    }
+    
     private func setCollection() {
         genresCollectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         genresCollectionView.delegate = self
@@ -118,32 +184,30 @@ class SearchViewController: UIViewController {
     private func setUpViews() {
         view.backgroundColor = .white
         view.addSubview(searchView)
-        searchView.addSubview(textField)
-        searchView.addSubview(loupe)
-        view.addSubview(searchLabel)
+        searchView.addSubview(searchBar)
         view.addSubview(genresLabel)
         view.addSubview(seeAllButton)
         view.addSubview(browseLabel)
         setConstraints()
-        seeAllButton.addTarget(self, action: #selector(goToResult), for: .touchUpInside)
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            searchLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 58),
-            searchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchLabel.heightAnchor.constraint(equalToConstant: 22),
-            
-            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            searchView.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 34),
+            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             searchView.heightAnchor.constraint(equalToConstant: 48),
             
-            loupe.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -24),
-            loupe.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
-            loupe.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
-            loupe.widthAnchor.constraint(equalToConstant: 24),
+            searchBar.topAnchor.constraint(equalTo: searchView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 12),
+            searchBar.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
+            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
             
+//            searchButton.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
+//            searchButton.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
+//            searchButton.heightAnchor.constraint(equalToConstant: 24),
+//            searchButton.widthAnchor.constraint(equalToConstant: 24),
+          
             textField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
             textField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
             textField.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
@@ -174,28 +238,69 @@ class SearchViewController: UIViewController {
         ])
     }
     
-//    @objc private func goToResult(){
-//        let vc = ResultViewController()
-//        vc.view.alpha = 0.0
-//        addChild(vc)
-//        vc.view.frame = self.view.bounds
-//        self.view.addSubview(vc.view)
-//        
-//        UIView.animate(withDuration: 0.3) {
-//            vc.view.alpha = 1.0
+//    func updateSearchResults(for searchController: UISearchController) {
+//        guard let text = searchController.searchBar.text else {
+//            return
 //        }
-//        vc.didMove(toParent: self)
+//        print(text)
+//
+//    }
+        
+    private func goToResult(){
+        let vc = ResultViewController()
+        vc.view.alpha = 0.0
+        addChild(vc)
+        vc.view.frame = self.view.bounds
+        self.view.addSubview(vc.view)
+
+        UIView.animate(withDuration: 0.3) {
+            vc.view.alpha = 1.0
+        }
+        vc.didMove(toParent: self)
+    }
+    
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+//        if searchBar.text != "" {
+//           // goToResult()
+//        navigationController?.pushViewController(ResultViewController(), animated: true)
+//        } else {
+//            searchBar.placeholder = "Type something"
+//        }
+//        searchBar.resignFirstResponder()
 //    }
     
-    //!!!: Maybe here's better solution to function above.
-    @objc private func goToResult() {
-        navigationController?.pushViewController(ResultViewController(), animated: true)
+// MARK: - searchBar funcs
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            searchButton.setImage(UIImage(named: "search/inactive"), for: .normal)
+        } else {
+            searchButton.setImage(UIImage(named: "xmark"), for: .normal)
+        }
     }
-
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if searchBar.text != "" {
+              // goToResult()
+            let vc = ResultViewController()
+            vc.searchTerm = searchBar.text ?? ""
+            navigationController?.pushViewController(vc, animated: true)
+            searchBar.text = ""
+            searchButton.setImage(UIImage(named: "search/inactive"), for: .normal)
+           } else {
+               searchBar.placeholder = "Type something"
+           }
+//        searchBar.resignFirstResponder()
+        
+        print("1")
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 // MARK: - extension
-extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         24
     }
@@ -216,9 +321,9 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let cellWidth = Int((verticalCollectionView.frame.width - 17) / 2) // 17 - минимальный интервал между ячейками
-            let cellHeight = 84
-            return CGSize(width: cellWidth, height: cellHeight)
+        let cellWidth = Int((verticalCollectionView.frame.width - 17) / 2) // 17 - минимальный интервал между ячейками
+        let cellHeight = 84
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

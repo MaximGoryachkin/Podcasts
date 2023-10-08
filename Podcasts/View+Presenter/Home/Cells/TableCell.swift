@@ -8,6 +8,8 @@
 import UIKit
 
 class TableCell: UICollectionViewCell {
+  static let reuseIdentifier = String(describing: TableCell.self)
+  
   private let podcastName = makeLabel()
   private let authorName = makeLabel()
   private let podcastType = makeLabel()

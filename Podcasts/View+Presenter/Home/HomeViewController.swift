@@ -185,7 +185,6 @@ private extension HomeViewController {
             }
         }
     }
-    
 }
 
 extension HomeViewController: XMLParserDelegate {

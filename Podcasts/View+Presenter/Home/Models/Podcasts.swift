@@ -20,3 +20,4 @@ struct Podcast: Hashable {
 //  Podcast(podcastName: "Sruput Nendang", authorName: "Marco", podcastType: "Life & Chill", episodeQty: "46 Eps")
 //  ]
 //}
+
