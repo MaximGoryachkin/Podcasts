@@ -8,8 +8,8 @@
 import UIKit
 
 final class TitleView: UIView {
-  private let nameLabel = makeLabel(.systemFont(ofSize: 20, weight: .bold))
-  private let podcastTypeLabel = makeLabel(.systemFont(ofSize: 16, weight: .light))
+  private let nameLabel = makeLabel()
+  private let podcastTypeLabel = makeLabel()
   private let squareView = makeView()
   private let mainStackView = makeVStack()
   
@@ -32,11 +32,10 @@ final class TitleView: UIView {
 }
 
 private extension TitleView {
-  static func makeLabel(_ font: UIFont) -> UILabel {
+  static func makeLabel() -> UILabel {
     let label = UILabel()
     label.numberOfLines = 0
     label.textAlignment = .center
-    label.font = font
     label.minimumScaleFactor = 0.8
     label.textAlignment = .left
     label.adjustsFontSizeToFitWidth = true
@@ -79,7 +78,11 @@ private extension TitleView {
   
   private func setViews() {
     nameLabel.text = "Hello"
+    nameLabel.font = .manropeBold16
+    nameLabel.textColor = .black
     podcastTypeLabel.text = "Nicely done"
+    podcastTypeLabel.font = .manropeRegular14
+    podcastTypeLabel.textColor = .lightGray
     mainStackView.addArrangedSubview(nameLabel)
     mainStackView.addArrangedSubview(podcastTypeLabel)
     addSubview(mainStackView)

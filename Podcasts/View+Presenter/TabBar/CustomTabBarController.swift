@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomTabBarController: UITabBarController {
-// MARK: - life cycle func
+    // MARK: - life cycle func
     override func viewDidLoad() {
         super.viewDidLoad()
         generateTabBar()
@@ -19,7 +19,7 @@ class CustomTabBarController: UITabBarController {
 
 // MARK: - extension
 extension CustomTabBarController {
-// MARK: - flow funcs
+    // MARK: - flow funcs
     private func generateTabBar() {
         viewControllers = [
         makeVC(vc: HomeViewController(detailView: HomeView()), image: UIImage(named: "home/inactive"), selectedImage: UIImage(named: "home/active")),
@@ -53,7 +53,7 @@ extension CustomTabBarController {
         
         tabBar.layer.insertSublayer(roundLayer, at: 0)
         tabBar.itemWidth = width / 6.5
-//        tabBar.itemPositioning = .centered
+        //        tabBar.itemPositioning = .centered
         roundLayer.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     

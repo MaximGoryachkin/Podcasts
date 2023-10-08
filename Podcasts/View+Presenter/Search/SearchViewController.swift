@@ -207,6 +207,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
 //            searchButton.trailingAnchor.constraint(equalTo: searchView.trailingAnchor, constant: -12),
 //            searchButton.heightAnchor.constraint(equalToConstant: 24),
 //            searchButton.widthAnchor.constraint(equalToConstant: 24),
+          
+            textField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
+            textField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
+            textField.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
+            textField.trailingAnchor.constraint(equalTo: loupe.leadingAnchor, constant: -26),
             
             genresLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 198),
             genresLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),

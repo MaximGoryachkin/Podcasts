@@ -9,6 +9,8 @@ import UIKit
 
 class CompleteAccountViewController: UIViewController {
     
+    var emailText = ""
+    
     // MARK: - UI Components
     
     private let titleLabel: UILabel = {
@@ -127,7 +129,11 @@ class CompleteAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
+        self.navigationItem.title = "Sign Up"
+        let backButtonImage = UIImage(named: "customBackButtonImage")
+        let customBackButton = UIBarButtonItem(image: backButtonImage, style: .plain, target: self, action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = customBackButton
+        emailField.text = emailText
         setupUI()
         
         self.signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
@@ -213,11 +219,68 @@ class CompleteAccountViewController: UIViewController {
     
     // MARK: - Selectors
     @objc private func didTapSignUp() {
-        print("DEBUG PRINT:", "didTapSignUp")
+        let registerUserRequest = RegiserUserRequest(
+            firstName: self.firstNameField.text ?? "",
+            lastName: self.lastNameField.text ?? "",
+            email: self.emailField.text ?? "",
+            password: self.passwordField.text ?? ""
+        )
+        
+        let confirmPassword = self.confirmPasswordField.text ?? ""
+        
+        // firstName check
+        if !Validator.isValidFirstName(for: registerUserRequest.firstName) {
+            AlertManager.showInvalidFirstNameAlert(on: self)
+            return
+        }
+        
+        // lastName check
+        if !Validator.isValidLastName(for: registerUserRequest.lastName) {
+            AlertManager.showInvalidLastNameAlert(on: self)
+            return
+        }
+        
+        // Email check
+        if !Validator.isValidEmail(for: registerUserRequest.email) {
+            AlertManager.showInvalidEmailAlert(on: self)
+            return
+        }
+        
+        // Password check
+        if !Validator.isPasswordValid(for: registerUserRequest.password) {
+            AlertManager.showInvalidPasswordAlert(on: self)
+            return
+        }
+        
+        if registerUserRequest.password != confirmPassword {
+            AlertManager.showInvalidConfirmPasswordAlert(on: self)
+            return
+        }
+        
+        AuthService.shared.registerUser(with: registerUserRequest) { [weak self] wasRegistered, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                AlertManager.showRegistrationErrorAlert(on: self, with: error)
+                return
+            }
+            
+            if wasRegistered {
+                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                    sceneDelegate.checkAuthentication()
+                }
+            } else {
+                AlertManager.showRegistrationErrorAlert(on: self)
+            }
+        }
     }
     
     @objc private func didTapLogin() {
+        self.navigationController?.popToRootViewController(animated: true)
         print("DEBUG PRINT:", "didTapLogin")
     }
     
+    @objc func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

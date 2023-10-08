@@ -13,16 +13,16 @@ class CategoryCell: UICollectionViewCell {
     let element = UILabel()
     element.textColor = .black
     element.numberOfLines = 0
-    element.font = .systemFont(ofSize: 20, weight: .bold)
+    element.font = .manropeBold12
     element.translatesAutoresizingMaskIntoConstraints = false
     return element
   }()
   
   lazy var podcastQty: UILabel = {
     let element = UILabel()
-    element.textColor = .black
+    element.textColor = .lightGray
     element.numberOfLines = 0
-    element.font = .systemFont(ofSize: 20, weight: .light)
+    element.font = .manropeRegular12
     element.translatesAutoresizingMaskIntoConstraints = false
     return element
   }()
