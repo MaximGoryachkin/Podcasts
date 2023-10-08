@@ -9,15 +9,17 @@ import UIKit
 
 // Тестовый вью контроллер
 
-var podcasts = [Item]()
-var podcast: Item!
-var xmlDict = [String: String]()
-var xmlDictArr = [[String: String]]()
-var currentElement = ""
-
-let button = UIButton(type: .system)
 
 class ViewController: UIViewController {
+    
+    var podcasts = [Podcast]()
+    var items = [PodcastItem]()
+    var item = PodcastItem()
+    var xmlDict = [String: String]()
+    var xmlDictArr = [[String: String]]()
+    var currentElement = ""
+    
+    let button = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,16 @@ class ViewController: UIViewController {
 //            self.fetchData(from: (podcast.feeds?.first?.url)!)
 //        }
         NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.trendingURL) { podcast in
-            print(podcast.feeds?.first?.url)
+            guard let feeds = podcast.feeds else { return }
+            for feed in feeds {
+                var newPodcast = Podcast(podcastName: feed.title, authorName: feed.author, podcastType: "News", episodeQty: "0")
+                if let url = feed.url {
+                    self.fetchData(from: url)
+                }
+                newPodcast.items = self.items
+                self.podcasts.append(newPodcast)
+                
+            }
         }
     }
     
@@ -59,7 +70,7 @@ class ViewController: UIViewController {
     
     @objc func buttonTapped() {
         podcasts.forEach {
-            print($0.title)
+            print($0.items)
         }
     }
     
@@ -69,22 +80,24 @@ extension ViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "item" {
             xmlDict = [:]
-            podcast = Item()
+            item = PodcastItem()
         } else {
             currentElement = elementName
         }
         if let url = attributeDict["url"], let length = attributeDict["length"] {
-            podcast.url = url
-            podcast.length = Int(length) ?? 0
+            item.url = url
+            item.length = Int(length) ?? 0
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             xmlDictArr.append(xmlDict)
-            podcast.description = String((xmlDict["description"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
-            podcast.title = String((xmlDict["title"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
-            podcasts.append(podcast)
+            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
+                item.description = String(description)
+            }
+            item.title = String((xmlDict["title"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
+            items.append(item)
         }
     }
     

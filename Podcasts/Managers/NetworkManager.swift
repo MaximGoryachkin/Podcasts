@@ -97,13 +97,13 @@ class NetworkManager {
 //        }.resume()
 //    }
     
-    func fetchData(from url: String?) async throws -> PodcastAPI? {
-        guard let stringURL = url else { return nil }
-        guard let url = URL(string: stringURL) else { return nil }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let podcast = try JSONDecoder().decode(PodcastAPI.self, from: data)
-        return podcast
-    }
+//    func fetchData(from url: String?) async throws -> PodcastAPI? {
+//        guard let stringURL = url else { return nil }
+//        guard let url = URL(string: stringURL) else { return nil }
+//        let (data, _) = try await URLSession.shared.data(from: url)
+//        let podcast = try JSONDecoder().decode(PodcastAPI.self, from: data)
+//        return podcast
+//    }
     
 //    func fetchArrayData(from url: String?) async throws -> Podcast? {
 //        guard let stringURL = url else { return nil }
