@@ -9,9 +9,15 @@ import Foundation
 
 class DataManager {
     
+    enum Tegs: String {
+        case podcasts
+        case search
+    }
+    
     static let shared = DataManager()
     
-    let baseURL = "https://api.podcastindex.org/api/1.0/podcasts/byfeedid?id=75075&pretty"
+    let baseURL = "https://api.podcastindex.org/api/1.0/"
+    
     let episodeURL = "https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75&pretty"
     let searchURL = "https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty"
     let trendingURL = "https://api.podcastindex.org/api/1.0/podcasts/trending?pretty&max=30"

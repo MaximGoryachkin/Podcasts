@@ -297,7 +297,7 @@ class CompleteAccountViewController: UIViewController {
             
             if wasRegistered {
                 if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                    sceneDelegate.checkAuthentication()
+//                    sceneDelegate.checkAuthentication()
                 }
             } else {
                 AlertManager.showRegistrationErrorAlert(on: self)
@@ -315,7 +315,7 @@ class CompleteAccountViewController: UIViewController {
     }
     
     @objc private func passwordEyeButtonPressed() {
-        let imageName = passwordIsPrivate ? "hide" : "eye"
+        let imageName = passwordIsPrivate ? "hidden" : "eye"
         
         passwordField.isSecureTextEntry.toggle()
         passwordEyeButton.setImage(UIImage(named: imageName), for: .normal)
@@ -323,7 +323,7 @@ class CompleteAccountViewController: UIViewController {
     }
     
     @objc private func confirmPasswordEyeButtonPressed() {
-        let imageName = confirmPassword ? "hide" : "eye"
+        let imageName = confirmPassword ? "hidden" : "eye"
         
         passwordField.isSecureTextEntry.toggle()
         confirmPasswordEyeButton.setImage(UIImage(named: imageName), for: .normal)

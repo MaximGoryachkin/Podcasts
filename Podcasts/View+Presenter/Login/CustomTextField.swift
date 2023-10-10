@@ -23,7 +23,6 @@ class CustomTextField: UITextField {
     init(fieldType: CustomTextFieldType) {
         self.authFieldType = fieldType
         super.init(frame: .zero)
-        
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .secondarySystemBackground
         self.layer.cornerRadius = 24

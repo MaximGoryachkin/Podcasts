@@ -15,7 +15,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
         let element = UIView()
         element.layer.cornerRadius = 16
         element.backgroundColor = .white
-        element.layer.borderColor = UIColor.lightGray.cgColor
+        element.layer.borderColor = UIColor.lightGray?.cgColor
         element.layer.borderWidth = 0.4
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -81,7 +81,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
         element.backgroundColor = .clear
         element.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         element.setImage(UIImage(named: "search/inactive"), for: .normal)
-        element.addTarget(self, action: #selector(searchButtontapped), for: .touchUpInside)
+        element.addTarget(SearchViewController.self, action: #selector(searchButtontapped), for: .touchUpInside)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -208,10 +208,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
 //            searchButton.heightAnchor.constraint(equalToConstant: 24),
 //            searchButton.widthAnchor.constraint(equalToConstant: 24),
           
-            textField.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
-            textField.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
-            textField.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
-            textField.trailingAnchor.constraint(equalTo: loupe.leadingAnchor, constant: -26),
+//            searchBar.leadingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: 24),
+//            searchBar.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 12),
+//            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -12),
+//            searchBar.trailingAnchor.constraint(equalTo: searchView.leadingAnchor, constant: -26),
             
             genresLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 198),
             genresLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),

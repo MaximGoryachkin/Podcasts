@@ -24,6 +24,7 @@ class ProfileSettingViewController: UIViewController {
         userInfoHeader = ProfileSetting(frame: frame)
         userInfoHeader.logOutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
         view.addSubview(userInfoHeader)
+        userInfoHeader.settingTableView.delegate = self
     }
     
     // MARK: - Selectors
@@ -36,9 +37,21 @@ class ProfileSettingViewController: UIViewController {
             }
             
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                sceneDelegate.checkAuthentication()
+//                sceneDelegate.checkAuthentication()
             }
         }
     }
+    
+}
+
+extension ProfileSettingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let accountVC = AccountViewController()
+            navigationController?.pushViewController(accountVC, animated: true)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
 }

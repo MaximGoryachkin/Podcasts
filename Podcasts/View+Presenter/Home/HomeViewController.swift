@@ -2,220 +2,241 @@
 //  HomeViewController.swift
 //  Podcasts
 //
-//  Created by Леонид Турко on 01.10.2023.
+//  Created by Максим Горячкин on 01.10.2023.
 //
 
 import UIKit
 
-enum Section: Int, CaseIterable {
-    case main
-    case additinal
-    case all
+protocol HomeViewProtocol: AnyObject {
+    func updateProfileInfo(with account: Account)
+    func updateCategories(with podcasts: [Podcast])
+    func updatePodcasts()
 }
 
-final class HomeViewController: UIViewController {
+class HomeViewController: UIViewController {
     
-    private let homeView: HomeViewProtocol
-    private lazy var dataSource = makeDataSource()
+    //MARK: Properties
     
+    var presenter: HomeViewPresenter!
     var podcasts = [Podcast]()
-    var items = [PodcastItem]()
-    var item = PodcastItem()
-    var xmlDict = [String: String]()
-    var xmlDictArr = [[String: String]]()
-    var currentElement = ""
-    let list = ProductList()
     
+    private lazy var topStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.alignment = .center
+        view.distribution = .equalCentering
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    // MARK: - inits
-    init(detailView: HomeViewProtocol) {
-        self.homeView = detailView
-        super.init(nibName: nil, bundle: nil)
-    }
+    private lazy var avatarImage: UIImageView = {
+        let view = UIImageView()
+        view.image = .actions
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private lazy var avatarTitleStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.alignment = .leading
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    //  MARK: - Life Cycle
-    override func loadView() {
-        self.view = homeView
-    }
+    private lazy var avatarName: UILabel = {
+        let view = UILabel()
+        view.font = .manropeBold16
+        view.text = "Abigael Amaniah"
+        return view
+    }()
+    
+    private lazy var avatarStatus: UILabel = {
+        let view = UILabel()
+        view.font = .manropeRegular14
+        view.text = "Love,life and chill"
+        return view
+    }()
+    
+    private lazy var headerStack: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.distribution = .equalSpacing
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var headerStackTitle: UILabel = {
+        let view = UILabel()
+        view.text = "Category"
+        view.font = .manropeBold16
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var allButton: UIButton = {
+        let view = UIButton(type: .system)
+        view.setTitle("See all", for: .normal)
+        view.titleLabel?.font = .manropeRegular16
+        view.setTitleColor(.systemGray, for: .normal)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var mainCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // MARK: Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeView.collectionView.register(
-            TitleSupplementaryView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: TitleSupplementaryView.reuseIdentifier
-        )
-        homeView.collectionView.dataSource = dataSource
-        productListDidLoad(list, podcasts)
+        view.backgroundColor = .white
         
-        NetworkManager.shared.fetchDataSearchPodcast(from: DataManager.shared.trendingURL) { podcast in
-            guard let feeds = podcast.feeds else { return }
-            for feed in feeds {
-                var newPodcast = Podcast(podcastName: feed.title, authorName: feed.author, podcastType: "News", episodeQty: "0")
-                if let url = feed.url {
-                    self.fetchData(from: url)
-                }
-                newPodcast.items = self.items
-                newPodcast.episodeQty = String(self.items.count)
-                self.podcasts.append(newPodcast)
-                DispatchQueue.main.async {
-                    self.podcasts.forEach {
-                        print($0.items)
-                        self.productListDidLoad(self.list, self.podcasts)
-                        self.homeView.podcasts = self.podcasts
-                    }
-                }
-            }
+        presenter = HomeViewPresenter()
+        presenter.delegate = self
+        presenter.fetchProfileData()
+        presenter.fetchDataForCategories()
+        
+        
+        addSubviews(subviews: topStack, headerStack, mainCollectionView)
+        addSubviews(to: topStack, subviews: avatarTitleStack, avatarImage)
+        addSubviews(to: avatarTitleStack, subviews: avatarName, avatarStatus)
+        addSubviews(to: headerStack, subviews: headerStackTitle, allButton)
+        
+        mainCollectionView.delegate = self
+        mainCollectionView.dataSource = self
+        mainCollectionView.register(HomeCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
+        mainCollectionView.register(CategoryContainerViewCell.self,
+                                        forCellWithReuseIdentifier: CategoryContainerViewCell.identifier)
+        mainCollectionView.register(PopularContainerViewCell.self,
+                                        forCellWithReuseIdentifier: PopularContainerViewCell.identifier)
+        mainCollectionView.showsHorizontalScrollIndicator = false
+        
+        setupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        mainCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    // MARK: Private methods
+    
+    private func addSubviews(subviews: UIView...) {
+        for subview in subviews {
+            view.addSubview(subview)
         }
     }
     
-    func fetchData(from url: String) {
-        guard let url = URL(string: url) else { return }
-        let request = URLRequest(url: url)
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
-            if let error = error {
-                print("dataTaskWithRequest error: \(error)")
-            }
-            guard let data = data else { return }
-            let parser = XMLParser(data: data)
-            parser.delegate = self
-            parser.parse()
-        }.resume()
-    }
-    
-    enum Item: Hashable {
-        case first(Product)
-        case second(PodcastType)
-        case third(Podcast)
-    }
-    
-    func makeDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
-        let podcastCellRegistration = makeCellRegistration()
-        let podcastButtonsCellRegistration = makeButtonsCellRegistration()
-        let podcastTableCellRegistration = makeTableCellRegistration()
-        
-        return UICollectionViewDiffableDataSource(collectionView: homeView.collectionView) { collectionView, indexPath, item in
-            switch item {
-            case let .first(product):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: podcastCellRegistration,
-                    for: indexPath,
-                    item: product
-                )
-            case let .second(podcast):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: podcastButtonsCellRegistration,
-                    for: indexPath,
-                    item: podcast
-                )
-            case let .third(podcast):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: podcastTableCellRegistration,
-                    for: indexPath,
-                    item: podcast
-                )
-            }
+    private func addSubviews(to stack: UIStackView, subviews: UIView...) {
+        for subview in subviews {
+            stack.addArrangedSubview(subview)
         }
     }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            topStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -32),
+            topStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32),
+            topStack.heightAnchor.constraint(equalToConstant: 52)
+        ])
+        
+        NSLayoutConstraint.activate([
+            headerStack.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 20),
+            headerStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -32),
+            headerStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 32),
+            headerStack.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mainCollectionView.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 10),
+            mainCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            avatarImage.heightAnchor.constraint(equalToConstant: 52),
+            avatarImage.widthAnchor.constraint(equalToConstant: 52)
+        ])
+    }
+        
 }
 
+// MARK: CollectionView Delegate and DataSource methods
 
-private extension HomeViewController {
-    typealias Cell = CategoryCell
-    typealias Title = TypeCell
-    typealias Table = TableCell
-    typealias CellRegistration = UICollectionView.CellRegistration<Cell, Product>
-    typealias TableRegistration = UICollectionView.CellRegistration<Table, Podcast>
-    typealias ButtonsRegistration = UICollectionView.CellRegistration<Title, PodcastType>
-    
-    func makeCellRegistration() -> CellRegistration {
-        CellRegistration { cell, indexPath, product in
-            cell.configure(with: product)
-        }
+extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        podcasts.count + 2
     }
     
-    func makeButtonsCellRegistration() -> ButtonsRegistration {
-        ButtonsRegistration { cell, indexPath, product in
-            cell.configure(with: product)
-        }
-    }
-    
-    func makeTableCellRegistration() -> TableRegistration {
-        TableRegistration { cell, indexPath, product in
-            cell.configure(with: product)
-        }
-    }
-}
-
-private extension HomeViewController {
-    
-    func productListDidLoad(_ list: ProductList, _ podcast: [Podcast]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(list.featured.map(Item.first), toSection: .main)
-        snapshot.appendItems(PodcastType.allCases.map(Item.second), toSection: .additinal)
-        snapshot.appendItems(podcast.map(Item.third), toSection: .all)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        dataSource.apply(snapshot)
-        
-        dataSource.supplementaryViewProvider =  { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) in
-            
-            guard let titleSupplementayView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TitleSupplementaryView.reuseIdentifier, for: indexPath) as? TitleSupplementaryView else { return UICollectionReusableView() }
-            
-            switch Section(rawValue: indexPath.section) {
-            case .main:
-                titleSupplementayView.textLabel.text = "Category"
-                titleSupplementayView.seeAllButton.setTitle("See all", for: .normal)
-                return titleSupplementayView
-                
-                //        case .additinal:
-                //          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-                //          return titleSupplementayView
-                //
-                //        case .all:
-                //          titleSupplementayView.textLabel.text = tutorialCollection[indexPath.section]
-                //          return titleSupplementayView
-            default:
-                return nil
-            }
-        }
-    }
-}
-
-extension HomeViewController: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "item" {
-            xmlDict = [:]
-            item = PodcastItem()
+        if indexPath.row == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryContainerViewCell.identifier, for: indexPath) as? CategoryContainerViewCell else { return UICollectionViewCell() }
+            return cell
+        } else if indexPath.row == 1 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularContainerViewCell.identifier, for: indexPath) as? PopularContainerViewCell else { return UICollectionViewCell() }
+            return cell
         } else {
-            currentElement = elementName
-        }
-        if let url = attributeDict["url"], let length = attributeDict["length"] {
-            item.url = url
-            item.length = Int(length) ?? 0
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
+            cell.configure(with: podcasts[indexPath.row - 2])
+            return cell
         }
     }
     
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "item" {
-            xmlDictArr.append(xmlDict)
-            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
-                item.description = String(description)
-            }
-            item.title = String((xmlDict["title"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
-            items.append(item)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.row == 0 {
+            return CGSize(width: UIScreen.main.bounds.width, height: 200)
+        } else if indexPath.row == 1 {
+            return CGSize(width: UIScreen.main.bounds.width, height: 44)
+        } else {
+            return CGSize(width: UIScreen.main.bounds.width - 64, height: 72)
         }
     }
     
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        if xmlDict[currentElement] == nil {
-            xmlDict[currentElement] = ""
-        }
-        xmlDict[currentElement]! += string
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 17.0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let channelVC = ChannelViewController()
+        channelVC.podcast = podcasts[indexPath.row - 2]
+        print(podcasts[indexPath.row - 2].url)
+        navigationController?.pushViewController(channelVC, animated: true)
+    }
+}
+
+extension HomeViewController: HomeViewProtocol {
+    
+    func updateCategories(with podcasts: [Podcast]) {
+        DispatchQueue.main.async {
+            self.podcasts = podcasts
+            self.mainCollectionView.reloadData()
+        }
+    }
+    
+    func updatePodcasts() {
+        
+    }
+    
+    
+    func updateProfileInfo(with account: Account) {
+        
+    }
+
 }

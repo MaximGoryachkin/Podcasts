@@ -84,7 +84,7 @@ class LoginViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    func setupTF() {
+    private func setupTF() {
         emailField.delegate = self
         passwordField.delegate = self
         passwordField.rightView = eyeButton
@@ -157,7 +157,7 @@ class LoginViewController: UIViewController {
             }
             
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                sceneDelegate.checkAuthentication()
+//                sceneDelegate.checkAuthentication()
             }
         }
     }
@@ -169,7 +169,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func displayBookMarks() {
-        let imageName = isPrivate ? "hide" : "eye"
+        let imageName = isPrivate ? "hidden" : "eye"
         
         passwordField.isSecureTextEntry.toggle()
         eyeButton.setImage(UIImage(named: imageName), for: .normal)

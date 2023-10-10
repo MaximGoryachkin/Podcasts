@@ -106,7 +106,7 @@ class ResultViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
         let element = UIView()
         element.layer.cornerRadius = 16
         element.backgroundColor = .white
-        element.layer.borderColor = UIColor.lightGray.cgColor
+        element.layer.borderColor = UIColor.lightGray?.cgColor
         element.layer.borderWidth = 0.4
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -123,7 +123,7 @@ class ResultViewController: UIViewController, UISearchBarDelegate, UITextFieldDe
         element.backgroundColor = .clear
         element.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         element.setImage(UIImage(named: "xmark"), for: .normal)
-        element.addTarget(self, action: #selector(searchButtontapped), for: .touchUpInside)
+        element.addTarget(ResultViewController.self, action: #selector(searchButtontapped), for: .touchUpInside)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()

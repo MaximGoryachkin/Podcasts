@@ -19,9 +19,10 @@ class ChannelTableViewCell: UITableViewCell {
         return element
     }()
     
-    private lazy var avatarView: UIImageView = {
+    private lazy var podcastImage: UIImageView = {
         let element = UIImageView()
-        element.backgroundColor = .customLightBlue
+        element.contentMode = .scaleToFill
+        element.backgroundColor = .cellBackground
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -66,34 +67,35 @@ class ChannelTableViewCell: UITableViewCell {
             mainView.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            avatarView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 8),
-            avatarView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
-            avatarView.heightAnchor.constraint(equalToConstant: 56),
-            avatarView.widthAnchor.constraint(equalToConstant: 56),
+            podcastImage.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 8),
+            podcastImage.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
+            podcastImage.heightAnchor.constraint(equalToConstant: 56),
+            podcastImage.widthAnchor.constraint(equalToConstant: 56),
             
             podcastName.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 16),
-            podcastName.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 20),
+            podcastName.leadingAnchor.constraint(equalTo: podcastImage.trailingAnchor, constant: 20),
             podcastName.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
             
             shortInfo.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -16),
-            shortInfo.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 20),
+            shortInfo.leadingAnchor.constraint(equalTo: podcastImage.trailingAnchor, constant: 20),
             shortInfo.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
         ])
     }
     
     private func addViews() {
         addSubview(mainView)
-        mainView.addSubview(avatarView)
+        mainView.addSubview(podcastImage)
         mainView.addSubview(podcastName)
         mainView.addSubview(shortInfo)
     }
     
     func updateLayer() {
-        print(avatarView.bounds)
-        Globals.changeLayer(of: avatarView)
+        Globals.changeLayer(of: podcastImage)
     }
     
-    func configure(with podcastItem: PodcastItem) {
-        self.podcastName.text = podcastItem.title
+    func configure(with podcastItem: Item) {
+        let url = URL(string: podcastItem.image)
+        podcastImage.kf.setImage(with: url)
+        podcastName.text = podcastItem.title
     }
 }

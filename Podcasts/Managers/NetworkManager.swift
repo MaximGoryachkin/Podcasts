@@ -76,71 +76,15 @@ class NetworkManager {
             }
         }.resume()
     }
-//
-//    func fetchArrayData(from url: String?, with complition: @escaping ([Podcast]) -> Void) {
-//        guard let stringURL = url else { return }
-//        guard let url = URL(string: stringURL) else { return }
-//        URLSession.shared.dataTask(with: url) { (data, _, error) in
-//            if let error = error {
-//                print(error)
-//                return
-//            }
-//            guard let data = data else { return }
-//            do {
-//                let podcast = try JSONDecoder().decode(Podcast.self, from: data)
-//                DispatchQueue.main.async {
-//                    complition(podcast)
-//                }
-//            } catch let error {
-//                print(error)
-//            }
-//        }.resume()
-//    }
-    
-//    func fetchData(from url: String?) async throws -> PodcastAPI? {
-//        guard let stringURL = url else { return nil }
-//        guard let url = URL(string: stringURL) else { return nil }
-//        let (data, _) = try await URLSession.shared.data(from: url)
-//        let podcast = try JSONDecoder().decode(PodcastAPI.self, from: data)
-//        return podcast
-//    }
-    
-//    func fetchArrayData(from url: String?) async throws -> Podcast? {
-//        guard let stringURL = url else { return nil }
-//        guard let url = URL(string: stringURL) else { return nil }
-//        let (data, _) = try await URLSession.shared.data(from: url)
-//        let podcasts = try JSONDecoder().decode(Recipes.self, from: data)
-//        return podcasts
-//    }
-    
-//
-//    /////////////
-//    func fetchResultsArrayData(from url: String?) async throws -> Results? {
-//        guard let stringURL = url else { return nil }
-//        guard let url = URL(string: stringURL) else { return nil }
-//        let (data, _) = try await URLSession.shared.data(from: url)
-//        let results = try JSONDecoder().decode(Results.self, from: data)
-//        return results
-//    }
-    
-    
     
     // MARK: - Section Of Adding Images to Stash or donwload it from Stash
     
     func saveDataToCache(with data: Data, and responce: URLResponse) {
-        guard let url = responce.url else { return }
-        let request = URLRequest(url: url)
-        let cachedResponce = CachedURLResponse(response: responce, data: data)
-        URLCache.shared.storeCachedResponse(cachedResponce, for: request)
+        
     }
     
-    func getDataFromCache(from url: URL) -> Data? {
-        let request = URLRequest(url: url)
-        if let cachedResponce = URLCache.shared.cachedResponse(for: request) {
-            return cachedResponce.data
-        } else {
-            return nil
-        }
+    func getDataFromCache(from url: String) {
+        
     }
     
     private func createRequest(with url: URL) -> URLRequest {

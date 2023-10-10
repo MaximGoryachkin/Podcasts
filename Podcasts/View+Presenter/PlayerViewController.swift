@@ -6,8 +6,18 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PlayerViewController: UIViewController {
+    
+    var items: [Item]!
+    var indexPath: IndexPath!
+    var player: AVPlayer!
+    var playerItem: AVPlayerItem!
+    
+    deinit {
+        print("Deinit PLayer")
+    }
     
     private lazy var playerCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -17,7 +27,7 @@ class PlayerViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var mainStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -26,7 +36,7 @@ class PlayerViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var buttonsStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -79,6 +89,7 @@ class PlayerViewController: UIViewController {
         view.tintColor = .customBlue
         view.setBackgroundImage(.play, for: .normal)
         view.imageView?.contentMode = .scaleAspectFill
+        view.addTarget(self, action: #selector(playerButtonTapped), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -106,7 +117,7 @@ class PlayerViewController: UIViewController {
         let view = UILabel()
         view.textColor = .systemGray
         view.font = .manropeRegular14
-        view.text = "10.00"
+        view.text = "00.00"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -168,6 +179,8 @@ class PlayerViewController: UIViewController {
         playerCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         navigationItem.title = "Player"
+        updateUI()
+        playAudio()
     }
     
     private func addSubviews(stack: UIStackView, views: UIView...) {
@@ -192,7 +205,7 @@ class PlayerViewController: UIViewController {
             
             buttonsStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
             buttonsStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
-//            buttonsStackView.heightAnchor.constraint(equalToConstant: 70)
+            //            buttonsStackView.heightAnchor.constraint(equalToConstant: 70)
         ])
         NSLayoutConstraint.activate([
             shuffleButton.heightAnchor.constraint(equalToConstant: 20),
@@ -210,7 +223,7 @@ class PlayerViewController: UIViewController {
         NSLayoutConstraint.activate([
             sliderStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
             sliderStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
-//            sliderStackView.heightAnchor.constraint(equalToConstant: 20),
+            //            sliderStackView.heightAnchor.constraint(equalToConstant: 20),
             
             leftLabel.widthAnchor.constraint(equalToConstant: 50),
             rightLabel.widthAnchor.constraint(equalToConstant: 50)
@@ -219,16 +232,38 @@ class PlayerViewController: UIViewController {
         NSLayoutConstraint.activate([
             labelStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
             labelStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
-//            labelStackView.heightAnchor.constraint(equalToConstant: 20),
+            //            labelStackView.heightAnchor.constraint(equalToConstant: 20),
             
             nameLabel.leftAnchor.constraint(equalTo: labelStackView.leftAnchor),
             nameLabel.rightAnchor.constraint(equalTo: labelStackView.rightAnchor),
-//            nameLabel.heightAnchor.constraint(equalToConstant: 30),
-//            channelLabel.heightAnchor.constraint(equalToConstant: 30),
+            //            nameLabel.heightAnchor.constraint(equalToConstant: 30),
+            //            channelLabel.heightAnchor.constraint(equalToConstant: 30),
             channelLabel.leftAnchor.constraint(equalTo: labelStackView.leftAnchor),
             channelLabel.rightAnchor.constraint(equalTo: labelStackView.rightAnchor)
             
         ])
+    }
+    
+    private func updateUI() {
+        let item = items[indexPath.row]
+        nameLabel.text = item.title
+        channelLabel.text = item.author
+        
+    }
+    
+    private func playAudio() {
+        let item = items[indexPath.row]
+        print(item.url)
+        guard let url = URL(string: item.url) else { return }
+        DispatchQueue.main.async {
+            self.playerItem = AVPlayerItem(url: url)
+            self.player = AVPlayer(playerItem: self.playerItem)
+            self.player.play()
+        }
+    }
+    
+    @objc func playerButtonTapped() {
+        
     }
 }
 
@@ -236,8 +271,6 @@ extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         30
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)

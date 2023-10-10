@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ChannelViewController: UIViewController {
     
-    var items = [PodcastItem]()
+    var podcast: Podcast!
+    var items = [Item]()
+    var item = Item()
+    var xmlDict = [String: String]()
+    var xmlDictArr = [[String: String]]()
+    var currentElement = ""
     
     private lazy var mainStackView: UIStackView = {
         let view = UIStackView()
@@ -89,18 +95,20 @@ class ChannelViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: ChannelTableViewCell.identifier)
-        setupUI()
         navigationItem.title = "Channel"
-        // Do any additional setup after loading the view.
+        setupUI()
+        updateUI()
+        fetchData(from: podcast.url)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        Globals.changeLayer(of: imageView)
-        tableView.visibleCells.forEach { cell in
-            let newCell = cell as! TableViewCell
-        }
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        Globals.changeLayer(of: imageView)
+//        tableView.visibleCells.forEach { cell in
+//            let newCell = cell as! ChannelTableViewCell
+//            newCell.updateLayer()
+//        }
+//    }
     
     private func addSubviews(stack: UIStackView, views: UIView...) {
         for view in views {
@@ -132,6 +140,27 @@ class ChannelViewController: UIViewController {
         ])
     }
     
+    private func fetchData(from url: String) {
+        guard let url = URL(string: url) else { return }
+        let request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                print("dataTaskWithRequest error: \(error)")
+            }
+            guard let data = data else { return }
+            let parser = XMLParser(data: data)
+            parser.delegate = self
+            parser.parse()
+        }.resume()
+    }
+    
+    private func updateUI() {
+        let url = URL(string: podcast.image)
+        imageView.kf.setImage(with: url)
+        mainTitle.text = podcast.title
+        autorNameLabel.text = podcast.author
+        numberEpisodesLabel.text = String(podcast.episodeCount)
+    }
 }
 
 extension ChannelViewController: UITableViewDelegate, UITableViewDataSource {
@@ -153,8 +182,56 @@ extension ChannelViewController: UITableViewDelegate, UITableViewDataSource {
         "All Episodes"
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! TableViewCell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let playerVC = PlayerViewController()
+        playerVC.items = items
+        playerVC.indexPath = indexPath
+        navigationController?.pushViewController(playerVC, animated: true)
     }
     
+}
+
+extension ChannelViewController: XMLParserDelegate {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == "item" {
+            xmlDict = [:]
+            item = Item()
+        } else {
+            currentElement = elementName
+        }
+        if let url = attributeDict["url"] {
+            item.url = url
+        }
+        if let length = attributeDict["length"] {
+            item.length = Int(length) ?? 0
+        }
+        if let imageURL = attributeDict["href"] {
+            item.image = imageURL
+        }
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "item" {
+            xmlDictArr.append(xmlDict)
+            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
+                item.description = String(description)
+            }
+            item.title = String((xmlDict["title"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
+            item.author = podcast.author
+            items.append(item)
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        if xmlDict[currentElement] == nil {
+            xmlDict[currentElement] = ""
+        }
+        xmlDict[currentElement]! += string
+    }
+    
+    func parserDidEndDocument(_ parser: XMLParser) {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }

@@ -13,9 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        self.setupWindow(with: scene)
-        //         Setting the UserDefaults
-        self.checkAuthentication()
+        setupWindow(with: scene)
+        window?.rootViewController = NavigationViewController(rootViewController: HomeViewController())
     }
     
     private func setupWindow(with scene: UIScene) {
@@ -25,25 +24,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    let onboardingShown = UserDefaults.standard.bool(forKey: "OnboardingShown")
-
-    public func checkAuthentication() {
-        if Auth.auth().currentUser == nil {
-            self.goToController(with:  LoginViewController())
-        } else {
-            if !onboardingShown {
-                // Set the root view controller to OnboardingVC
-                self.window?.rootViewController = OnboardingViewController()
-                // Set the onboardingShown flag to true
-                UserDefaults.standard.set(true, forKey: "OnboardingShown")
-            } else {
-                // Set the root view controller to MainVC
-                //FIXME: change to main view controller after such will be ready
-                self.window?.rootViewController = UINavigationController(rootViewController: CustomTabBarController())
-            }
-//            self.goToController(with: HomeController())
-        }
-    }
+//    public func checkAuthentication() {
+//        let onboardingShown = true
+//        
+//        if !onboardingShown {
+//            // Set the root view controller to OnboardingVC
+//            goToController(with: OnboardingViewController())
+//            // Set the onboardingShown flag to true
+//        } else {
+//            // Set the root view controller to MainVC
+//            //FIXME: change to main view controller after such will be ready
+//            goToController(with: HomeViewController())
+//        }
+//        
+//    }
     
     private func goToController(with viewController: UIViewController) {
         DispatchQueue.main.async { [weak self] in

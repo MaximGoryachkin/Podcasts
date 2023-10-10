@@ -11,6 +11,7 @@ extension UIColor {
     static let customBlue = UIColor(red: 40/255, green: 130/255, blue: 241/255, alpha: 1)
     static let customLightBlue = UIColor(red: 40/255, green: 130/255, blue: 241/255, alpha: 0.37)
     static let customGray = UIColor(red: 232/255, green: 236/255, blue: 251/255, alpha: 1)
+    static let cellBackground = UIColor(red: 237/255, green: 240/255, blue: 252/255, alpha: 1)
     static let peachPink = UIColor(named: "pink")
     static let seaBlue = UIColor(named: "blue")
     static let customPurple = UIColor(named: "customPurple")
@@ -21,4 +22,5 @@ extension UIColor {
     static let lightGray = UIColor(named: "lightGray")
     static let backGray = UIColor(named: "backGray")
     static let labelTextTextColor = UIColor(named: "labelTextTextColor")
+    
 }

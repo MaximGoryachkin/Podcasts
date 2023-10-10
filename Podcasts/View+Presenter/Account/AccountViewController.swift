@@ -20,7 +20,7 @@ class AccountViewController: UIViewController {
         let view = UIScrollView()
         view.contentSize = contentSize
         view.frame = self.view.bounds
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         return view
     }()
     

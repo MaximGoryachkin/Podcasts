@@ -7,9 +7,6 @@
 
 import Foundation
 
-// MARK: - Podcast
 struct PodcastAPI: Codable {
-    let status: String?
-    let feed: Feed?
-    let description: String?
+    let feeds: [Feed]?
 }

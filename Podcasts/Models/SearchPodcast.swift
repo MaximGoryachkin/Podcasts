@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - Welcome
 struct SearchPodcast: Codable {
     let status: String?
     let feeds: [Feed]?
