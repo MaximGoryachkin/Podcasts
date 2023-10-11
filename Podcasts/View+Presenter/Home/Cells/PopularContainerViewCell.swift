@@ -22,6 +22,7 @@ class PopularContainerViewCell: UICollectionViewCell {
         collection.register(PopularCollectionViewCell.self, forCellWithReuseIdentifier: PopularCollectionViewCell.identifier)
         collection.delegate = self
         collection.dataSource = self
+        collection.showsHorizontalScrollIndicator = false
         return collection
     }()
     

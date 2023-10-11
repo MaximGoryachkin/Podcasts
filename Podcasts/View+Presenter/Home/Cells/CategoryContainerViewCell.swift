@@ -21,6 +21,7 @@ class CategoryContainerViewCell: UICollectionViewCell {
         collection.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         collection.delegate = self
         collection.dataSource = self
+        collection.showsHorizontalScrollIndicator = false
         return collection
     }()
     

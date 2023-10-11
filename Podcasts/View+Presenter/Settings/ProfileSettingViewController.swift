@@ -37,7 +37,7 @@ class ProfileSettingViewController: UIViewController {
             }
             
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-//                sceneDelegate.checkAuthentication()
+                sceneDelegate.goToController(with: LoginViewController())
             }
         }
     }

@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         setupWindow(with: scene)
-        window?.rootViewController = NavigationViewController(rootViewController: HomeViewController())
+        goToController(with: LoginViewController())
     }
     
     private func setupWindow(with scene: UIScene) {
@@ -24,31 +24,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-//    public func checkAuthentication() {
-//        let onboardingShown = true
-//        
-//        if !onboardingShown {
-//            // Set the root view controller to OnboardingVC
-//            goToController(with: OnboardingViewController())
-//            // Set the onboardingShown flag to true
-//        } else {
-//            // Set the root view controller to MainVC
-//            //FIXME: change to main view controller after such will be ready
-//            goToController(with: HomeViewController())
-//        }
-//        
-//    }
+    public func checkAuthentication() {
+        let onboardingShown = UserDefaults.standard.bool(forKey: "OnboardingShown")
+        
+        if !onboardingShown {
+            // Set the root view controller to OnboardingVC
+            goToController(with: OnboardingViewController())
+            // Set the onboardingShown flag to true
+        } else {
+            // Set the root view controller to MainVC
+            //FIXME: change to main view controller after such will be ready
+            goToController(with: CustomTabBarController())
+        }
+        
+    }
     
-    private func goToController(with viewController: UIViewController) {
+    func goToController(with viewController: UIViewController) {
         DispatchQueue.main.async { [weak self] in
             UIView.animate(withDuration: 0.25) {
                 self?.window?.layer.opacity = 0
                 
             } completion: { [weak self] _ in
                 
-                let nav = UINavigationController(rootViewController: viewController)
-                nav.modalPresentationStyle = .fullScreen
-                self?.window?.rootViewController = nav
+                let vc = viewController
+                vc.modalPresentationStyle = .fullScreen
+                self?.window?.rootViewController = vc
                 
                 UIView.animate(withDuration: 0.25) { [weak self] in
                     self?.window?.layer.opacity = 1

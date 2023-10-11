@@ -81,7 +81,9 @@ class ChannelViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.separatorStyle = .none
+        view.showsVerticalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     

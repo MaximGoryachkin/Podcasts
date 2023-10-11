@@ -140,7 +140,7 @@ final class OnboardingViewController: UIViewController {
     
     //FIXME: change distanation once main VC will be ready
     @objc func skipButtonTapped() {
-        let vc = LoginViewController() // go to main VC
+        let vc = CustomTabBarController() // go to main VC
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true) //!!!: delete this line and line above once navigation controller will be enabled
         UserDefaults.standard.set(true, forKey: "OnboardingShown")
@@ -158,7 +158,7 @@ final class OnboardingViewController: UIViewController {
     
     //FIXME: change distanation once main VC will be ready
     @objc func continueButtonTapped(_ sender: UIButton) {
-        let vc = LoginViewController() // go to main VC
+        let vc = CustomTabBarController() // go to main VC
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true) //!!!: delete this line and line above once navigation controller will be enabled
         UserDefaults.standard.set(true, forKey: "OnboardingShown")

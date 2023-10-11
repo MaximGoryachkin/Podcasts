@@ -157,7 +157,7 @@ class LoginViewController: UIViewController {
             }
             
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-//                sceneDelegate.checkAuthentication()
+                sceneDelegate.checkAuthentication()
             }
         }
     }

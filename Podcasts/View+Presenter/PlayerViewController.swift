@@ -20,11 +20,13 @@ class PlayerViewController: UIViewController {
     }
     
     private lazy var playerCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        let layout = CarouselLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = .zero
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 57, bottom: 0, right: 57)
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.backgroundColor = .systemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsHorizontalScrollIndicator = false
         return view
     }()
     
@@ -176,7 +178,7 @@ class PlayerViewController: UIViewController {
         
         playerCollectionView.dataSource = self
         playerCollectionView.delegate = self
-        playerCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        playerCollectionView.register(PlayerCollectionViewCell.self, forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
         
         navigationItem.title = "Player"
         updateUI()
@@ -199,8 +201,8 @@ class PlayerViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            mainStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 40),
-            mainStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -40),
+            mainStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 48),
+            mainStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -48),
             mainStackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 2 - 50),
             
             buttonsStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
@@ -245,21 +247,20 @@ class PlayerViewController: UIViewController {
     }
     
     private func updateUI() {
-        let item = items[indexPath.row]
-        nameLabel.text = item.title
-        channelLabel.text = item.author
-        
+//        let item = items[indexPath.row]
+//        nameLabel.text = item.title
+//        channelLabel.text = item.author
     }
     
     private func playAudio() {
-        let item = items[indexPath.row]
-        print(item.url)
-        guard let url = URL(string: item.url) else { return }
-        DispatchQueue.main.async {
-            self.playerItem = AVPlayerItem(url: url)
-            self.player = AVPlayer(playerItem: self.playerItem)
-            self.player.play()
-        }
+//        let item = items[indexPath.row]
+//        print(item.url)
+//        guard let url = URL(string: item.url) else { return }
+//        DispatchQueue.main.async {
+//            self.playerItem = AVPlayerItem(url: url)
+//            self.player = AVPlayer(playerItem: self.playerItem)
+//            self.player.play()
+//        }
     }
     
     @objc func playerButtonTapped() {
@@ -267,14 +268,14 @@ class PlayerViewController: UIViewController {
     }
 }
 
-extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        30
+        10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .customBlue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlayerCollectionViewCell.identifier, for: indexPath) as! PlayerCollectionViewCell
+        cell.configure(with: .checkmark)
         return cell
     }
 }
