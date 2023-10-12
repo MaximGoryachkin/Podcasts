@@ -14,6 +14,12 @@ class PlayerViewController: UIViewController {
     var indexPath: IndexPath!
     var player: AVPlayer!
     var playerItem: AVPlayerItem!
+    var isPlay = true
+    var timer: Timer!
+    
+    var increment: CGFloat = 70
+    var startOffset: CGFloat = 0
+    var index: Int = 0
     
     deinit {
         print("Deinit PLayer")
@@ -64,6 +70,7 @@ class PlayerViewController: UIViewController {
         view.tintColor = .customBlue
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(changePodcastItem), for: .touchUpInside)
         return view
     }()
     
@@ -73,6 +80,7 @@ class PlayerViewController: UIViewController {
         view.tintColor = .customBlue
         view.contentMode = .scaleAspectFit
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(changePodcastItem), for: .touchUpInside)
         return view
     }()
     
@@ -89,7 +97,7 @@ class PlayerViewController: UIViewController {
         let view = UIButton()
         view.frame = CGRect(x: 0, y: 0, width: 64, height: 64)
         view.tintColor = .customBlue
-        view.setBackgroundImage(.play, for: .normal)
+        view.setBackgroundImage(.pause, for: .normal)
         view.imageView?.contentMode = .scaleAspectFill
         view.addTarget(self, action: #selector(playerButtonTapped), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -183,8 +191,25 @@ class PlayerViewController: UIViewController {
         navigationItem.title = "Player"
         updateUI()
         playAudio()
+        
+        timer = Timer(timeInterval: 1.0, repeats: true, block: { timer in
+            print(timer.fireDate)
+        })
     }
     
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        playerCollectionView.visibleCells.forEach { cell in
+    //            let newCell = cell as! PlayerCollectionViewCell
+    //            newCell.updateLayer()
+    //        }
+    //    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+
     private func addSubviews(stack: UIStackView, views: UIView...) {
         for view in views {
             stack.addArrangedSubview(view)
@@ -196,18 +221,17 @@ class PlayerViewController: UIViewController {
             playerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             playerCollectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             playerCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            playerCollectionView.bottomAnchor.constraint(equalTo: mainStackView.topAnchor, constant: -30)
+            playerCollectionView.heightAnchor.constraint(equalToConstant: 350)
         ])
         
         NSLayoutConstraint.activate([
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             mainStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 48),
             mainStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -48),
-            mainStackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 2 - 50),
+            mainStackView.topAnchor.constraint(equalTo: playerCollectionView.bottomAnchor, constant: 40),
             
             buttonsStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
-            buttonsStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
-            //            buttonsStackView.heightAnchor.constraint(equalToConstant: 70)
+            buttonsStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor)
         ])
         NSLayoutConstraint.activate([
             shuffleButton.heightAnchor.constraint(equalToConstant: 20),
@@ -225,7 +249,6 @@ class PlayerViewController: UIViewController {
         NSLayoutConstraint.activate([
             sliderStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
             sliderStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
-            //            sliderStackView.heightAnchor.constraint(equalToConstant: 20),
             
             leftLabel.widthAnchor.constraint(equalToConstant: 50),
             rightLabel.widthAnchor.constraint(equalToConstant: 50)
@@ -234,48 +257,89 @@ class PlayerViewController: UIViewController {
         NSLayoutConstraint.activate([
             labelStackView.leftAnchor.constraint(equalTo: mainStackView.leftAnchor),
             labelStackView.rightAnchor.constraint(equalTo: mainStackView.rightAnchor),
-            //            labelStackView.heightAnchor.constraint(equalToConstant: 20),
             
             nameLabel.leftAnchor.constraint(equalTo: labelStackView.leftAnchor),
             nameLabel.rightAnchor.constraint(equalTo: labelStackView.rightAnchor),
-            //            nameLabel.heightAnchor.constraint(equalToConstant: 30),
-            //            channelLabel.heightAnchor.constraint(equalToConstant: 30),
+            
             channelLabel.leftAnchor.constraint(equalTo: labelStackView.leftAnchor),
             channelLabel.rightAnchor.constraint(equalTo: labelStackView.rightAnchor)
+            
             
         ])
     }
     
     private func updateUI() {
-//        let item = items[indexPath.row]
-//        nameLabel.text = item.title
-//        channelLabel.text = item.author
+        let item = items[indexPath.row]
+        nameLabel.text = item.title
+        channelLabel.text = item.author
+        playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        playAudio()
     }
     
     private func playAudio() {
-//        let item = items[indexPath.row]
-//        print(item.url)
-//        guard let url = URL(string: item.url) else { return }
-//        DispatchQueue.main.async {
-//            self.playerItem = AVPlayerItem(url: url)
-//            self.player = AVPlayer(playerItem: self.playerItem)
-//            self.player.play()
-//        }
+        let item = items[indexPath.row]
+        print(item.url)
+        guard let url = URL(string: item.url) else { return }
+        DispatchQueue.main.async {
+            self.playerItem = AVPlayerItem(url: url)
+            self.player = AVPlayer(playerItem: self.playerItem)
+            self.isPlay ? self.player.play() : self.player.pause()
+        }
     }
     
     @objc func playerButtonTapped() {
-        
+        isPlay.toggle()
+        playButton.setBackgroundImage(isPlay ? .pause : .play, for: .normal)
+        isPlay ? player.play() : player.pause()
+    }
+    
+    @objc func changePodcastItem(sender: UIButton) {
+        if sender == forwardButton, indexPath.row < items.count{
+            indexPath.row += 1
+        } else if sender == backwardButton, indexPath.row > 0 {
+            indexPath.row -= 1
+        }
+        updateUI()
     }
 }
 
 extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlayerCollectionViewCell.identifier, for: indexPath) as! PlayerCollectionViewCell
-        cell.configure(with: .checkmark)
+        cell.configure(with: items[indexPath.row].image)
         return cell
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        startOffset = scrollView.contentOffset.x
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        targetContentOffset.pointee = scrollView.contentOffset
+        
+        let endOffset = scrollView.contentOffset.x
+        
+        if endOffset >= startOffset + increment {
+            if indexPath.row < items.count - 1 {
+                indexPath.row += 1
+                updateUI()
+            } else {
+                playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            }
+        } else if endOffset <= startOffset - increment {
+            if indexPath.row > 0 {
+                indexPath.row -= 1
+                updateUI()
+            } else {
+                playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            }
+        } else {
+            playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
 }
