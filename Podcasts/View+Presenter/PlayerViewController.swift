@@ -10,13 +10,15 @@ import AVFoundation
 
 class PlayerViewController: UIViewController {
     
+    // MARK: Public proreties
+    
     var items: [Item]!
     var indexPath: IndexPath!
     var player: AVPlayer!
     var playerItem: AVPlayerItem!
     var isPlay = true
     var timer: Timer!
-    
+    var timeObserverToken: Any!
     var increment: CGFloat = 70
     var startOffset: CGFloat = 0
     var index: Int = 0
@@ -24,6 +26,8 @@ class PlayerViewController: UIViewController {
     deinit {
         print("Deinit PLayer")
     }
+    
+    // MARK: Private proreties
     
     private lazy var playerCollectionView: UICollectionView = {
         let layout = CarouselLayout()
@@ -118,7 +122,6 @@ class PlayerViewController: UIViewController {
         let view = UILabel()
         view.textColor = .systemGray
         view.font = .manropeRegular14
-        view.text = "00.00"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -127,14 +130,13 @@ class PlayerViewController: UIViewController {
         let view = UILabel()
         view.textColor = .systemGray
         view.font = .manropeRegular14
-        view.text = "00.00"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var slider: UISlider = {
         let view = UISlider()
-        view.value = 5
+        view.value = 0
         view.minimumValue = 0.0
         view.maximumValue = 10.0
         view.minimumTrackTintColor = .customBlue
@@ -157,7 +159,6 @@ class PlayerViewController: UIViewController {
     private lazy var nameLabel: UILabel = {
         let view = UILabel()
         view.font = .manropeBold16
-        view.text = "Name of Podcast"
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -166,12 +167,13 @@ class PlayerViewController: UIViewController {
     private lazy var channelLabel: UILabel = {
         let view = UILabel()
         view.font = .manropeRegular16
-        view.text = "Name of channel"
         view.textColor = .systemGray
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    // MARK: Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,26 +192,16 @@ class PlayerViewController: UIViewController {
         
         navigationItem.title = "Player"
         updateUI()
-        playAudio()
         
-        timer = Timer(timeInterval: 1.0, repeats: true, block: { timer in
-            print(timer.fireDate)
-        })
     }
-    
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //        playerCollectionView.visibleCells.forEach { cell in
-    //            let newCell = cell as! PlayerCollectionViewCell
-    //            newCell.updateLayer()
-    //        }
-    //    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
-
+    
+    // MARK: Private methods
+    
     private func addSubviews(stack: UIStackView, views: UIView...) {
         for view in views {
             stack.addArrangedSubview(view)
@@ -263,29 +255,39 @@ class PlayerViewController: UIViewController {
             
             channelLabel.leftAnchor.constraint(equalTo: labelStackView.leftAnchor),
             channelLabel.rightAnchor.constraint(equalTo: labelStackView.rightAnchor)
-            
-            
         ])
     }
     
     private func updateUI() {
         let item = items[indexPath.row]
-        nameLabel.text = item.title
-        channelLabel.text = item.author
-        playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        playAudio()
+        self.playerCollectionView.scrollToItem(at: self.indexPath, at: .centeredHorizontally, animated: true)
+        self.leftLabel.text = "00:00"
+        self.rightLabel.text = "00:00"
+        self.nameLabel.text = item.title
+        self.channelLabel.text = item.author
+        DispatchQueue.global(qos: .utility).sync {
+            self.playAudio()
+        }
     }
     
     private func playAudio() {
-        let item = items[indexPath.row]
-        print(item.url)
-        guard let url = URL(string: item.url) else { return }
-        DispatchQueue.main.async {
-            self.playerItem = AVPlayerItem(url: url)
-            self.player = AVPlayer(playerItem: self.playerItem)
-            self.isPlay ? self.player.play() : self.player.pause()
+        guard let url = URL(string: items[indexPath.row].url) else { return }
+        let item = AVPlayerItem(url: url)
+        let player = AVPlayer(playerItem: item)
+        self.player = player
+        let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            self?.slider.value = Float(item.currentTime().seconds)
+            self?.leftLabel.text = item.currentTime().convertToMinutesSeconds()
+            self?.rightLabel.text = item.duration.convertToMinutesSeconds()
+            self?.slider.maximumValue = Float(item.duration.seconds)
+        }
+        if isPlay {
+            self.player.play()
         }
     }
+    
+    // MARK: Objc methhods
     
     @objc func playerButtonTapped() {
         isPlay.toggle()
@@ -294,6 +296,7 @@ class PlayerViewController: UIViewController {
     }
     
     @objc func changePodcastItem(sender: UIButton) {
+        player.removeTimeObserver(timeObserverToken as Any)
         if sender == forwardButton, indexPath.row < items.count{
             indexPath.row += 1
         } else if sender == backwardButton, indexPath.row > 0 {
@@ -301,7 +304,10 @@ class PlayerViewController: UIViewController {
         }
         updateUI()
     }
+    
 }
+
+// MARK: UICollectionView Delegate and DataSource
 
 extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -315,6 +321,7 @@ extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         startOffset = scrollView.contentOffset.x
     }
@@ -326,12 +333,14 @@ extension PlayerViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if endOffset >= startOffset + increment {
             if indexPath.row < items.count - 1 {
+                player.removeTimeObserver(timeObserverToken as Any)
                 indexPath.row += 1
                 updateUI()
             } else {
                 playerCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             }
         } else if endOffset <= startOffset - increment {
+            player.removeTimeObserver(timeObserverToken as Any)
             if indexPath.row > 0 {
                 indexPath.row -= 1
                 updateUI()
