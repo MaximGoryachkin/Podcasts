@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 struct SettingOption {
     let title: String
     let icon: UIImage?
@@ -17,12 +19,10 @@ class ProfileSetting: UIView {
 
     // MARK: - Properties
     
-    var profileSettings = ProfileSettingViewController()
-    
     var models = [SettingOption]()
-    
+
      var avatatProfileImage: UIImageView = {
-         let avatar = UIImageView()
+         var avatar = UIImageView()
          avatar.clipsToBounds = true
          avatar.contentMode = .scaleAspectFill
          avatar.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,9 @@ class ProfileSetting: UIView {
          return avatar
     }()
     
-    let usernameLabel: UILabel = {
+
+    
+    var usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "User Name"
         label.font = UIFont.manropeBold16
@@ -44,7 +46,7 @@ class ProfileSetting: UIView {
     }()
     
    
-    let subLabel: UILabel = {
+    var subLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.manropeRegular16
         label.text = "Love,life and chill"
@@ -94,18 +96,12 @@ class ProfileSetting: UIView {
                                     iconBackground: UIColor.customGray))
     }
     
-   
-    
-    
-    
-    
+
     // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configure()
-        
         let profileImageDimension: CGFloat = 60
         
         addSubview(avatatProfileImage)
@@ -180,8 +176,6 @@ extension ProfileSetting: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: model)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
+
+
