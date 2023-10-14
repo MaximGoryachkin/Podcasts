@@ -11,6 +11,7 @@ struct Globals {
     static func changeLayer(of view: UIView) {
         let layer = CAShapeLayer()
         layer.path = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.frame.height / 3.2).cgPath
+        
         view.layer.mask = layer
     }
     

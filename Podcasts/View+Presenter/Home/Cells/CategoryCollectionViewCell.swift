@@ -40,7 +40,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private lazy var title: UILabel = {
         let view = UILabel()
         view.font = .manropeBold14
-        view.text = "Baby Pesut"
         view.textAlignment = .center
         return view
     }()
@@ -49,12 +48,12 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let view = UILabel()
         view.font = .manropeRegular12
         view.textColor = .systemGray
-        view.text = "Dr. Oi om jean"
         view.textAlignment = .center
         return view
     }()
     
-    func configure() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
         backgroundColor = .customLightBlue
         layer.cornerRadius = 20
         addSubview(mainView)
@@ -83,6 +82,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             stackView.rightAnchor.constraint(equalTo: subView.rightAnchor),
             stackView.topAnchor.constraint(equalTo: subView.topAnchor, constant: 15)
         ])
+    }
+    
+    func configure(with podcastCategories: CategoryItem) {
+        title.text = podcastCategories.category.rawValue
+        subtitle.text = String(podcastCategories.podcasts.count)
     }
     
     

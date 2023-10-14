@@ -30,6 +30,7 @@ extension UIImage {
     static let forward = UIImage(systemName: "forward.end.fill")
     static let repeatImage = UIImage(systemName: "repeat")
     static let play = UIImage(systemName: "play.circle.fill")
+    static let pause = UIImage(systemName: "pause.circle.fill")
     
     static let separator = UIImage(named: "separator")
     static let group = UIImage(named: "group")

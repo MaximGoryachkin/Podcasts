@@ -80,7 +80,7 @@ final class OnboardingViewController: UIViewController {
     
     private func makeText(text1: String, text2: String) -> NSAttributedString {
         var seaGreenAttribute = [NSAttributedString.Key: AnyObject]()
-        seaGreenAttribute[.foregroundColor] = UIColor.seaGreen
+        seaGreenAttribute[.foregroundColor] = UIColor.systemBrown
         
         var blueAttribute = [NSAttributedString.Key: AnyObject]()
         blueAttribute[.foregroundColor] = UIColor.deepBlue

@@ -26,9 +26,9 @@ class NetworkManager {
             guard let data = data else { return }
             do {
                 let podcast = try JSONDecoder().decode(PodcastAPI.self, from: data)
-                DispatchQueue.main.async {
-                    complition(podcast)
-                }
+                complition(podcast)
+//                DispatchQueue.global().async {
+//                }
             } catch let error {
                 print(error)
             }
