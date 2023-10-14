@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoriteViewController: UIViewController {
+    
+    var items: Results<Item>!
+    var realm = try! Realm()
     
     private lazy var headerStack: UIStackView = {
         let view = UIStackView()
@@ -81,10 +85,12 @@ class FavoriteViewController: UIViewController {
         tableView.register(AddPlaylistTableViewCell.self, forCellReuseIdentifier: AddPlaylistTableViewCell.identifier)
         tableView.showsVerticalScrollIndicator = false
         setupConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationItem()
+        items = realm.objects(Item.self)
     }
     
     private func setupConstraints() {
@@ -129,7 +135,7 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -139,7 +145,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as! FavoriteTableViewCell
-            cell.configure(image: UIImage.add, label: "Podcast name", sublabel: "30 Eps")
+//            cell.configure(image: items[indexPath.row].image, label: items[indexPath.row].title, sublabel: items[indexPath.row].author)
             return cell
         }
     }
@@ -156,12 +162,12 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FavoriteViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        24
+        items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.identifier, for: indexPath) as? FavoriteCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure()
+        cell.configure(image: items[indexPath.row].image, label: items[indexPath.row].title, sublabel: items[indexPath.row].author)
         return cell
     }
     

@@ -74,8 +74,9 @@ class FavoriteTableViewCell: UITableViewCell {
         ])
     }
     
-    public func configure(image: UIImage, label: String, sublabel: String) {
-        self.image.image = image
+    public func configure(image: String, label: String, sublabel: String) {
+        let url = URL(string: image)
+        self.image.kf.setImage(with: url)
         self.label.text = label
         self.sublabel.text = sublabel
     }

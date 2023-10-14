@@ -211,9 +211,9 @@ extension ChannelViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             xmlDictArr.append(xmlDict)
-            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
-                item.description = String(description)
-            }
+//            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
+//                item.description = String(description)
+//            }
             item.title = String((xmlDict["title"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
             item.author = podcast.author
             items.append(item)

@@ -262,7 +262,7 @@ class PlayerViewController: UIViewController {
         let item = items[indexPath.row]
         self.playerCollectionView.scrollToItem(at: self.indexPath, at: .centeredHorizontally, animated: true)
         self.leftLabel.text = "00:00"
-        self.rightLabel.text = "00:00"
+        self.rightLabel.text = "--:--"
         self.nameLabel.text = item.title
         self.channelLabel.text = item.author
         DispatchQueue.global(qos: .utility).sync {

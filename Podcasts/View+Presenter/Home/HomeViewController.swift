@@ -11,6 +11,7 @@ protocol HomeViewProtocol: AnyObject {
     func updateProfileInfo(with account: Account)
     func updateCategories(with podcasts: [Podcast])
     func updatePodcasts()
+    func updatePodcastCategories(with podcastCategories: [CategoryItem])
 }
 
 class HomeViewController: UIViewController {
@@ -19,6 +20,7 @@ class HomeViewController: UIViewController {
     
     var presenter: HomeViewPresenter!
     var podcasts = [Podcast]()
+    var podcastCategories = [CategoryItem]()
     
     private lazy var topStack: UIStackView = {
         let view = UIStackView()
@@ -104,7 +106,11 @@ class HomeViewController: UIViewController {
         presenter = HomeViewPresenter()
         presenter.delegate = self
         presenter.fetchProfileData()
-        presenter.fetchDataForCategories()
+        
+        DispatchQueue.global().async {
+            self.presenter.fetchDataForCategories()
+            self.presenter.fetchPodcastsCategories()
+        }
         
         
         addSubviews(subviews: topStack, headerStack, mainCollectionView)
@@ -115,11 +121,11 @@ class HomeViewController: UIViewController {
         mainCollectionView.delegate = self
         mainCollectionView.dataSource = self
         mainCollectionView.register(HomeCollectionViewCell.self,
-                                        forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
+                                    forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         mainCollectionView.register(CategoryContainerViewCell.self,
-                                        forCellWithReuseIdentifier: CategoryContainerViewCell.identifier)
+                                    forCellWithReuseIdentifier: CategoryContainerViewCell.identifier)
         mainCollectionView.register(PopularContainerViewCell.self,
-                                        forCellWithReuseIdentifier: PopularContainerViewCell.identifier)
+                                    forCellWithReuseIdentifier: PopularContainerViewCell.identifier)
         mainCollectionView.showsHorizontalScrollIndicator = false
         
         setupConstraints()
@@ -176,7 +182,7 @@ class HomeViewController: UIViewController {
             avatarImage.widthAnchor.constraint(equalToConstant: 52)
         ])
     }
-        
+    
 }
 
 // MARK: CollectionView Delegate and DataSource methods
@@ -190,9 +196,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         
         if indexPath.row == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryContainerViewCell.identifier, for: indexPath) as? CategoryContainerViewCell else { return UICollectionViewCell() }
+            cell.podcastCategories = podcastCategories
+            cell.updateData()
             return cell
         } else if indexPath.row == 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularContainerViewCell.identifier, for: indexPath) as? PopularContainerViewCell else { return UICollectionViewCell() }
+            cell.delegate = self
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as? HomeCollectionViewCell else { return UICollectionViewCell() }
@@ -225,6 +234,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
 
 extension HomeViewController: HomeViewProtocol {
     
+    
     func updateCategories(with podcasts: [Podcast]) {
         DispatchQueue.main.async {
             self.podcasts = podcasts
@@ -233,12 +243,26 @@ extension HomeViewController: HomeViewProtocol {
     }
     
     func updatePodcasts() {
-        
+        podcasts = []
+        mainCollectionView.reloadData()
+        presenter.fetchDataForCategories()
     }
     
     
     func updateProfileInfo(with account: Account) {
         
     }
-
+    
+    func updatePodcastCategories(with podcastCategories: [CategoryItem]) {
+        DispatchQueue.main.async {
+            self.podcastCategories = podcastCategories
+            self.mainCollectionView.reloadData()
+        }
+        for category in podcastCategories {
+            category.podcasts.forEach {
+                print($0)
+            }
+        }
+    }
 }
+

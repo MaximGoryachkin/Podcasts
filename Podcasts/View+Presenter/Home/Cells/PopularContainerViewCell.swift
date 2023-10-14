@@ -10,7 +10,8 @@ import UIKit
 class PopularContainerViewCell: UICollectionViewCell {
     
     static let identifier = "PopularContainerViewCell"
-    let categories = Globals.trendingCategories
+    let categories = Medium.categories()
+    weak var delegate: HomeViewProtocol!
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -57,11 +58,16 @@ extension PopularContainerViewCell: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCollectionViewCell.identifier, for: indexPath) as? PopularCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(with: categories[indexPath.row])
+        cell.configure(with: categories[indexPath.row].rawValue.capitalized)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 70, height: 44)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        DataManager.shared.updateCtegoryURL(with: categories[indexPath.row])
+        delegate.updatePodcasts()
     }
 }

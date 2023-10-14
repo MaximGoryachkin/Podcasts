@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct Item {
-    var title: String = ""
-    var description: String = ""
-    var url: String = ""
-    var length: Int = 0
-    var image: String = ""
-    var author: String = ""
+struct CategoryItem {
+    let category: PodcastCategory
+    let podcasts: [Podcast]
 }

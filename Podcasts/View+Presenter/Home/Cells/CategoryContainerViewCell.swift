@@ -10,12 +10,14 @@ import UIKit
 class CategoryContainerViewCell: UICollectionViewCell {
     
     static let identifier = "CategoryContainerViewCell"
+    private let categories = PodcastCategory.allCases
+    var podcastCategories = [CategoryItem]()
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var mainCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 144, height: 200)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
@@ -35,31 +37,33 @@ class CategoryContainerViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
-        contentView.addSubview(collectionView)
+    private func setupViews() {
+        contentView.addSubview(mainCollectionView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            mainCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
+    
+    func updateData() {
+        mainCollectionView.reloadData()
+    }
+
 }
 
 extension CategoryContainerViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        podcastCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure()
+        cell.configure(with: podcastCategories[indexPath.row])
         return cell
     }
-    
-    
-    
 }
