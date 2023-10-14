@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         setupWindow(with: scene)
+        checkAuthentication()
         goToController(with: LoginViewController())
     }
     
@@ -25,18 +26,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     public func checkAuthentication() {
-        let onboardingShown = UserDefaults.standard.bool(forKey: "OnboardingShown")
-        
-        if !onboardingShown {
-            // Set the root view controller to OnboardingVC
-            goToController(with: OnboardingViewController())
-            // Set the onboardingShown flag to true
+        if Auth.auth().currentUser == nil {
+            self.goToController(with: RegisterViewController())
         } else {
-            // Set the root view controller to MainVC
-            //FIXME: change to main view controller after such will be ready
-            goToController(with: CustomTabBarController())
+            let onboardingShown = UserDefaults.standard.bool(forKey: "OnboardingShown")
+            
+            if !onboardingShown {
+                // Set the root view controller to OnboardingVC
+                goToController(with: OnboardingViewController())
+                // Set the onboardingShown flag to true
+            } else {
+                // Set the root view controller to MainVC
+                //FIXME: change to main view controller after such will be ready
+                goToController(with: CustomTabBarController())
+            }
         }
-        
     }
     
     func goToController(with viewController: UIViewController) {

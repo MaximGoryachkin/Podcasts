@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import GoogleSignIn
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -37,6 +39,7 @@ class LoginViewController: UIViewController {
     private let signInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign In", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
         button.backgroundColor = .customBlue
         button.layer.cornerRadius = 24
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +70,14 @@ class LoginViewController: UIViewController {
         return button
     } ()
     
+    private let divider: DividerView = {
+        let divider = DividerView()
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
+    } ()
+            
+    private let continueWithGoogleButton = GoogleButton()
+    
     private let eyeButton = EyeButton()
     
     private var isPrivate = true
@@ -79,6 +90,7 @@ class LoginViewController: UIViewController {
         setupTF()
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
+        continueWithGoogleButton.addTarget(self, action: #selector(didTapContinueWithGoogle), for: .touchUpInside)
         eyeButton.addTarget(self, action: #selector(displayBookMarks), for: .touchUpInside)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -98,7 +110,9 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordLabel)
         view.addSubview(passwordField)
         view.addSubview(signInButton)
-        
+        view.addSubview(divider)
+        view.addSubview(continueWithGoogleButton)
+
         newUserStack.addArrangedSubview(newUserLabel)
         newUserStack.addArrangedSubview(newUserButton)
         view.addSubview(newUserStack)
@@ -111,23 +125,33 @@ class LoginViewController: UIViewController {
             emailField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             emailField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             emailField.heightAnchor.constraint(equalToConstant: 45),
-            
+
             passwordLabel.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 12),
             passwordLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
+
             passwordField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 6),
             passwordField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             passwordField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             passwordField.heightAnchor.constraint(equalToConstant: 45),
-            
+
             signInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 24),
             signInButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             signInButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             signInButton.heightAnchor.constraint(equalToConstant: 57),
             
+            divider.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 45),
+            divider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            divider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            divider.heightAnchor.constraint(equalToConstant: 22),
+
+            continueWithGoogleButton.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 56),
+            continueWithGoogleButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            continueWithGoogleButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            continueWithGoogleButton.heightAnchor.constraint(equalToConstant: 57),
+
             newUserStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             newUserStack.heightAnchor.constraint(equalToConstant: 24),
-            newUserStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            newUserStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
     
@@ -168,8 +192,48 @@ class LoginViewController: UIViewController {
         print("DEBUG PRINT:", "didTapNewUser")
     }
     
+    @objc private func didTapContinueWithGoogle() {
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+          guard error == nil else {
+            return
+          }
+
+          guard let user = result?.user,
+            let idToken = user.idToken?.tokenString
+          else {
+            return
+          }
+
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: user.accessToken.tokenString)
+
+            Auth.auth().signIn(with: credential) { result, error in
+
+                if let error = error {
+                    AlertManager.showSignInErrorAlert(on: self, with: error)
+                    return
+                }
+                
+                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                    sceneDelegate.checkAuthentication()
+                }
+            }
+        }
+        
+
+        print("DEBUG PRINT:", "didTapContinueWithGoogle")
+    }
+    
     @objc private func displayBookMarks() {
-        let imageName = isPrivate ? "hidden" : "eye"
+        let imageName = isPrivate ? "hidden" : "show"
         
         passwordField.isSecureTextEntry.toggle()
         eyeButton.setImage(UIImage(named: imageName), for: .normal)
