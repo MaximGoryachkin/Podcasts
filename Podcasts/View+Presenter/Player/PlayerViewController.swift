@@ -143,6 +143,7 @@ class PlayerViewController: UIViewController {
         view.maximumTrackTintColor = .customBlue
         view.thumbTintColor = .customBlue
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(updateSliderValue(sender: )), for: .touchUpInside)
         return view
     }()
     
@@ -265,7 +266,8 @@ class PlayerViewController: UIViewController {
         self.rightLabel.text = "--:--"
         self.nameLabel.text = item.title
         self.channelLabel.text = item.author
-        DispatchQueue.global(qos: .utility).sync {
+        self.slider.value = 0
+        DispatchQueue.global(qos: .utility).async {
             self.playAudio()
         }
     }
@@ -305,6 +307,11 @@ class PlayerViewController: UIViewController {
         updateUI()
     }
     
+    @objc func updateSliderValue(sender: UISlider) {
+        let seconds = Double(sender.value)
+        let time = CMTime(seconds: seconds, preferredTimescale: 1)
+        player.currentItem?.seek(to: time, completionHandler: nil)
+    }
 }
 
 // MARK: UICollectionView Delegate and DataSource
