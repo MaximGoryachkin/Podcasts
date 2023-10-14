@@ -20,14 +20,6 @@ class CategoryChannelViewController: UIViewController {
         return view
     }()
     
-    private lazy var imageView: UIImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "test")
-        view.contentMode = .scaleToFill
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var mainTitle: UILabel = {
         let view = UILabel()
         view.font = .manropeBold16
@@ -37,36 +29,9 @@ class CategoryChannelViewController: UIViewController {
         return view
     }()
     
-    private lazy var subtitleStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.spacing = 10
-        view.distribution = .equalSpacing
-        view.alignment = .center
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var numberEpisodesLabel: UILabel = {
         let view = UILabel()
         view.font = .manropeRegular14
-        view.text = "0"
-        view.textAlignment = .center
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var separatorImage: UIImageView = {
-        let view = UIImageView()
-        view.image = .separator
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var autorNameLabel: UILabel = {
-        let view = UILabel()
-        view.font = .manropeRegular14
-        view.text = ""
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -86,8 +51,7 @@ class CategoryChannelViewController: UIViewController {
         view.addSubview(mainStackView)
         view.addSubview(tableView)
         view.backgroundColor = .white
-        addSubviews(stack: mainStackView, views: imageView, mainTitle, subtitleStackView)
-        addSubviews(stack: subtitleStackView, views: numberEpisodesLabel, separatorImage, autorNameLabel)
+        addSubviews(stack: mainStackView, views: mainTitle, numberEpisodesLabel)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CategoryChannelTableViewCell.self, forCellReuseIdentifier: CategoryChannelTableViewCell.identifier)
@@ -113,19 +77,11 @@ class CategoryChannelViewController: UIViewController {
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             mainStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
             mainStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            mainStackView.heightAnchor.constraint(equalToConstant: 150)
+            mainStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(equalToConstant: 85),
-            imageView.widthAnchor.constraint(equalToConstant: 85),
-            
-            separatorImage.heightAnchor.constraint(equalToConstant: 19),
-            separatorImage.widthAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 10),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -32),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32)
@@ -134,7 +90,7 @@ class CategoryChannelViewController: UIViewController {
     
     private func updateUI() {
         mainTitle.text = category.category.rawValue
-        autorNameLabel.text = String(category.podcasts.count)
+        numberEpisodesLabel.text = "\(category.podcasts.count) Podc."
     }
 }
 
