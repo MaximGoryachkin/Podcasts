@@ -12,6 +12,7 @@ class CategoryContainerViewCell: UICollectionViewCell {
     static let identifier = "CategoryContainerViewCell"
     private let categories = PodcastCategory.allCases
     var podcastCategories = [CategoryItem]()
+    weak var delegate: HomeViewProtocol!
     
     private lazy var mainCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -53,7 +54,7 @@ class CategoryContainerViewCell: UICollectionViewCell {
     func updateData() {
         mainCollectionView.reloadData()
     }
-
+    
 }
 
 extension CategoryContainerViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -66,4 +67,11 @@ extension CategoryContainerViewCell: UICollectionViewDelegate, UICollectionViewD
         cell.configure(with: podcastCategories[indexPath.row])
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let categoryChannelVC = CategoryChannelViewController()
+        categoryChannelVC.category = podcastCategories[indexPath.row]
+        delegate.prepareNavigation(with: categoryChannelVC)
+    }
+    
 }

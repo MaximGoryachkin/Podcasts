@@ -12,6 +12,7 @@ protocol HomeViewProtocol: AnyObject {
     func updateCategories(with podcasts: [Podcast])
     func updatePodcasts()
     func updatePodcastCategories(with podcastCategories: [CategoryItem])
+    func prepareNavigation(with controller: UIViewController)
 }
 
 class HomeViewController: UIViewController {
@@ -197,6 +198,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         if indexPath.row == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryContainerViewCell.identifier, for: indexPath) as? CategoryContainerViewCell else { return UICollectionViewCell() }
             cell.podcastCategories = podcastCategories
+            cell.delegate = self
             cell.updateData()
             return cell
         } else if indexPath.row == 1 {
@@ -233,7 +235,9 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
 }
 
 extension HomeViewController: HomeViewProtocol {
-    
+    func prepareNavigation(with controller: UIViewController) {
+        navigationController?.pushViewController(controller, animated: true)
+    }
     
     func updateCategories(with podcasts: [Podcast]) {
         DispatchQueue.main.async {
