@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import RealmSwift
 
 class DataManager {
+    
+    let realm = try! Realm()
     
     enum Tegs: String {
         case podcasts
@@ -20,9 +23,11 @@ class DataManager {
     
     let episodeURL = "https://api.podcastindex.org/api/1.0/episodes/byfeedid?id=75&pretty"
     let searchURL = "https://api.podcastindex.org/api/1.0/search/byterm?q=batman+university&pretty"
-    let trendingURL = "https://api.podcastindex.org/api/1.0/podcasts/trending?pretty&max=30"
+    var categoriesURL: String = "https://api.podcastindex.org/api/1.0/podcasts/trending?pretty&max=30"
+    
     let apiKey = "MSDWATAHX8CSACA8PECJ"
     let apiSecret = "^kwug67D7mhbPT#7FwwdzLgrLVzjqmMdZwdXy3pB"
+
 
     private init() {}
     
@@ -55,4 +60,48 @@ class DataManager {
 //    }
 //    
 //    var arrayRecipes = [Int : RecipeDataModel]()
+    
+    func saveEpisode(with item: Item) {
+        do {
+            try realm.write {
+                realm.add(item)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func loadEpisodes() -> Results<Item> {
+        let items = realm.objects(Item.self)
+        return items
+    }
+    
+    func updateCtegoryURL(with category: Medium) {
+        if category == .tranding {
+            categoriesURL = "https://api.podcastindex.org/api/1.0/podcasts/trending?pretty&max=30"
+        } else {
+            categoriesURL = "https://api.podcastindex.org/api/1.0/podcasts/bymedium?medium=\(category.rawValue)&pretty"
+        }
+    }
+    
+    func setCategory(with category: PodcastCategory) -> String {
+        switch category {
+        case .music:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=16,18,19,23&pretty"
+        case .art:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=1,2,3,4,5&pretty"
+        case .business:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=9,10,12,13,14&pretty"
+        case .games:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=6,48,49&pretty"
+        case .science:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=21,22,24,25,26,67,68,69,70,71,72,73,74,75&pretty"
+        case .sport:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=86,87,88,89,91,92,93,94,95,96,97,98,99,101&pretty"
+        case .news:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=55,56,57,58,59&pretty"
+        case .mults:
+            "https://api.podcastindex.org/api/1.0/podcasts/trending?cat=43,44,104,105,106,107&pretty"
+        }
+    }
 }

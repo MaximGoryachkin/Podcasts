@@ -47,7 +47,8 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    func configure() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
         backgroundColor = .customLightBlue
         layer.cornerRadius = 20
         addSubview(mainStackView)
@@ -64,6 +65,13 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             mainImage.heightAnchor.constraint(equalToConstant: 60),
             mainImage.widthAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    public func configure(image: String, label: String, sublabel: String) {
+        let url = URL(string: image)
+        self.mainImage.kf.setImage(with: url)
+        self.title.text = label
+        self.subtitle.text = sublabel
     }
     
     
