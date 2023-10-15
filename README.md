@@ -4,7 +4,7 @@
 
 
 ---
-### The application was created as part of the Swift Marathon 8.0 project (https://t.me/swiftmarathon).
+### The application was created as part of the Dev Rush Marathon 8.0 project.
 ### Project created by:
 <p align="left"> 
 <a href="https://github.com/MaximGoryachkin">
