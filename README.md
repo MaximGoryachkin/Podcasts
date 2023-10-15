@@ -2,7 +2,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/MaximGoryachkin/Podcasts)  ![GitHub contributors](https://img.shields.io/github/contributors/MaximGoryachkin/Podcasts)   ![GitHub last commit](https://img.shields.io/github/last-commit/MaximGoryachkin/Podcasts) ![][ios] ![][swift] ![][uikit]
 
 
-
+![](https://github.com/MaximGoryachkin/Podcasts/blob/develop/Project%20demo.gif)
 ---
 ### The application was created as part of the Dev Rush Marathon 8.0 project.
 ### Project created by:
