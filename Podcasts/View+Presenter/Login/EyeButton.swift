@@ -24,7 +24,7 @@ final class EyeButton: UIButton {
     
     //MARK: - Private Methods
     private func setupEyeButton() {
-        setImage(UIImage(named: "eye"), for: .normal)
+        setImage(UIImage(named: "show"), for: .normal)
         tintColor = UIColor(named: "eyeButtonColor")
         widthAnchor.constraint(equalToConstant: 50).isActive = true
     }

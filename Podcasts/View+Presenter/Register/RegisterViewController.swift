@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class RegisterViewController: UIViewController {
     
@@ -60,6 +62,14 @@ class RegisterViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     } ()
+    
+    private let divider: DividerView = {
+        let divider = DividerView()
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
+    } ()
+            
+    private let continueWithGoogleButton = GoogleButton()
 
     private let loginStack: UIStackView = {
         let stack = UIStackView()
@@ -98,6 +108,7 @@ class RegisterViewController: UIViewController {
         
         self.continueButton.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
         self.loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+        continueWithGoogleButton.addTarget(self, action: #selector(didTapContinueWithGoogle), for: .touchUpInside)
     }
     
     private func setupUI() {
@@ -107,6 +118,8 @@ class RegisterViewController: UIViewController {
         view.addSubview(emailLabel)
         view.addSubview(emailField)
         view.addSubview(continueButton)
+        view.addSubview(divider)
+        view.addSubview(continueWithGoogleButton)
         loginStack.addArrangedSubview(loginLabel)
         loginStack.addArrangedSubview(loginButton)
         view.addSubview(loginStack)
@@ -136,6 +149,16 @@ class RegisterViewController: UIViewController {
             continueButton.widthAnchor.constraint(equalToConstant: 327),
             continueButton.heightAnchor.constraint(equalToConstant: 56),
             
+            divider.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 32),
+            divider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            divider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            divider.heightAnchor.constraint(equalToConstant: 22),
+
+            continueWithGoogleButton.topAnchor.constraint(equalTo: divider.bottomAnchor, constant: 32),
+            continueWithGoogleButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            continueWithGoogleButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            continueWithGoogleButton.heightAnchor.constraint(equalToConstant: 57),
+            
             loginStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             loginStack.heightAnchor.constraint(equalToConstant: 24),
             loginStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -159,6 +182,46 @@ class RegisterViewController: UIViewController {
     @objc private func didTapLogin() {
         self.navigationController?.popToRootViewController(animated: true)
         print("DEBUG PRINT:", "didTapLogin")
+    }
+    
+    @objc private func didTapContinueWithGoogle() {
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+          guard error == nil else {
+            return
+          }
+
+          guard let user = result?.user,
+            let idToken = user.idToken?.tokenString
+          else {
+            return
+          }
+
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: user.accessToken.tokenString)
+
+            Auth.auth().signIn(with: credential) { result, error in
+
+                if let error = error {
+                    AlertManager.showSignInErrorAlert(on: self, with: error)
+                    return
+                }
+                
+                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                    sceneDelegate.checkAuthentication()
+                }
+            }
+        }
+        
+
+        print("DEBUG PRINT:", "didTapContinueWithGoogle")
     }
     
     @objc func dismissKeyboard() {
