@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "avatar.jpg",
+      "filename" : "07XIWRqpd98AEQHsshW2I9W4PrPLCi02A2n1F0dJ_IVyn2pBvHuR5iWLV-SgeyS12RD5dHjo22Vbyuugyhh-QxJF.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "07XIWRqpd98AEQHsshW2I9W4PrPLCi02A2n1F0dJ_IVyn2pBvHuR5iWLV-SgeyS12RD5dHjo22Vbyuugyhh-QxJF 1.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "07XIWRqpd98AEQHsshW2I9W4PrPLCi02A2n1F0dJ_IVyn2pBvHuR5iWLV-SgeyS12RD5dHjo22Vbyuugyhh-QxJF 2.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

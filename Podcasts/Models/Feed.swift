@@ -9,7 +9,7 @@ import Foundation
 
 struct Feed: Codable {
     let author: String
-    let categories: [String: String]
+    let categories: [String: String]?
     let image: String?
     let title: String
     let url: String?

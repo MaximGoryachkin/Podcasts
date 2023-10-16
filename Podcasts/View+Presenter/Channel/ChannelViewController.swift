@@ -37,7 +37,7 @@ class ChannelViewController: UIViewController {
     private lazy var mainTitle: UILabel = {
         let view = UILabel()
         view.font = .manropeBold16
-        view.text = "Baby Pesut Podcast"
+        view.text = ""
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -56,7 +56,7 @@ class ChannelViewController: UIViewController {
     private lazy var numberEpisodesLabel: UILabel = {
         let view = UILabel()
         view.font = .manropeRegular14
-        view.text = "56 Eps"
+        view.text = "0"
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -72,7 +72,7 @@ class ChannelViewController: UIViewController {
     private lazy var autorNameLabel: UILabel = {
         let view = UILabel()
         view.font = .manropeRegular14
-        view.text = "Dr. Oi om jean"
+        view.text = ""
         view.textAlignment = .center
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -103,14 +103,11 @@ class ChannelViewController: UIViewController {
         fetchData(from: podcast.url)
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        Globals.changeLayer(of: imageView)
-//        tableView.visibleCells.forEach { cell in
-//            let newCell = cell as! ChannelTableViewCell
-//            newCell.updateLayer()
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+        tabBarController?.tabBar.isHidden = true
+    }
     
     private func addSubviews(stack: UIStackView, views: UIView...) {
         for view in views {
@@ -161,7 +158,6 @@ class ChannelViewController: UIViewController {
         imageView.kf.setImage(with: url)
         mainTitle.text = podcast.title
         autorNameLabel.text = podcast.author
-        numberEpisodesLabel.text = String(podcast.episodeCount)
     }
 }
 
@@ -215,9 +211,9 @@ extension ChannelViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             xmlDictArr.append(xmlDict)
-            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
-                item.description = String(description)
-            }
+//            if let description = xmlDict["description"]?.filter({ $0 != "\"" }).split(separator: "\n").first {
+//                item.description = String(description)
+//            }
             item.title = String((xmlDict["title"]?.filter { $0 != "\"" }.split(separator: "\n").first)!)
             item.author = podcast.author
             items.append(item)
@@ -234,6 +230,7 @@ extension ChannelViewController: XMLParserDelegate {
     func parserDidEndDocument(_ parser: XMLParser) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.numberEpisodesLabel.text = String(self.items.count)
         }
     }
 }

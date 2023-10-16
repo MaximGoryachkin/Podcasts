@@ -8,11 +8,15 @@
 import Foundation
 
 enum Medium: String, CaseIterable {
-    case podcast
+    case tranding = "🔥Trending"
     case music
     case video
     case film
     case audiobook
     case newsletter
     case blog
+    
+    static func categories() -> [Medium] {
+        Medium.allCases
+    }
 }

@@ -9,4 +9,5 @@ import Foundation
 
 struct PodcastAPI: Codable {
     let feeds: [Feed]?
+    let count: Int?
 }

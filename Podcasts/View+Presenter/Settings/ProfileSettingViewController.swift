@@ -7,14 +7,16 @@
 
 import UIKit
 
-
+protocol ProfileSettingViewControllerDelegate {
+    func didUpdateUsername(_ username: String, avatar: UIImage)
+}
 
 class ProfileSettingViewController: UIViewController {
-    
+
     // MARK: - Properties
     
-    var userInfoHeader: ProfileSetting!
-    
+    var userInfoHeader = ProfileSetting()
+    let accountVC = AccountViewController()
     // MARK: - Init
     
     override func viewDidLoad() {
@@ -25,6 +27,8 @@ class ProfileSettingViewController: UIViewController {
         userInfoHeader.logOutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
         view.addSubview(userInfoHeader)
         userInfoHeader.settingTableView.delegate = self
+        
+        
     }
     
     // MARK: - Selectors
@@ -42,16 +46,27 @@ class ProfileSettingViewController: UIViewController {
         }
     }
     
+    
+    
 }
 
 extension ProfileSettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let accountVC = AccountViewController()
+            accountVC.delegate = self
             navigationController?.pushViewController(accountVC, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
+}
+
+extension ProfileSettingViewController: ProfileSettingViewControllerDelegate {
+    func didUpdateUsername(_ username: String, avatar: UIImage) {
+        userInfoHeader.usernameLabel.text = username
+        userInfoHeader.avatatProfileImage.image = avatar
+    }
+
 }

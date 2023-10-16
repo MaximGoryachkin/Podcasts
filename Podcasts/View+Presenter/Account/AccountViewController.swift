@@ -7,15 +7,19 @@
 
 import UIKit
 
+
+
 class AccountViewController: UIViewController {
     
     private var contentSize : CGSize {
         CGSize(width: view.frame.width, height: view.frame.height + 200)
     }
     
+    var delegate: ProfileSettingViewControllerDelegate!
+    
     private var isMale = true
     private let customAlert = CustomAlert()
-    
+        
     private lazy var scroolView: UIScrollView = {
         let view = UIScrollView()
         view.contentSize = contentSize
@@ -42,12 +46,22 @@ class AccountViewController: UIViewController {
     }()
     
     private lazy var profileImage: UIImageView = {
-        let view = UIImageView()
-        view.image = .checkmark
+        var view = UIImageView()
+        view.image = UIImage(named: "avatar")
         view.layer.cornerRadius = 50
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private lazy var editSymbol: UIImageView = {
+        let symbol = UIImageView()
+        symbol.image = UIImage(systemName: "pencil.circle.fill")
+        symbol.translatesAutoresizingMaskIntoConstraints = false
+        symbol.layer.cornerRadius = 18
+        symbol.layer.borderColor = UIColor.white.cgColor
+        symbol.layer.borderWidth = 4
+        return symbol
     }()
     
     private lazy var photoSelectionAlertButton: UIButton = {
@@ -168,15 +182,18 @@ class AccountViewController: UIViewController {
         view.layer.borderWidth = 1
         view.layer.borderColor = CGColor(red: 40/255, green: 130/255, blue: 241/255, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addTarget(self, action: #selector(saveButtonPressed(sender: )), for: .allTouchEvents)
+        view.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Profile"
+        tabBarController?.tabBar.isHidden = true
         view.addSubview(scroolView)
         scroolView.addSubview(contentView)
         contentView.addSubview(profileImage)
+        contentView.addSubview(editSymbol)
         contentView.addSubview(photoSelectionAlertButton)
         contentView.addSubview(mainStack)
         addSubviews(main: mainStack, views: firstLabel, firstTextField, lastLabel, lastTextField, emailLabel, emailTextField, birthLabel, birthTextField, genderLabel, buttonStack)
@@ -184,10 +201,8 @@ class AccountViewController: UIViewController {
         view.addSubview(saveButton)
         setupUI()
         setupDatePicker()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
                 view.addGestureRecognizer(tapGesture)
-        
         customAlert.takePhotoButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
         customAlert.chooseFromYourFileButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
         customAlert.deleteButton.addTarget(self, action: #selector(chooseImagePickerButton), for: .touchUpInside)
@@ -209,9 +224,17 @@ class AccountViewController: UIViewController {
         NSLayoutConstraint.activate([
             profileImage.heightAnchor.constraint(equalToConstant: 100),
             profileImage.widthAnchor.constraint(equalToConstant: 100),
-            profileImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
+            profileImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             profileImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            editSymbol.heightAnchor.constraint(equalToConstant: 38),
+            editSymbol.widthAnchor.constraint(equalToConstant: 38),
+            editSymbol.bottomAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8),
+            editSymbol.trailingAnchor.constraint(equalTo: profileImage.trailingAnchor)
+        ])
+        
         
         NSLayoutConstraint.activate([
             photoSelectionAlertButton.heightAnchor.constraint(equalToConstant: 100),
@@ -285,6 +308,7 @@ class AccountViewController: UIViewController {
         }else if sender == customAlert.deleteButton {
             profileImage.image = .checkmark
             customAlert.hideAlert()
+            
         }
     }
     
@@ -303,7 +327,14 @@ class AccountViewController: UIViewController {
 //    }
     
     @objc func saveButtonPressed(sender: UIButton) {
+        let firstName = firstTextField.text ?? ""
+        let lastName = lastTextField.text ?? ""
+        let username = firstName + " " + lastName
         
+        delegate?.didUpdateUsername(username, avatar: profileImage.image!)
+        
+        
+        navigationController?.popViewController(animated: true)
     }
     
     func chooseImagePicker(source: UIImagePickerController.SourceType) {
@@ -324,11 +355,13 @@ extension AccountViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             profileImage.image = selectedImage
+            profileImage.image = selectedImage
             customAlert.hideAlert()
+            
         }
-        
         picker.dismiss(animated: true, completion: nil)
     }
     
 }
+
 

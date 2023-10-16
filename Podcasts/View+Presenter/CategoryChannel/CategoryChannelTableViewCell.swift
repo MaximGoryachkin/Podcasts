@@ -1,17 +1,17 @@
 //
-//  ChannelTableViewCell.swift
+//  CategoryChannelTableView.swift
 //  Podcasts
 //
-//  Created by Максим Горячкин on 04.10.2023.
+//  Created by Максим Горячкин on 14.10.2023.
 //
 
 import UIKit
 
-class ChannelTableViewCell: UITableViewCell {
+class CategoryChannelTableViewCell: UITableViewCell {
     
-    static let identifier = "ChannelTableViewCell"
+    static let identifier = "CategoryChannelTableViewCell"
     var isPressed = false
-    var item: Item!
+    var podcast: Podcast!
     
     private lazy var mainView: UIView = {
         let element = UIView()
@@ -45,15 +45,6 @@ class ChannelTableViewCell: UITableViewCell {
         return element
     }()
     
-    private lazy var favoriteButton: UIButton = {
-        let view = UIButton()
-        view.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
-        view.tintColor = !isPressed ? .systemGray : .red
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addTarget(self, action: #selector(saveEpisode), for: .touchUpInside)
-        return view
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpCell()
@@ -81,25 +72,19 @@ class ChannelTableViewCell: UITableViewCell {
             podcastImage.heightAnchor.constraint(equalToConstant: 56),
             podcastImage.widthAnchor.constraint(equalToConstant: 56),
             
-            favoriteButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            favoriteButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 19),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 19),
-            
             podcastName.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 16),
             podcastName.leadingAnchor.constraint(equalTo: podcastImage.trailingAnchor, constant: 20),
-            podcastName.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
+            podcastName.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
             
             shortInfo.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -16),
             shortInfo.leadingAnchor.constraint(equalTo: podcastImage.trailingAnchor, constant: 20),
-            shortInfo.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5),
+            shortInfo.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
         ])
     }
     
     private func addViews() {
         addSubview(mainView)
         mainView.addSubview(podcastImage)
-        contentView.addSubview(favoriteButton)
         mainView.addSubview(podcastName)
         mainView.addSubview(shortInfo)
     }
@@ -108,16 +93,10 @@ class ChannelTableViewCell: UITableViewCell {
         Globals.changeLayer(of: podcastImage)
     }
     
-    func configure(with podcastItem: Item) {
-        item = podcastItem
-        let url = URL(string: item.image)
+    func configure(with podcastItem: Podcast) {
+        podcast = podcastItem
+        let url = URL(string: podcastItem.image)
         podcastImage.kf.setImage(with: url)
-        podcastName.text = item.title
-    }
-    
-    @objc func saveEpisode() {
-        DataManager.shared.saveEpisode(with: item)
-        isPressed.toggle()
-        favoriteButton.tintColor = isPressed ? .red : .systemGray
+        podcastName.text = podcast.title
     }
 }
